@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/activity1/activity1.iml" filepath="$PROJECT_DIR$/activity1/activity1.iml" />
       <module fileurl="file://$PROJECT_DIR$/activity2/activity2.iml" filepath="$PROJECT_DIR$/activity2/activity2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/activity3/activity3.iml" filepath="$PROJECT_DIR$/activity3/activity3.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/java-objprog.iml" filepath="$PROJECT_DIR$/.idea/java-objprog.iml" />
     </modules>
   </component>
