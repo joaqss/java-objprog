@@ -12,9 +12,17 @@ public class BuildingFloor {
         this.floorHeight = inputFloorHeight;
         this.wallColor = inputWallColor;
     }
-
-    public void changeMethods(int newNumberOfRooms, String newWallColor) {
+    // change 2 attributes in one method
+    public void change2Methods(int newNumberOfRooms, String newWallColor) {
         this.numberOfRooms = newNumberOfRooms;
+        this.wallColor = newWallColor;
+    }
+    // change 1 attribute (rooms)
+    public void changeNumberOfRooms(int newNumberOfRooms) {
+        this.numberOfRooms = newNumberOfRooms;
+    }
+    // change 1 attribute (wall color)
+    public void changeWallColor(String newWallColor) {
         this.wallColor = newWallColor;
     }
 }
