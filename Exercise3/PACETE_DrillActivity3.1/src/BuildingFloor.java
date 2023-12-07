@@ -17,10 +17,12 @@ public class BuildingFloor {
         this.numberOfRooms = newNumberOfRooms;
         this.wallColor = newWallColor;
     }
+
     // change 1 attribute (rooms)
     public void changeNumberOfRooms(int newNumberOfRooms) {
         this.numberOfRooms = newNumberOfRooms;
     }
+
     // change 1 attribute (wall color)
     public void changeWallColor(String newWallColor) {
         this.wallColor = newWallColor;

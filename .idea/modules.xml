@@ -2,14 +2,22 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/activity1/PACETE_DrillActivity1.1/PACETE_DrillActivity1.1.iml" filepath="$PROJECT_DIR$/activity1/PACETE_DrillActivity1.1/PACETE_DrillActivity1.1.iml" />
-      <module fileurl="file://$PROJECT_DIR$/activity1/PACETE_activity1.1/PACETE_activity1.1.iml" filepath="$PROJECT_DIR$/activity1/PACETE_activity1.1/PACETE_activity1.1.iml" />
-      <module fileurl="file://$PROJECT_DIR$/activity1/PACETE_activity1.2/PACETE_activity1.2.iml" filepath="$PROJECT_DIR$/activity1/PACETE_activity1.2/PACETE_activity1.2.iml" />
-      <module fileurl="file://$PROJECT_DIR$/activity1/PACETE_activity1.3/PACETE_activity1.3.iml" filepath="$PROJECT_DIR$/activity1/PACETE_activity1.3/PACETE_activity1.3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Exercise3/Exercise3.iml" filepath="$PROJECT_DIR$/Exercise3/Exercise3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Exercise5/Exercise5.iml" filepath="$PROJECT_DIR$/Exercise5/Exercise5.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Exercise5/PACETE_Activity5.1/PACETE_Activity5.1.iml" filepath="$PROJECT_DIR$/Exercise5/PACETE_Activity5.1/PACETE_Activity5.1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Exercise5/PACETE_Activity5.2/PACETE_Activity5.2.iml" filepath="$PROJECT_DIR$/Exercise5/PACETE_Activity5.2/PACETE_Activity5.2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Exercise5/PACETE_Activity5.3/PACETE_Activity5.3.iml" filepath="$PROJECT_DIR$/Exercise5/PACETE_Activity5.3/PACETE_Activity5.3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Exercise5/PACETE_Activity5.4/PACETE_Activity5.4.iml" filepath="$PROJECT_DIR$/Exercise5/PACETE_Activity5.4/PACETE_Activity5.4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Exercise5/PACETE_Activity5.5/PACETE_Activity5.5.iml" filepath="$PROJECT_DIR$/Exercise5/PACETE_Activity5.5/PACETE_Activity5.5.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Exercise5/PACETE_Activity5.6/PACETE_Activity5.6.iml" filepath="$PROJECT_DIR$/Exercise5/PACETE_Activity5.6/PACETE_Activity5.6.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Exercise5/PACETE_Activity5.7/PACETE_Activity5.7.iml" filepath="$PROJECT_DIR$/Exercise5/PACETE_Activity5.7/PACETE_Activity5.7.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Exercise5/PACETE_Activity5.8/PACETE_Activity5.8.iml" filepath="$PROJECT_DIR$/Exercise5/PACETE_Activity5.8/PACETE_Activity5.8.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Exercise5/PACETE_DrillAct5.1/PACETE_DrillAct5.1.iml" filepath="$PROJECT_DIR$/Exercise5/PACETE_DrillAct5.1/PACETE_DrillAct5.1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Exercise3/PACETE_DrillActivity3.1/PACETE_DrillActivity3.1.iml" filepath="$PROJECT_DIR$/Exercise3/PACETE_DrillActivity3.1/PACETE_DrillActivity3.1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Exercise3/PACETE_activity3.1/PACETE_activity3.1.iml" filepath="$PROJECT_DIR$/Exercise3/PACETE_activity3.1/PACETE_activity3.1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Exercise3/PACETE_activity3.2/PACETE_activity3.2.iml" filepath="$PROJECT_DIR$/Exercise3/PACETE_activity3.2/PACETE_activity3.2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Exercise3/PACETE_activity3.3/PACETE_activity3.3.iml" filepath="$PROJECT_DIR$/Exercise3/PACETE_activity3.3/PACETE_activity3.3.iml" />
       <module fileurl="file://$PROJECT_DIR$/_trials/_trials.iml" filepath="$PROJECT_DIR$/_trials/_trials.iml" />
-      <module fileurl="file://$PROJECT_DIR$/activity1/activity1.iml" filepath="$PROJECT_DIR$/activity1/activity1.iml" />
-      <module fileurl="file://$PROJECT_DIR$/activity2/activity2.iml" filepath="$PROJECT_DIR$/activity2/activity2.iml" />
-      <module fileurl="file://$PROJECT_DIR$/activity3/activity3.iml" filepath="$PROJECT_DIR$/activity3/activity3.iml" />
       <module fileurl="file://$PROJECT_DIR$/activity3/activity3.1/activity3.1.iml" filepath="$PROJECT_DIR$/activity3/activity3.1/activity3.1.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/java-objprog.iml" filepath="$PROJECT_DIR$/.idea/java-objprog.iml" />
     </modules>
