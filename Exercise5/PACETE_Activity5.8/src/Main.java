@@ -7,15 +7,15 @@ public class Main {
         Double a, b, c, AC, BC;
 
         System.out.println("Triangle!!");
-        System.out.print("Please input the height of the rectangle: ");
+        System.out.print("Please input the height of the triangle: ");
         a = inputUser.nextDouble();
 
-        System.out.print("Please input the base of the rectangle: ");
+        System.out.print("Please input the base of the triangle: ");
         b = inputUser.nextDouble();
 
         c = Math.sqrt((a*a) + (b*b));
-        AC = Math.atan(b/a);
-        BC = Math.acos(b/c);
+        BC = Math.atan(b/a);
+        AC = Math.acos(b/c);
 
         System.out.println("THe hypotenuse of the triangle (C) is: " + c);
         System.out.println("The angle AC is: " + Math.toDegrees(AC));
