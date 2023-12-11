@@ -20,5 +20,6 @@ public class Main {
         System.out.println("THe hypotenuse of the triangle (C) is: " + c);
         System.out.println("The angle AC is: " + Math.toDegrees(AC));
         System.out.println("The angle BC is: " + Math.toDegrees(BC));
+
     }
 }

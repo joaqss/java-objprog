@@ -46,7 +46,7 @@ public class Main {
         for (aa=1; aa<=n; aa++) {
             for (ab=1; ab<=4; ab++) {
                 double incurredInterest = beginningBalance*(i/x);
-                double endingBalance = beginningBalance-(A+incurredInterest);
+                double endingBalance = beginningBalance-A+incurredInterest;
 
                 // avoid negative numbers;
                 if (endingBalance <= 0) {

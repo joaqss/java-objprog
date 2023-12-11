@@ -1,6 +1,8 @@
 import javax.swing.JOptionPane;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 // class
 public class Main {
@@ -16,42 +18,43 @@ public class Main {
 
     static JFrame mainWindow;
     static JPanel panel1;
-    static JButton button1, button2;
+    static JButton button1, button2, button3;
 
     private static void Jframetest() {
         mainWindow = new JFrame("Four in a Row");
-
-        // JFRAME is a subclass of Container. With JFRAME, you can resize,
-        Container pane = mainWindow.getContentPane();
-        pane.setLayout(new FlowLayout());
-        pane.setBackground(Color.GREEN);
-
+        mainWindow.getContentPane().setBackground(Color.YELLOW);
         JLabel title = new JLabel("Test title");
-
         button1 = new JButton("Button1");
         button2 = new JButton("Button2");
+        button3 = new JButton("Button2");
 
-        // add panel to frame
-
-        pane.add(title);
-        pane.add(button1);
-        pane.add(button2);
 
         // FRAME SETTINGS
-        mainWindow.setSize(1000, 800);
-        mainWindow.setLocation(500,300);
-        mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mainWindow.setVisible(true);
+        mainWindow.setLayout(new GridLayout(2,5));
+        mainWindow.setBounds(100,100,1000,600);
+        mainWindow.setLocation(500,100);
 
-        // LABEL SETTINGS
-        button1.setBounds(250, 200, 100, 100);
-        button1.setSize(200, 50);
-        button1.setBackground(Color.CYAN);
 
-        button2.setBounds(450, 200, 100, 100);
-        button2.setSize(200, 50);
+        // add
+        mainWindow.add(title, "Center");
+        mainWindow.add(button1,"North");
+        mainWindow.add(button2, "East");
+        mainWindow.add(button3, "West");
+
+        button1.setBackground(Color.BLUE);
         button2.setBackground(Color.GREEN);
+        button3.setBackground(Color.RED);
 
+        button1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                button1.setBackground(Color.MAGENTA);
+            }
+        });
+
+
+        mainWindow.setVisible(true);
+        mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
     }

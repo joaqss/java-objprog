@@ -10,7 +10,7 @@ public class Main {
         System.out.print("Please input the height of the rectangle: ");
         a = inputUser.nextDouble();
 
-        System.out.print("Please input the width of the rectangle: ");
+        System.out.print("Please inpust the width of the rectangle: ");
         b = inputUser.nextDouble();
 
         area = a*b;
