@@ -38,4 +38,13 @@ public class CluePanel {
 
     }
 
+    public void resetValue() {
+
+        this.B1.setForeground(Color.GRAY);
+        this.B2.setForeground(Color.GRAY);
+        this.B3.setForeground(Color.GRAY);
+        this.B4.setForeground(Color.GRAY);
+
+    }
+
 }

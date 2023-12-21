@@ -33,7 +33,12 @@ public class ComboBoxPanel {
         C4.setBounds(175,10,45,30);
         comboBPanel.add(C4);
 
+    }
 
-
+    public void resetValue() {
+        this.C1.setSelectedIndex(0);
+        this.C2.setSelectedIndex(0);
+        this.C3.setSelectedIndex(0);
+        this.C4.setSelectedIndex(0);
     }
 }

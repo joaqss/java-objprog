@@ -30,6 +30,14 @@ public class AnswerPanel {
         AnsPanel.add(L2);
         AnsPanel.add(L3);
         AnsPanel.add(L4);
+    }
+
+    public void resetValue() {
+        this.L1.setForeground(Color.GRAY);
+        this.L2.setForeground(Color.GRAY);
+        this.L3.setForeground(Color.GRAY);
+        this.L4.setForeground(Color.GRAY);
+
 
     }
 }

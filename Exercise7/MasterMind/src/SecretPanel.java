@@ -32,4 +32,12 @@ public class SecretPanel {
         secretPanel.add(S4);
 
     }
+
+    public void resetValue() {
+        this.S1.setForeground(Color.GRAY);
+        this.S2.setForeground(Color.GRAY);
+        this.S3.setForeground(Color.GRAY);
+        this.S4.setForeground(Color.GRAY);
+
+    }
 }

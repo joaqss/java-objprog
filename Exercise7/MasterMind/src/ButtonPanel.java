@@ -5,6 +5,7 @@ public class ButtonPanel {
 
     JPanel buttonPanel;
     JButton exitButton, submitButton;
+    int trialNumber = 0;
 
     public ButtonPanel() {
         // BUTTON PANEL
