@@ -2,10 +2,13 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Exercise9/Big-and-small/Big-and-small.iml" filepath="$PROJECT_DIR$/Exercise9/Big-and-small/Big-and-small.iml" />
       <module fileurl="file://$PROJECT_DIR$/Exercise3/Exercise3.iml" filepath="$PROJECT_DIR$/Exercise3/Exercise3.iml" />
       <module fileurl="file://$PROJECT_DIR$/Exercise5/Exercise5.iml" filepath="$PROJECT_DIR$/Exercise5/Exercise5.iml" />
       <module fileurl="file://$PROJECT_DIR$/Exercise6/Exercise6.iml" filepath="$PROJECT_DIR$/Exercise6/Exercise6.iml" />
       <module fileurl="file://$PROJECT_DIR$/Exercise7/Exercise7.iml" filepath="$PROJECT_DIR$/Exercise7/Exercise7.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Exercise9/Exercise9.iml" filepath="$PROJECT_DIR$/Exercise9/Exercise9.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Four-in-a-Row/Four-in-a-Row.iml" filepath="$PROJECT_DIR$/Four-in-a-Row/Four-in-a-Row.iml" />
       <module fileurl="file://$PROJECT_DIR$/Exercise7/MasterMind/MasterMind.iml" filepath="$PROJECT_DIR$/Exercise7/MasterMind/MasterMind.iml" />
       <module fileurl="file://$PROJECT_DIR$/Exercise5/PACETE_Activity5.1/PACETE_Activity5.1.iml" filepath="$PROJECT_DIR$/Exercise5/PACETE_Activity5.1/PACETE_Activity5.1.iml" />
       <module fileurl="file://$PROJECT_DIR$/Exercise5/PACETE_Activity5.2/PACETE_Activity5.2.iml" filepath="$PROJECT_DIR$/Exercise5/PACETE_Activity5.2/PACETE_Activity5.2.iml" />

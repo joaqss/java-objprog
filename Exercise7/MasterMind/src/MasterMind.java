@@ -429,7 +429,6 @@ public class MasterMind {
                         Clue[i].resetValue();
                     }
                     randomColor.resetValue();
-
                     SP.resetValue(); // make it gray again
                 }
 

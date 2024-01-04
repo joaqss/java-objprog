@@ -32,10 +32,6 @@ public class CluePanel {
         cpPanel.add(B3);
         cpPanel.add(B4);
 
-
-
-
-
     }
 
     public void resetValue() {
