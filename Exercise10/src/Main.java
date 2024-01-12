@@ -8,7 +8,7 @@ public class Main {
     DiceButtonPanel mainDiceButtonPanel;
 
     public Main() {
-        mainFrame.setSize(960,540);
+        mainFrame.setSize(960, 540);
         mainFrame.setResizable(false);
 
 
@@ -17,9 +17,8 @@ public class Main {
         mainFrame.setContentPane(lbMainBg);
 
         mainDiceButtonPanel = new DiceButtonPanel();
-        mainDiceButtonPanel.panel.setBounds(0,0,940,300);
+        mainDiceButtonPanel.panel.setBounds(0, 0, 940, 300);
         mainFrame.add(mainDiceButtonPanel.panel);
-
 
 
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

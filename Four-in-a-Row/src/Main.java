@@ -5,6 +5,7 @@ public class Main {
     JFrame mainFrame = new JFrame("Four in a Row - Java Edition");
     ImageIcon gameLogo, mainBg;
     JLabel lbMainBg;
+    HomePage mainHomePage;
 
     public Main() {
 
@@ -17,6 +18,12 @@ public class Main {
         mainBg = new ImageIcon("Four-in-a-Row/Images/mainBg.png");
         lbMainBg = new JLabel(mainBg);
         mainFrame.setContentPane(lbMainBg);
+
+        mainHomePage = new HomePage();
+        mainFrame.add(mainHomePage.panelLandingPage);
+        mainHomePage.panelLandingPage.setBounds(0,100,1000,100);
+
+
 
         mainFrame.setLocationRelativeTo(null); // center the window
         mainFrame.setResizable(false);
