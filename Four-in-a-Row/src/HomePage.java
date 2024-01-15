@@ -9,7 +9,7 @@ public class HomePage {
 
     public HomePage() {
         mainTitle = new JLabel("Four in a Row");
-        mainTitle.setFont(new Font("pixelmix", Font.BOLD, 70));
+        mainTitle.setFont(new Font("Pixelmix Regular.ttf", Font.BOLD, 70));
 
         panelLandingPage.setOpaque(false);
         panelLandingPage.add(mainTitle);

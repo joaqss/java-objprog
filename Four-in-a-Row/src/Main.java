@@ -1,13 +1,18 @@
+
 import javax.swing.*;
+import java.awt.*;
+import java.io.File;
 
 public class Main {
 
+    Font mainFont;
     JFrame mainFrame = new JFrame("Four in a Row - Java Edition");
     ImageIcon gameLogo, mainBg;
     JLabel lbMainBg;
     HomePage mainHomePage;
 
     public Main() {
+
 
         mainFrame.setSize(1000,800);
 
