@@ -1,30 +1,34 @@
+
 import javax.swing.*;
+import java.awt.*;
+import java.io.File;
 
 public class Main {
 
-    JFrame mainFrame = new JFrame("Four in a Row - Java Edition");
+    Font mainFont;
+    JFrame mainFrame = new JFrame("Othello - Java Edition");
     ImageIcon gameLogo, mainBg;
     JLabel lbMainBg;
     HomePage mainHomePage;
 
     public Main() {
 
-        mainFrame.setSize(1000,800);
+
+        mainFrame.setSize(1920,1080);
 
         // logo
-        gameLogo = new ImageIcon("Four-in-a-Row/Images/mainlogo.png");
+        gameLogo = new ImageIcon("Othello/Images/mainlogo.png");
         mainFrame.setIconImage(gameLogo.getImage());
         // bg
-        mainBg = new ImageIcon("Four-in-a-Row/Images/mainBg.png");
+        mainBg = new ImageIcon("Othello/Images/mainBg.png");
         lbMainBg = new JLabel(mainBg);
         mainFrame.setContentPane(lbMainBg);
 
         mainHomePage = new HomePage();
         mainFrame.add(mainHomePage.panelLandingPage);
-        mainHomePage.panelLandingPage.setBounds(0,100,1000,100);
+        mainHomePage.panelLandingPage.setBounds(480,0,1000,1080);
 
-
-
+        mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         mainFrame.setLocationRelativeTo(null); // center the window
         mainFrame.setResizable(false);
         mainFrame.setVisible(true);
