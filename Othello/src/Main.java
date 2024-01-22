@@ -31,38 +31,30 @@ public class Main {
         mainFrame.add(mainHomePage.panelLandingPage);
         mainHomePage.panelLandingPage.setBounds(480,0,1000,1080);
 
-        mainHTPPage = new HTPPage();
+        mainHTPPage = new HTPPage(mainHomePage); // pass mainHomePage to HTPPage
         mainFrame.add(mainHTPPage.panelHTPPage);
         mainHTPPage.panelHTPPage.setBounds(200,0,1600,1080);
         mainHTPPage.panelHTPPage.setVisible(false);
 
-
         mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         mainFrame.setLocationRelativeTo(null); // center the window
-        mainFrame.setResizable(false);
         mainFrame.setVisible(true);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 
 
         mainHomePage.lbStartButton.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 mainHomePage.panelLandingPage.setVisible(false);
-
             }
 
             @Override
             public void mousePressed(MouseEvent e) {
                 mainHomePage.panelLandingPage.setVisible(false);
-
-
             }
 
             @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
+            public void mouseReleased(MouseEvent e) {}
 
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -84,8 +76,6 @@ public class Main {
                 mainHomePage.lbStartButton.setIcon(mainHomePage.startButton);
                 mainHomePage.lbStartButton.setBounds(378, 550, 300, 100);
                 mainHomePage.panelLandingPage.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-
-
             }
         });
 
@@ -94,20 +84,16 @@ public class Main {
             public void mouseClicked(MouseEvent e) {
                 mainHomePage.panelLandingPage.setVisible(false);
                 mainHTPPage.panelHTPPage.setVisible(true);
-
             }
 
             @Override
             public void mousePressed(MouseEvent e) {
                 mainHomePage.panelLandingPage.setVisible(false);
                 mainHTPPage.panelHTPPage.setVisible(true);
-
             }
 
             @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
+            public void mouseReleased(MouseEvent e) {}
 
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -118,7 +104,6 @@ public class Main {
                 mainHomePage.lbHTPButton.setIcon(mainHomePage.htpButton);
                 mainHomePage.lbHTPButton.setBounds(375, 665, 310, 90);
                 mainHomePage.panelLandingPage.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
             }
 
             @Override
@@ -137,19 +122,24 @@ public class Main {
         mainHomePage.lbExitButton.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.exit(0);
+                int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?",
+                        "Exit Game?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+                if (option == JOptionPane.YES_OPTION) {
+                    System.exit(0);
+                }
             }
 
             @Override
             public void mousePressed(MouseEvent e) {
-                System.exit(0);
-
+                int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?",
+                        "Exit Game?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (option == JOptionPane.YES_OPTION) {
+                    System.exit(0);
+                }
             }
-
             @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
+            public void mouseReleased(MouseEvent e) {}
 
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -171,8 +161,6 @@ public class Main {
                 mainHomePage.lbExitButton.setIcon(mainHomePage.exitButton);
                 mainHomePage.lbExitButton.setBounds(400, 760, 250, 80);
                 mainHomePage.panelLandingPage.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-
-
             }
         });
 
