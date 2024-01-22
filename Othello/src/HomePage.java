@@ -9,7 +9,6 @@ import java.util.EventListener;
 public class HomePage {
 
     JPanel panelLandingPage = new JPanel();
-    JPanel panelHomePage = new JPanel();
     JLabel lbMainTitle, lbStartButton, lbExitButton, lbHTPButton;
     ImageIcon startButton, mainTitle, exitButton, htpButton;
 
@@ -21,24 +20,25 @@ public class HomePage {
         lbMainTitle.setBounds(0, 100, 1000, 500);
 
         startButton = new ImageIcon("Othello/Images/HomePage/startButton.png");
-        lbStartButton = new JLabel();
-        lbStartButton.setIcon(startButton);
-        lbStartButton.setBounds(340, 500, 600, 300);
+        Image dabStartButton = startButton.getImage();
+        Image modifiedStartButton = dabStartButton.getScaledInstance(300, 100, Image.SCALE_REPLICATE);
+        startButton = new ImageIcon(modifiedStartButton);
+        lbStartButton = new JLabel(startButton);
+        lbStartButton.setBounds(370, 550, 300, 100);
 
         htpButton = new ImageIcon("Othello/Images/HomePage/htpButton.png");
         Image dabHTPButton = htpButton.getImage();
-        Image modifiedHTPButton = dabHTPButton.getScaledInstance(350, 170, Image.SCALE_REPLICATE);
+        Image modifiedHTPButton = dabHTPButton.getScaledInstance(300, 80, Image.SCALE_REPLICATE);
         htpButton = new ImageIcon(modifiedHTPButton);
         lbHTPButton = new JLabel(htpButton);
-        lbHTPButton.setBounds(370, 700, 300, 100);
-
+        lbHTPButton.setBounds(375, 665, 300, 80);
 
         exitButton = new ImageIcon("Othello/Images/HomePage/exitButton.png");
         Image dabExitButton = exitButton.getImage();
-        Image modifiedExitButton = dabExitButton.getScaledInstance(350, 150, Image.SCALE_REPLICATE);
+        Image modifiedExitButton = dabExitButton.getScaledInstance(250, 80, Image.SCALE_REPLICATE);
         exitButton = new ImageIcon(modifiedExitButton);
         lbExitButton = new JLabel(exitButton);
-        lbExitButton.setBounds(370, 790, 300, 100);
+        lbExitButton.setBounds(400, 760, 250, 80);
 
         panelLandingPage.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         panelLandingPage.setOpaque(false);
@@ -47,70 +47,9 @@ public class HomePage {
         panelLandingPage.add(lbHTPButton);
         panelLandingPage.add(lbExitButton);
 
-        lbStartButton.addMouseListener(new SeparateMouseListener());
-
-        //////////////////////////////////////////////////////////////////////////
-    }
-
-    private class SeparateMouseListener implements MouseListener {
-
-        @Override
-        public void mouseClicked(MouseEvent e) {
-
-            if (e.getSource() == lbStartButton) {
-
-            } else if (e.getSource() == lbHTPButton) {
-
-            } else if (e.getSource() == lbExitButton) {
-
-            }
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-            // Handle mouse press event
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-            // Handle mouse release event
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent e) {
-
-            if (e.getSource() == lbStartButton) {
-
-
-
-            }
-
-            else if (e.getSource() == lbHTPButton) {
-
-                Image dabHTPButton = htpButton.getImage();
-                Image modifiedHTPButton = dabHTPButton.getScaledInstance(370, 190, Image.SCALE_REPLICATE);
-                htpButton = new ImageIcon(modifiedHTPButton);
-                lbHTPButton.setIcon(htpButton);
-
-            }
-
-            else if (e.getSource() == lbExitButton) {
-
-            }
-
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-            // Handle mouse exit event
-        }
-
-
+        ///////////////////////////////////////////////////////////
 
 
     }
-
-
-
 
 }
