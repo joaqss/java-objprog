@@ -9,6 +9,7 @@ public class HTPPage {
             description4, lbScroll, lbNextButton, lbBackButton, lbHomeButton;
     ImageIcon scrollImage, nextButton, backButton, homeButton;
     JPanel panelHTPPage = new JPanel();
+
     private HomePage homePage; // create private class to call HomePage panel
 
     public HTPPage(HomePage homePage) {
@@ -71,7 +72,7 @@ public class HTPPage {
         lbHomeButton = new JLabel();
         homeButton = new ImageIcon("Othello/Images/HTPPage/homeButton.png");
         Image dabHomeButton = homeButton.getImage();
-        Image modifiedHomeButton = dabHomeButton.getScaledInstance(220, 70, Image.SCALE_REPLICATE);
+        Image modifiedHomeButton = dabHomeButton.getScaledInstance(220, 80, Image.SCALE_REPLICATE);
         homeButton = new ImageIcon(modifiedHomeButton);
         lbHomeButton.setIcon(homeButton);
         lbHomeButton.setBounds(650,800,250,90);
@@ -150,7 +151,6 @@ public class HTPPage {
                     description2.setVisible(false);
                     description3.setVisible(true);
                 }
-
                 else if (description3.isVisible()) {
                     description3.setVisible(false);
                     description4.setVisible(true);
@@ -268,10 +268,10 @@ public class HTPPage {
             public void mouseEntered(MouseEvent e) {
                 homeButton = new ImageIcon("Othello/Images/HTPPage/homeButton-Selected.png");
                 Image dabHomeButton = homeButton.getImage();
-                Image modifiedHomeButton = dabHomeButton.getScaledInstance(230, 80, Image.SCALE_REPLICATE);
+                Image modifiedHomeButton = dabHomeButton.getScaledInstance(240, 90, Image.SCALE_REPLICATE);
                 homeButton = new ImageIcon(modifiedHomeButton);
                 lbHomeButton.setIcon(homeButton);
-                lbHomeButton.setBounds(650,800,250,90);
+                lbHomeButton.setBounds(645,800,250,90);
                 panelHTPPage.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             }
 
@@ -279,7 +279,7 @@ public class HTPPage {
             public void mouseExited(MouseEvent e) {
                 homeButton = new ImageIcon("Othello/Images/HTPPage/homeButton.png");
                 Image dabHomeButton = homeButton.getImage();
-                Image modifiedHomeButton = dabHomeButton.getScaledInstance(220, 70, Image.SCALE_REPLICATE);
+                Image modifiedHomeButton = dabHomeButton.getScaledInstance(220, 80, Image.SCALE_REPLICATE);
                 homeButton = new ImageIcon(modifiedHomeButton);
                 lbHomeButton.setIcon(homeButton);
                 lbHomeButton.setBounds(650,800,250,90);
