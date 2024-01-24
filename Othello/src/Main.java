@@ -3,16 +3,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.File;
 
 public class Main {
 
-    Font mainFont;
     JFrame mainFrame = new JFrame("Othello - Java Edition");
     ImageIcon gameLogo, mainBg;
     JLabel lbMainBg;
     HomePage mainHomePage;
     HTPPage mainHTPPage;
+    PegSelectPage mainGameProperPage;
 
     public Main() {
 
@@ -36,6 +35,12 @@ public class Main {
         mainHTPPage.panelHTPPage.setBounds(200,0,1600,1080);
         mainHTPPage.panelHTPPage.setVisible(false);
 
+        mainGameProperPage = new PegSelectPage();
+        mainFrame.add(mainGameProperPage.panelChoosePick);
+        mainGameProperPage.panelChoosePick.setBounds(0,0,1920,1080);
+        mainGameProperPage.panelChoosePick.setVisible(false);
+
+
         mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         mainFrame.setLocationRelativeTo(null); // center the window
         mainFrame.setVisible(true);
@@ -46,11 +51,13 @@ public class Main {
             @Override
             public void mouseClicked(MouseEvent e) {
                 mainHomePage.panelLandingPage.setVisible(false);
+                mainGameProperPage.panelChoosePick.setVisible(true);
             }
 
             @Override
             public void mousePressed(MouseEvent e) {
                 mainHomePage.panelLandingPage.setVisible(false);
+                mainGameProperPage.panelChoosePick.setVisible(true);
             }
 
             @Override
