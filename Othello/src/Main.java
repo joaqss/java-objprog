@@ -6,24 +6,91 @@ import java.awt.event.MouseListener;
 
 public class Main {
 
-    JFrame mainFrame = new JFrame("Othello - Java Edition");
-    ImageIcon gameLogo, mainBg;
+    JFrame mainFrame = new JFrame("Othello");
+    JFrame nicknameFrame = new JFrame("Othello: Set Nickname");
+    ImageIcon gameLogo, mainBg, nicknameBg;
     JLabel lbMainBg;
+    NicknameGetPage mainNicknameGetPage;
     HomePage mainHomePage;
     HTPPage mainHTPPage;
-    PegSelectPage mainGameProperPage;
+    PegSelectPage mainPegSelectPage;
 
     public Main() {
 
-
-        mainFrame.setSize(1920,1080);
-
         // logo
         gameLogo = new ImageIcon("Othello/Images/mainlogo.png");
-        mainFrame.setIconImage(gameLogo.getImage());
-        // bg
+
+        //bg
         mainBg = new ImageIcon("Othello/Images/mainBg.png");
         lbMainBg = new JLabel(mainBg);
+
+        nicknameFrame.setSize(720, 640);
+        nicknameFrame.setIconImage(gameLogo.getImage());
+        nicknameFrame.setResizable(false);
+
+        mainNicknameGetPage = new NicknameGetPage();
+        nicknameFrame.add(mainNicknameGetPage.panelNicknameGet);
+
+        nicknameFrame.setVisible(true);
+        nicknameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        nicknameFrame.setLocationRelativeTo(null); // center the window
+        mainNicknameGetPage.lbGoButton.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                nicknameFrame.dispose();
+                mainFrame.setVisible(true);
+                mainNicknameGetPage.player1Nickname = mainNicknameGetPage.player1Input.getText();
+                mainNicknameGetPage.player2Nickname = mainNicknameGetPage.player2Input.getText();
+                mainPegSelectPage.player1Title.setText(mainNicknameGetPage.player1Nickname);
+                mainPegSelectPage.player2Title.setText(mainNicknameGetPage.player2Nickname);
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                nicknameFrame.dispose();
+                mainFrame.setVisible(true);
+                mainNicknameGetPage.player1Nickname = mainNicknameGetPage.player1Input.getText();
+                mainNicknameGetPage.player2Nickname = mainNicknameGetPage.player2Input.getText();
+                mainPegSelectPage.player1Title.setText(mainNicknameGetPage.player1Nickname);
+                mainPegSelectPage.player2Title.setText(mainNicknameGetPage.player2Nickname);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                mainNicknameGetPage.goButton = new ImageIcon("Othello/Images/NicknameGetPage/goButton-Selected.png");
+                Image dabGoButton = mainNicknameGetPage.goButton.getImage();
+                Image modifiedGoButton = dabGoButton.getScaledInstance(230, 90, Image.SCALE_REPLICATE);
+                mainNicknameGetPage.goButton = new ImageIcon(modifiedGoButton);
+                mainNicknameGetPage.lbGoButton.setIcon(mainNicknameGetPage.goButton);
+                mainNicknameGetPage.lbGoButton.setBounds(250,440,230,90);
+                mainNicknameGetPage.panelNicknameGet.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                mainNicknameGetPage.goButton = new ImageIcon("Othello/Images/NicknameGetPage/goButton.png");
+                Image dabGoButton = mainNicknameGetPage.goButton.getImage();
+                Image modifiedGoButton = dabGoButton.getScaledInstance(220, 80, Image.SCALE_REPLICATE);
+                mainNicknameGetPage.goButton = new ImageIcon(modifiedGoButton);
+                mainNicknameGetPage.lbGoButton.setIcon(mainNicknameGetPage.goButton);
+                mainNicknameGetPage.lbGoButton.setBounds(250,440,250,90);
+                mainNicknameGetPage.panelNicknameGet.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+
+            }
+        });
+
+        ///////////////////////////////////////////////////////////////
+
+        mainFrame.setSize(1920,1080);
+        mainFrame.setIconImage(gameLogo.getImage());
+
+        // bg
         mainFrame.setContentPane(lbMainBg);
 
         mainHomePage = new HomePage();
@@ -35,15 +102,14 @@ public class Main {
         mainHTPPage.panelHTPPage.setBounds(200,0,1600,1080);
         mainHTPPage.panelHTPPage.setVisible(false);
 
-        mainGameProperPage = new PegSelectPage();
-        mainFrame.add(mainGameProperPage.panelChoosePick);
-        mainGameProperPage.panelChoosePick.setBounds(0,0,1920,1080);
-        mainGameProperPage.panelChoosePick.setVisible(false);
+        mainPegSelectPage = new PegSelectPage(mainHomePage, mainNicknameGetPage);
+        mainFrame.add(mainPegSelectPage.panelChoosePick);
+        mainPegSelectPage.panelChoosePick.setBounds(0,0,1920,1080);
+        mainPegSelectPage.panelChoosePick.setVisible(false);
 
 
         mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         mainFrame.setLocationRelativeTo(null); // center the window
-        mainFrame.setVisible(true);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
@@ -51,13 +117,13 @@ public class Main {
             @Override
             public void mouseClicked(MouseEvent e) {
                 mainHomePage.panelLandingPage.setVisible(false);
-                mainGameProperPage.panelChoosePick.setVisible(true);
+                mainPegSelectPage.panelChoosePick.setVisible(true);
             }
 
             @Override
             public void mousePressed(MouseEvent e) {
                 mainHomePage.panelLandingPage.setVisible(false);
-                mainGameProperPage.panelChoosePick.setVisible(true);
+                mainPegSelectPage.panelChoosePick.setVisible(true);
             }
 
             @Override

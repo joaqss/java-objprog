@@ -5,11 +5,14 @@ import java.awt.event.MouseListener;
 
 public class PegSelectPage {
     JPanel panelChoosePick = new JPanel();
-    ImageIcon playerPickColor, darkPeg, lightPeg, darkPeg2, lightPeg2;
+    ImageIcon playerPickColor, darkPeg, lightPeg, darkPeg2, lightPeg2, goButton, resetButton, backButton;
     JLabel lbPlayerPickColor, lbDarkPeg, lbLightPeg, lbDarkPeg2, lbLightPeg2,
-            playerPickTitle, player1Title, player2Title;
+            playerPickTitle, player1Title, player2Title, lbGoButton, lbResetButton, lbBackButton;
 
-    public PegSelectPage() {
+    private HomePage homepage;
+    private NicknameGetPage nicknameGetPage;
+
+    public PegSelectPage(HomePage homepage, NicknameGetPage nicknameGetPage) {
 
         panelChoosePick.setLayout(null);
         panelChoosePick.setOpaque(false);
@@ -17,22 +20,24 @@ public class PegSelectPage {
         lbPlayerPickColor = new JLabel();
         playerPickColor = new ImageIcon("Othello/Images/PegSelectPage/playerPickColor.png");
         Image dabPlayerPickColor = playerPickColor.getImage();
-        Image modifiedPlayerPickColor = dabPlayerPickColor.getScaledInstance(1300, 600, Image.SCALE_REPLICATE);
+        Image modifiedPlayerPickColor = dabPlayerPickColor.getScaledInstance(1300, 700, Image.SCALE_REPLICATE);
         playerPickColor = new ImageIcon(modifiedPlayerPickColor);
         lbPlayerPickColor.setIcon(playerPickColor);
-        lbPlayerPickColor.setBounds(320,200,1300,600);
+        lbPlayerPickColor.setBounds(320,200,1300,700);
 
         playerPickTitle = new JLabel("Choose your Peg!");
         playerPickTitle.setFont(new Font("Dogica Pixel", Font.BOLD, 35));
         playerPickTitle.setForeground(Color.BLACK);
         playerPickTitle.setBounds(720,250,700,100);
 
-        player1Title = new JLabel("Player 1");
+        player1Title = new JLabel();
+        player1Title.setText(nicknameGetPage.player1Nickname);
         player1Title.setFont(new Font("Dogica Pixel", Font.BOLD, 28));
         player1Title.setForeground(Color.BLACK);
         player1Title.setBounds(870,300,700,100);
 
-        player2Title = new JLabel("Player 2");
+        player2Title = new JLabel();
+        player2Title.setText(nicknameGetPage.player2Nickname);
         player2Title.setFont(new Font("Dogica Pixel", Font.BOLD, 28));
         player2Title.setForeground(Color.BLACK);
         player2Title.setBounds(870,500,700,100);
@@ -69,6 +74,30 @@ public class PegSelectPage {
         lbLightPeg2.setIcon(lightPeg);
         lbLightPeg2.setBounds(1000,600,90,90);
 
+        lbGoButton = new JLabel();
+        goButton = new ImageIcon("Othello/Images/PegSelectPage/goButton.png");
+        Image dabGoButton = goButton.getImage();
+        Image modifiedGoButton = dabGoButton.getScaledInstance(220, 80, Image.SCALE_REPLICATE);
+        goButton = new ImageIcon(modifiedGoButton);
+        lbGoButton.setIcon(goButton);
+        lbGoButton.setBounds(870,730,250,90);
+
+        lbBackButton = new JLabel();
+        backButton = new ImageIcon("Othello/Images/PegSelectPage/backButton.png");
+        Image dabBackButton = backButton.getImage();
+        Image modifiedBackButton = dabBackButton.getScaledInstance(210, 70, Image.SCALE_REPLICATE);
+        backButton = new ImageIcon(modifiedBackButton);
+        lbBackButton.setIcon(backButton);
+        lbBackButton.setBounds(620, 740, 210, 70);
+
+        lbResetButton = new JLabel();
+        resetButton = new ImageIcon("Othello/Images/PegSelectPage/resetButton.png");
+        Image dabResetButton = resetButton.getImage();
+        Image modifiedResetButton = dabResetButton.getScaledInstance(210, 70, Image.SCALE_REPLICATE);
+        resetButton = new ImageIcon(modifiedResetButton);
+        lbResetButton.setIcon(resetButton);
+        lbResetButton.setBounds(1130, 740, 210, 70);
+
         panelChoosePick.add(playerPickTitle);
         panelChoosePick.add(player1Title);
         panelChoosePick.add(player2Title);
@@ -76,6 +105,9 @@ public class PegSelectPage {
         panelChoosePick.add(lbLightPeg);
         panelChoosePick.add(lbDarkPeg2);
         panelChoosePick.add(lbLightPeg2);
+        panelChoosePick.add(lbGoButton);
+        panelChoosePick.add(lbBackButton);
+        panelChoosePick.add(lbResetButton);
         panelChoosePick.add(lbPlayerPickColor);
 
 
@@ -270,6 +302,277 @@ public class PegSelectPage {
             }
         });
 
+        lbBackButton.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                panelChoosePick.setVisible(false);
+                homepage.panelLandingPage.setVisible(true);
+
+                if (!lbLightPeg.isEnabled() && !lbDarkPeg2.isEnabled()) {
+                    lbLightPeg.setEnabled(true);
+                    lbDarkPeg2.setEnabled(true);
+
+                    darkPeg = new ImageIcon("Othello/Images/PegSelectPage/Pegs/darkPeg.png");
+                    Image dabDarkPeg = darkPeg.getImage();
+                    Image modifiedDarkPeg = dabDarkPeg.getScaledInstance(90, 90, Image.SCALE_REPLICATE);
+                    darkPeg = new ImageIcon(modifiedDarkPeg);
+                    lbDarkPeg.setIcon(darkPeg);
+                    lbDarkPeg.setBounds(850,400,90,90);
+
+                    lightPeg2 = new ImageIcon("Othello/Images/PegSelectPage/Pegs/lightPeg.png");
+                    Image dabLightPeg2 = lightPeg2.getImage();
+                    Image modifiedLightPeg2 = dabLightPeg2.getScaledInstance(90, 90, Image.SCALE_REPLICATE);
+                    lightPeg2 = new ImageIcon(modifiedLightPeg2);
+                    lbLightPeg2.setIcon(lightPeg);
+                    lbLightPeg2.setBounds(1000,600,90,90);
+                    isPickedDark[0] = false;
+                    isPickedLight[0] = false;
+                }
+
+                else if (!lbDarkPeg.isEnabled() && !lbLightPeg2.isEnabled()) {
+                    lbDarkPeg.setEnabled(true);
+                    lbLightPeg2.setEnabled(true);
+
+                    lightPeg = new ImageIcon("Othello/Images/PegSelectPage/Pegs/lightPeg.png");
+                    Image dabLightPeg = lightPeg.getImage();
+                    Image modifiedLightPeg = dabLightPeg.getScaledInstance(90, 90, Image.SCALE_REPLICATE);
+                    lightPeg = new ImageIcon(modifiedLightPeg);
+                    lbLightPeg.setIcon(lightPeg);
+                    lbLightPeg.setBounds(1000,400,90,90);
+
+                    darkPeg2 = new ImageIcon("Othello/Images/PegSelectPage/Pegs/darkPeg.png");
+                    Image dabDarkPeg2 = darkPeg.getImage();
+                    Image modifiedDarkPeg2 = dabDarkPeg2.getScaledInstance(90, 90, Image.SCALE_REPLICATE);
+                    darkPeg2 = new ImageIcon(modifiedDarkPeg2);
+                    lbDarkPeg2.setIcon(darkPeg);
+                    lbDarkPeg2.setBounds(850,600,90,90);
+                    isPickedDark[0] = false;
+                    isPickedLight[0] = false;
+                }
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                panelChoosePick.setVisible(false);
+                homepage.panelLandingPage.setVisible(true);
+
+                if (!lbLightPeg.isEnabled() && !lbDarkPeg2.isEnabled()) {
+                    lbLightPeg.setEnabled(true);
+                    lbDarkPeg2.setEnabled(true);
+
+                    darkPeg = new ImageIcon("Othello/Images/PegSelectPage/Pegs/darkPeg.png");
+                    Image dabDarkPeg = darkPeg.getImage();
+                    Image modifiedDarkPeg = dabDarkPeg.getScaledInstance(90, 90, Image.SCALE_REPLICATE);
+                    darkPeg = new ImageIcon(modifiedDarkPeg);
+                    lbDarkPeg.setIcon(darkPeg);
+                    lbDarkPeg.setBounds(850,400,90,90);
+
+                    lightPeg2 = new ImageIcon("Othello/Images/PegSelectPage/Pegs/lightPeg.png");
+                    Image dabLightPeg2 = lightPeg2.getImage();
+                    Image modifiedLightPeg2 = dabLightPeg2.getScaledInstance(90, 90, Image.SCALE_REPLICATE);
+                    lightPeg2 = new ImageIcon(modifiedLightPeg2);
+                    lbLightPeg2.setIcon(lightPeg);
+                    lbLightPeg2.setBounds(1000,600,90,90);
+                    isPickedDark[0] = false;
+                    isPickedLight[0] = false;
+                }
+
+                else if (!lbDarkPeg.isEnabled() && !lbLightPeg2.isEnabled()) {
+                    lbDarkPeg.setEnabled(true);
+                    lbLightPeg2.setEnabled(true);
+
+                    lightPeg = new ImageIcon("Othello/Images/PegSelectPage/Pegs/lightPeg.png");
+                    Image dabLightPeg = lightPeg.getImage();
+                    Image modifiedLightPeg = dabLightPeg.getScaledInstance(90, 90, Image.SCALE_REPLICATE);
+                    lightPeg = new ImageIcon(modifiedLightPeg);
+                    lbLightPeg.setIcon(lightPeg);
+                    lbLightPeg.setBounds(1000,400,90,90);
+
+                    darkPeg2 = new ImageIcon("Othello/Images/PegSelectPage/Pegs/darkPeg.png");
+                    Image dabDarkPeg2 = darkPeg.getImage();
+                    Image modifiedDarkPeg2 = dabDarkPeg2.getScaledInstance(90, 90, Image.SCALE_REPLICATE);
+                    darkPeg2 = new ImageIcon(modifiedDarkPeg2);
+                    lbDarkPeg2.setIcon(darkPeg);
+                    lbDarkPeg2.setBounds(850,600,90,90);
+                    isPickedDark[0] = false;
+                    isPickedLight[0] = false;
+                }
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                backButton = new ImageIcon("Othello/Images/PegSelectPage/backButton-Selected.png");
+                Image dabBackButton = backButton.getImage();
+                Image modifiedBackButton = dabBackButton.getScaledInstance(220, 80, Image.SCALE_REPLICATE);
+                backButton = new ImageIcon(modifiedBackButton);
+                lbBackButton.setIcon(backButton);
+                lbBackButton.setBounds(615, 735, 220, 80);
+                panelChoosePick.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                backButton = new ImageIcon("Othello/Images/PegSelectPage/backButton.png");
+                Image dabBackButton = backButton.getImage();
+                Image modifiedBackButton = dabBackButton.getScaledInstance(210, 70, Image.SCALE_REPLICATE);
+                backButton = new ImageIcon(modifiedBackButton);
+                lbBackButton.setIcon(backButton);
+                lbBackButton.setBounds(620, 740, 210, 70);
+                panelChoosePick.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+            }
+        });
+
+        lbResetButton.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+                if (!lbLightPeg.isEnabled() && !lbDarkPeg2.isEnabled()) {
+
+                    darkPeg = new ImageIcon("Othello/Images/PegSelectPage/Pegs/darkPeg.png");
+                    Image dabDarkPeg = darkPeg.getImage();
+                    Image modifiedDarkPeg = dabDarkPeg.getScaledInstance(90, 90, Image.SCALE_REPLICATE);
+                    darkPeg = new ImageIcon(modifiedDarkPeg);
+                    lbDarkPeg.setIcon(darkPeg);
+                    lbDarkPeg.setBounds(850,400,90,90);
+
+                    lightPeg2 = new ImageIcon("Othello/Images/PegSelectPage/Pegs/lightPeg.png");
+                    Image dabLightPeg2 = lightPeg2.getImage();
+                    Image modifiedLightPeg2 = dabLightPeg2.getScaledInstance(90, 90, Image.SCALE_REPLICATE);
+                    lightPeg2 = new ImageIcon(modifiedLightPeg2);
+                    lbLightPeg2.setIcon(lightPeg);
+                    lbLightPeg2.setBounds(1000,600,90,90);
+                    isPickedDark[0] = false;
+                    isPickedLight[0] = false;
+                }
+
+                else if (!lbDarkPeg.isEnabled() && !lbLightPeg2.isEnabled()) {
+                    lbDarkPeg.setEnabled(true);
+                    lbLightPeg2.setEnabled(true);
+
+                    lightPeg = new ImageIcon("Othello/Images/PegSelectPage/Pegs/lightPeg.png");
+                    Image dabLightPeg = lightPeg.getImage();
+                    Image modifiedLightPeg = dabLightPeg.getScaledInstance(90, 90, Image.SCALE_REPLICATE);
+                    lightPeg = new ImageIcon(modifiedLightPeg);
+                    lbLightPeg.setIcon(lightPeg);
+                    lbLightPeg.setBounds(1000,400,90,90);
+
+                    darkPeg2 = new ImageIcon("Othello/Images/PegSelectPage/Pegs/darkPeg.png");
+                    Image dabDarkPeg2 = darkPeg.getImage();
+                    Image modifiedDarkPeg2 = dabDarkPeg2.getScaledInstance(90, 90, Image.SCALE_REPLICATE);
+                    darkPeg2 = new ImageIcon(modifiedDarkPeg2);
+                    lbDarkPeg2.setIcon(darkPeg);
+                    lbDarkPeg2.setBounds(850,600,90,90);
+                    isPickedDark[0] = false;
+                    isPickedLight[0] = false;
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+                if (!lbLightPeg.isEnabled() && !lbDarkPeg2.isEnabled()) {
+                    lbLightPeg.setEnabled(true);
+                    lbDarkPeg2.setEnabled(true);
+
+                    darkPeg = new ImageIcon("Othello/Images/PegSelectPage/Pegs/darkPeg.png");
+                    Image dabDarkPeg = darkPeg.getImage();
+                    Image modifiedDarkPeg = dabDarkPeg.getScaledInstance(90, 90, Image.SCALE_REPLICATE);
+                    darkPeg = new ImageIcon(modifiedDarkPeg);
+                    lbDarkPeg.setIcon(darkPeg);
+                    lbDarkPeg.setBounds(850,400,90,90);
+
+                    lightPeg2 = new ImageIcon("Othello/Images/PegSelectPage/Pegs/lightPeg.png");
+                    Image dabLightPeg2 = lightPeg2.getImage();
+                    Image modifiedLightPeg2 = dabLightPeg2.getScaledInstance(90, 90, Image.SCALE_REPLICATE);
+                    lightPeg2 = new ImageIcon(modifiedLightPeg2);
+                    lbLightPeg2.setIcon(lightPeg);
+                    lbLightPeg2.setBounds(1000,600,90,90);
+                    isPickedDark[0] = false;
+                    isPickedLight[0] = false;
+                }
+
+                else if (!lbDarkPeg.isEnabled() && !lbLightPeg2.isEnabled()) {
+                    lbDarkPeg.setEnabled(true);
+                    lbLightPeg2.setEnabled(true);
+
+                    lightPeg = new ImageIcon("Othello/Images/PegSelectPage/Pegs/lightPeg.png");
+                    Image dabLightPeg = lightPeg.getImage();
+                    Image modifiedLightPeg = dabLightPeg.getScaledInstance(90, 90, Image.SCALE_REPLICATE);
+                    lightPeg = new ImageIcon(modifiedLightPeg);
+                    lbLightPeg.setIcon(lightPeg);
+                    lbLightPeg.setBounds(1000,400,90,90);
+
+                    darkPeg2 = new ImageIcon("Othello/Images/PegSelectPage/Pegs/darkPeg.png");
+                    Image dabDarkPeg2 = darkPeg.getImage();
+                    Image modifiedDarkPeg2 = dabDarkPeg2.getScaledInstance(90, 90, Image.SCALE_REPLICATE);
+                    darkPeg2 = new ImageIcon(modifiedDarkPeg2);
+                    lbDarkPeg2.setIcon(darkPeg);
+                    lbDarkPeg2.setBounds(850,600,90,90);
+                    isPickedDark[0] = false;
+                    isPickedLight[0] = false;
+                }
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {}
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                resetButton = new ImageIcon("Othello/Images/PegSelectPage/resetButton-Selected.png");
+                Image dabResetButton = resetButton.getImage();
+                Image modifiedResetButton = dabResetButton.getScaledInstance(220, 80, Image.SCALE_REPLICATE);
+                resetButton = new ImageIcon(modifiedResetButton);
+                lbResetButton.setIcon(resetButton);
+                lbResetButton.setBounds(1125, 735, 220, 80);
+                panelChoosePick.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                resetButton = new ImageIcon("Othello/Images/PegSelectPage/resetButton.png");
+                Image dabResetButton = resetButton.getImage();
+                Image modifiedResetButton = dabResetButton.getScaledInstance(210, 70, Image.SCALE_REPLICATE);
+                resetButton = new ImageIcon(modifiedResetButton);
+                lbResetButton.setIcon(resetButton);
+                lbResetButton.setBounds(1130, 740, 210, 70);
+                panelChoosePick.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+            }
+        });
+
+        lbGoButton.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
 
 
 
