@@ -14,6 +14,7 @@ public class Main {
     HomePage mainHomePage;
     HTPPage mainHTPPage;
     PegSelectPage mainPegSelectPage;
+    GameProperPage mainGameProperPage;
 
     public Main() {
 
@@ -102,7 +103,12 @@ public class Main {
         mainHTPPage.panelHTPPage.setBounds(200,0,1600,1080);
         mainHTPPage.panelHTPPage.setVisible(false);
 
-        mainPegSelectPage = new PegSelectPage(mainHomePage, mainNicknameGetPage);
+        mainGameProperPage = new GameProperPage();
+        mainFrame.add(mainGameProperPage.panelGameProper);
+        mainGameProperPage.panelGameProper.setBounds(0,0,1920,1080);
+        mainGameProperPage.panelGameProper.setVisible(false);
+
+        mainPegSelectPage = new PegSelectPage(mainHomePage, mainGameProperPage);
         mainFrame.add(mainPegSelectPage.panelChoosePick);
         mainPegSelectPage.panelChoosePick.setBounds(0,0,1920,1080);
         mainPegSelectPage.panelChoosePick.setVisible(false);

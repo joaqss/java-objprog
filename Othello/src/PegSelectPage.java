@@ -10,9 +10,9 @@ public class PegSelectPage {
             playerPickTitle, player1Title, player2Title, lbGoButton, lbResetButton, lbBackButton;
 
     private HomePage homepage;
-    private NicknameGetPage nicknameGetPage;
+    private GameProperPage gameProperPage;
 
-    public PegSelectPage(HomePage homepage, NicknameGetPage nicknameGetPage) {
+    public PegSelectPage(HomePage homepage, GameProperPage gameProperPage) {
 
         panelChoosePick.setLayout(null);
         panelChoosePick.setOpaque(false);
@@ -31,16 +31,18 @@ public class PegSelectPage {
         playerPickTitle.setBounds(720,250,700,100);
 
         player1Title = new JLabel();
-        player1Title.setText(nicknameGetPage.player1Nickname);
+        player1Title.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         player1Title.setFont(new Font("Dogica Pixel", Font.BOLD, 28));
         player1Title.setForeground(Color.BLACK);
-        player1Title.setBounds(870,300,700,100);
+        player1Title.setHorizontalAlignment(JLabel.CENTER);
+        player1Title.setBounds(620,300,700,70);
 
         player2Title = new JLabel();
-        player2Title.setText(nicknameGetPage.player2Nickname);
+        player2Title.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         player2Title.setFont(new Font("Dogica Pixel", Font.BOLD, 28));
         player2Title.setForeground(Color.BLACK);
-        player2Title.setBounds(870,500,700,100);
+        player2Title.setHorizontalAlignment(JLabel.CENTER);
+        player2Title.setBounds(620,500,700,70);
 
         lbDarkPeg = new JLabel();
         darkPeg = new ImageIcon("Othello/Images/PegSelectPage/Pegs/darkPeg.png");
@@ -550,11 +552,14 @@ public class PegSelectPage {
         lbGoButton.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
+                panelChoosePick.setVisible(false);
+                gameProperPage.panelGameProper.setVisible(true);
             }
 
             @Override
             public void mousePressed(MouseEvent e) {
+                panelChoosePick.setVisible(false);
+                gameProperPage.panelGameProper.setVisible(true);
 
             }
 
@@ -565,11 +570,25 @@ public class PegSelectPage {
 
             @Override
             public void mouseEntered(MouseEvent e) {
+                goButton = new ImageIcon("Othello/Images/PegSelectPage/goButton-Selected.png");
+                Image dabGoButton = goButton.getImage();
+                Image modifiedGoButton = dabGoButton.getScaledInstance(230, 90, Image.SCALE_REPLICATE);
+                goButton = new ImageIcon(modifiedGoButton);
+                lbGoButton.setIcon(goButton);
+                lbGoButton.setBounds(865,725,230,90);
+                panelChoosePick.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
+                goButton = new ImageIcon("Othello/Images/PegSelectPage/goButton.png");
+                Image dabGoButton = goButton.getImage();
+                Image modifiedGoButton = dabGoButton.getScaledInstance(220, 80, Image.SCALE_REPLICATE);
+                goButton = new ImageIcon(modifiedGoButton);
+                lbGoButton.setIcon(goButton);
+                lbGoButton.setBounds(870,730,250,90);
+                panelChoosePick.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 
             }
         });
