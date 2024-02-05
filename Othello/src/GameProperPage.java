@@ -5,15 +5,15 @@ import java.awt.event.MouseListener;
 
 public class GameProperPage {
     JPanel panelGameProper = new JPanel();
-    ImageIcon gameBoard, darkPeg, lightPeg;
-    JLabel lbGameBoard, lbDarkPeg, lbLightPeg;
+    ImageIcon gameBoard, darkPeg, lightPeg, scrollImage;
+    JLabel lbGameBoard, lbDarkPeg, lbLightPeg, lbScroll, blackPegPlayer, lightPegPlayer;
     JButton[][] slot = new JButton[8][8];
     boolean player1Turn = true;
     boolean[] isOppositeColor = {true, true};
     Integer[][] gameBoardArray = {
             {0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 2, 2, 1, 0, 0, 2, 0},
-            {0, 0, 0, 0, 0, 2, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 2, 1, 0, 0, 0},
             {0, 0, 0, 1, 2, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0},
@@ -23,6 +23,9 @@ public class GameProperPage {
     Integer y_value = 40;
 
     public GameProperPage() {
+
+        System.out.println(blackPegPlayer);
+        System.out.println(lightPegPlayer);
 
         panelGameProper.setLayout(null);
         panelGameProper.setOpaque(false);
@@ -48,6 +51,15 @@ public class GameProperPage {
         Image modifiedLightPeg = dabLightPeg.getScaledInstance(90, 90, Image.SCALE_REPLICATE);
         lightPeg = new ImageIcon(modifiedLightPeg);
         lbLightPeg.setIcon(lightPeg);
+
+        lbScroll = new JLabel();
+        scrollImage = new ImageIcon("Othello/Images/GameProperPage/scrollImage.png");
+        Image dabScroll = scrollImage.getImage();
+        Image modifiedScroll = dabScroll.getScaledInstance(400, 200, Image.SCALE_REPLICATE);
+        scrollImage = new ImageIcon(modifiedScroll);
+        lbScroll.setIcon(scrollImage);
+        lbScroll.setBounds(20,360,400,300);
+
 
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -93,22 +105,13 @@ public class GameProperPage {
                     @Override
                     public void mousePressed(MouseEvent e) {
 
-
                         if (player1Turn) {
 
                             printGameBoardToConsole();
                             int placeholderOut = 1;
 
-                            if (finalJ+placeholderOut != 8) {
+                            /*if (finalJ+placeholderOut != 8) {*/
 
-                                if ((gameBoardArray[finalI][finalJ] == 0 && gameBoardArray[finalI][finalJ + placeholderOut] == 2) || // to right
-                                        (gameBoardArray[finalI][finalJ] == 0 && gameBoardArray[finalI + placeholderOut][finalJ] == 2) || // to below
-                                        (gameBoardArray[finalI][finalJ] == 0 && gameBoardArray[finalI][finalJ - 1] == 2) || // to left
-                                        (gameBoardArray[finalI][finalJ] == 0 && gameBoardArray[finalI - 1][finalJ] == 2) || // to above
-                                        (gameBoardArray[finalI][finalJ] == 0 && gameBoardArray[finalI + 1][finalJ + 1] == 2) || // diagonally right below
-                                        (gameBoardArray[finalI][finalJ] == 0 && gameBoardArray[finalI - 1][finalJ - 1] == 2) || // diagonally left above
-                                        (gameBoardArray[finalI][finalJ] == 0 && gameBoardArray[finalI + 1][finalJ - 1] == 2) || // diagonally left below
-                                        (gameBoardArray[finalI][finalJ] == 0 && gameBoardArray[finalI - 1][finalJ + 1] == 2)) { // diagonally right above
                                     slot[finalI][finalJ].setIcon(darkPeg);
                                     player1Turn = false;
                                     gameBoardArray[finalI][finalJ] = 1;
@@ -119,167 +122,204 @@ public class GameProperPage {
                                     boolean[] isScanned = {false, false, false, false, false, false, false, false};
                                     isOppositeColor[0] = true;
 
-                                /*System.out.println(placeholder[0] + " " + placeholder[1] + " " + placeholder[2] + " " + placeholder[3]
+                                    /*System.out.println(placeholder[0] + " " + placeholder[1] + " " + placeholder[2] + " " + placeholder[3]
                                         + " " + placeholder[4] + " " + placeholder[5] + " " + placeholder[6] + " " + placeholder[7]);*/
 
                                     while (isOppositeColor[0]) {
+
                                         // scan if peg is from right
+                                        try {
+                                            if (finalJ - placeholder[0] != -1 || finalJ + placeholder[0] != 8) {
 
-                                        if (finalJ - placeholder[0] != -1) {
+                                                if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI][finalJ - placeholder[0]] == 2) {
+                                                    placeholder[0]++;
+                                                    System.out.println(placeholder[0]);
 
-                                            if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI][finalJ - placeholder[0]] == 2) {
-                                                placeholder[0]++;
-                                                System.out.println(placeholder[0]);
+                                                    if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI][finalJ - placeholder[0]] == 1) {
+                                                        placeholder[0] -= 1;
+                                                        System.out.println("FLIPPING! " + placeholder[0]);
+                                                        for (int i = placeholder[0]; i > 0; i--) {
+                                                            slot[finalI][finalJ - i].setIcon(darkPeg);
+                                                            gameBoardArray[finalI][finalJ - i] = 1;
+                                                        }
+                                                        isScanned[0] = true;
 
-                                                if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI][finalJ - placeholder[0]] == 1) {
-                                                    placeholder[0] -= 1;
-                                                    System.out.println("FLIPPING! " + placeholder[0]);
-                                                    for (int i = placeholder[0]; i > 0; i--) {
-                                                        slot[finalI][finalJ - i].setIcon(darkPeg);
-                                                        gameBoardArray[finalI][finalJ - i] = 1;
                                                     }
-                                                    isScanned[0] = true;
                                                 }
+                                            } else {
+                                                placeholder[0] = 0;
                                             }
-                                        } else {
-                                            placeholder[0] = 0;
+                                        } catch (Exception a) {
+                                            System.out.println("Out of bounds");
                                         }
 
-                                        // scan if peg is from left
+                                        try {
+                                            // scan if peg is from left
+                                            if (finalJ + placeholder[1] != 8) {
+                                                if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI][finalJ + placeholder[1]] == 2) {
+                                                    placeholder[1]++;
 
-                                        if (finalJ + placeholder[1] != -1) {
-                                            if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI][finalJ + placeholder[1]] == 2) {
-                                                placeholder[1]++;
+                                                    if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI][finalJ + placeholder[1]] == 1) {
+                                                        placeholder[1] -= 1;
+                                                        System.out.println("FLIPPING RIGHT! " + placeholder[1]);
+                                                        for (int i = placeholder[1]; i >= 0; i--) {
+                                                            slot[finalI][finalJ + i].setIcon(darkPeg);
+                                                            gameBoardArray[finalI][finalJ + i] = 1;
+                                                        }
+                                                        isScanned[1] = true;
 
-                                                if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI][finalJ + placeholder[1]] == 1) {
-                                                    placeholder[1] -= 1;
-                                                    System.out.println("FLIPPING RIGHT! " + placeholder[1]);
-                                                    for (int i = placeholder[1]; i >= 0; i--) {
-                                                        slot[finalI][finalJ + i].setIcon(darkPeg);
-                                                        gameBoardArray[finalI][finalJ + i] = 1;
                                                     }
-                                                    isScanned[1] = true;
-
                                                 }
+                                            } else {
+                                                placeholder[1] = 0;
                                             }
-                                        } else {
-                                            placeholder[1] = 0;
+                                        } catch (Exception a) {
+                                            System.out.println("Out of bounds");
                                         }
 
-                                        if (finalI + placeholder[2] != -1) {
-                                            // scan if peg is placed above
-                                            if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI + placeholder[2]][finalJ] == 2) {
-                                                placeholder[2]++;
+                                        try {
+                                            if (finalI + placeholder[2] != -1) {
+                                                // scan if peg is placed above
+                                                if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI + placeholder[2]][finalJ] == 2) {
+                                                    placeholder[2]++;
 
-                                                if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI + placeholder[2]][finalJ] == 1) {
-                                                    placeholder[2] -= 1;
-                                                    System.out.println("FLIPPING RIGHT! " + placeholder[2]);
-                                                    for (int i = placeholder[2]; i > 0; i--) {
-                                                        slot[finalI + i][finalJ].setIcon(darkPeg);
-                                                        gameBoardArray[finalI + i][finalJ] = 1;
+                                                    if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI + placeholder[2]][finalJ] == 1) {
+                                                        placeholder[2] -= 1;
+                                                        System.out.println("FLIPPING RIGHT! " + placeholder[2]);
+                                                        for (int i = placeholder[2]; i > 0; i--) {
+                                                            slot[finalI + i][finalJ].setIcon(darkPeg);
+                                                            gameBoardArray[finalI + i][finalJ] = 1;
+                                                        }
+                                                        isScanned[2] = true;
+
                                                     }
-                                                    isScanned[2] = true;
-
                                                 }
+                                            } else {
+                                                placeholder[2] = 0;
                                             }
-                                        } else {
-                                            placeholder[2] = 0;
+                                        } catch (Exception a) {
+                                            System.out.println("Out of bounds");
                                         }
 
-                                        if (finalI - placeholder[3] != -1) {
-                                            // scan if peg is placed below
-                                            if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI - placeholder[3]][finalJ] == 2) {
-                                                placeholder[3]++;
+                                        try {
+                                            if (finalI - placeholder[3] != -1) {
+                                                // scan if peg is placed below
+                                                if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI - placeholder[3]][finalJ] == 2) {
+                                                    placeholder[3]++;
 
-                                                if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI - placeholder[3]][finalJ] == 1) {
-                                                    placeholder[3] -= 1;
-                                                    System.out.println("FLIPPING TO TOP " + placeholder[3]);
-                                                    for (int i = placeholder[3]; i > 0; i--) {
-                                                        slot[finalI - i][finalJ].setIcon(darkPeg);
-                                                        gameBoardArray[finalI - i][finalJ] = 1;
+                                                    if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI - placeholder[3]][finalJ] == 1) {
+                                                        placeholder[3] -= 1;
+                                                        System.out.println("FLIPPING TO TOP " + placeholder[3]);
+                                                        for (int i = placeholder[3]; i > 0; i--) {
+                                                            slot[finalI - i][finalJ].setIcon(darkPeg);
+                                                            gameBoardArray[finalI - i][finalJ] = 1;
+                                                        }
+                                                        isScanned[3] = true;
+
                                                     }
-                                                    isScanned[3] = true;
-
                                                 }
+                                            } else {
+                                                placeholder[3] = 0;
                                             }
-                                        } else {
-                                            placeholder[3] = 0;
+                                        } catch (Exception a) {
+                                            System.out.println("Out of bounds");
                                         }
 
 
                                         // scan if peg is placed diagonally from left to right pababa
-                                        if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI + placeholder[4]][finalJ + placeholder[4]] == 2) {
-                                            placeholder[4]++;
 
-                                            if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI + placeholder[4]][finalJ + placeholder[4]] == 1) {
-                                                placeholder[4] -= 1;
-                                                System.out.println("FLIPPING DIAG TO RIGHT! " + placeholder[4]);
-                                                for (int i = placeholder[4]; i > 0; i--) {
-                                                    slot[finalI + i][finalJ + i].setIcon(darkPeg);
-                                                    gameBoardArray[finalI + i][finalJ + i] = 1;
-                                                }
-                                                isScanned[4] = true;
+                                        try {
+                                            if (finalI + placeholder[4] != 8 || finalJ + placeholder[4] != 8) {
+                                                if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI + placeholder[4]][finalJ + placeholder[4]] == 2) {
+                                                    placeholder[4]++;
 
-                                            }
+                                                    if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI + placeholder[4]][finalJ + placeholder[4]] == 1) {
+                                                        placeholder[4] -= 1;
+                                                        System.out.println("FLIPPING DIAG TO RIGHT! " + placeholder[4]);
+                                                        for (int i = placeholder[4]; i > 0; i--) {
+                                                            slot[finalI + i][finalJ + i].setIcon(darkPeg);
+                                                            gameBoardArray[finalI + i][finalJ + i] = 1;
+                                                        }
+                                                        isScanned[4] = true;
 
-                                        }
-
-                                        // scan if peg is placed diagonally from left to right pataas
-                                        if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI - placeholder[5]][finalJ + placeholder[5]] == 2) {
-                                            placeholder[5]++;
-
-                                            if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI - placeholder[5]][finalJ + placeholder[5]] == 1) {
-                                                placeholder[5] -= 1;
-                                                System.out.println("FLIPPING DIAG TO RIGHT! " + placeholder[5]);
-                                                for (int i = placeholder[5]; i > 0; i--) {
-                                                    slot[finalI - i][finalJ + i].setIcon(darkPeg);
-                                                    gameBoardArray[finalI - i][finalJ + i] = 1;
-                                                }
-                                                isScanned[5] = true;
-
-                                            }
-
-                                        }
-
-                                        if (finalI - placeholder[6] != -1 && finalJ - placeholder[6] != -1) {
-                                            // scan if peg is placed diagonally from right to left pababa
-                                            if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI - placeholder[6]][finalJ - placeholder[6]] == 2) {
-                                                placeholder[6]++;
-
-                                                if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI - placeholder[6]][finalJ - placeholder[6]] == 1) {
-                                                    placeholder[6] -= 1;
-                                                    System.out.println("FLIPPING DIAG TO leFt! " + placeholder[6]);
-                                                    for (int i = placeholder[6]; i > 0; i--) {
-                                                        slot[finalI - i][finalJ - i].setIcon(darkPeg);
-                                                        gameBoardArray[finalI - i][finalJ - i] = 1;
                                                     }
-                                                    isScanned[6] = true;
 
                                                 }
+                                            } else {
+                                                placeholder[4] = 0;
                                             }
-                                        } else {
-                                            placeholder[6] = 0;
+                                        } catch (Exception a) {
+                                            System.out.println("out of bounds");
+
                                         }
 
-                                        if (finalJ - placeholder[7] != -1) {
+                                        try {
+                                            // scan if peg is placed diagonally from left to right pataas
+                                            if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI - placeholder[5]][finalJ + placeholder[5]] == 2) {
+                                                placeholder[5]++;
 
-                                            // scan if peg is placed diagonally from right to left pataas
-                                            if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI + placeholder[7]][finalJ - placeholder[7]] == 2) {
-                                                placeholder[7]++;
-
-                                                if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI + placeholder[7]][finalJ - placeholder[7]] == 1) {
-                                                    placeholder[7] -= 1;
-                                                    System.out.println("FLIPPING DIAG TO leFt! " + placeholder[7]);
-                                                    for (int i = placeholder[7]; i > 0; i--) {
-                                                        slot[finalI + i][finalJ - i].setIcon(darkPeg);
-                                                        gameBoardArray[finalI + i][finalJ - i] = 1;
+                                                if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI - placeholder[5]][finalJ + placeholder[5]] == 1) {
+                                                    placeholder[5] -= 1;
+                                                    System.out.println("FLIPPING DIAG TO RIGHT! " + placeholder[5]);
+                                                    for (int i = placeholder[5]; i > 0; i--) {
+                                                        slot[finalI - i][finalJ + i].setIcon(darkPeg);
+                                                        gameBoardArray[finalI - i][finalJ + i] = 1;
                                                     }
-                                                    isScanned[7] = true;
+                                                    isScanned[5] = true;
 
                                                 }
+
                                             }
-                                        } else {
-                                            placeholder[7] = 0;
+                                        } catch (Exception a) {
+                                            System.out.println("Out of bounds");
+                                        }
+
+                                        try {
+                                            if (finalI - placeholder[6] != -1 && finalJ - placeholder[6] != -1) {
+                                                // scan if peg is placed diagonally from right to left pababa
+                                                if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI - placeholder[6]][finalJ - placeholder[6]] == 2) {
+                                                    placeholder[6]++;
+
+                                                    if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI - placeholder[6]][finalJ - placeholder[6]] == 1) {
+                                                        placeholder[6] -= 1;
+                                                        System.out.println("FLIPPING DIAG TO leFt! " + placeholder[6]);
+                                                        for (int i = placeholder[6]; i > 0; i--) {
+                                                            slot[finalI - i][finalJ - i].setIcon(darkPeg);
+                                                            gameBoardArray[finalI - i][finalJ - i] = 1;
+                                                        }
+                                                        isScanned[6] = true;
+
+                                                    }
+                                                }
+                                            } else {
+                                                placeholder[6] = 0;
+                                            }
+                                        } catch (Exception a) {
+                                            System.out.println("Out of bounds");
+                                        }
+
+                                        try {
+                                            if (finalJ - placeholder[7] != -1) {
+                                                // scan if peg is placed diagonally from right to left pataas
+                                                if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI + placeholder[7]][finalJ - placeholder[7]] == 2) {
+                                                    placeholder[7]++;
+
+                                                    if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI + placeholder[7]][finalJ - placeholder[7]] == 1) {
+                                                        placeholder[7] -= 1;
+                                                        System.out.println("FLIPPING DIAG TO leFt! " + placeholder[7]);
+                                                        for (int i = placeholder[7]; i > 0; i--) {
+                                                            slot[finalI + i][finalJ - i].setIcon(darkPeg);
+                                                            gameBoardArray[finalI + i][finalJ - i] = 1;
+                                                        }
+                                                        isScanned[7] = true;
+
+                                                    }
+                                                }
+                                            } else {
+                                                placeholder[7] = 0;
+                                            }
+                                        } catch (Exception a) {
+                                            System.out.println("Out of bounds");
                                         }
 
                                         if (isScanned[0] || isScanned[1] || isScanned[2] || isScanned[3] || isScanned[4] || isScanned[5] || isScanned[6] ||
@@ -293,22 +333,13 @@ public class GameProperPage {
                                         //isOppositeColor[0] = false;
 
                                     }
-                                } else {
-                                    System.out.println("\nInvalid slot choice");
-                                }
-                            } else {
+
+                           /* } else {
                                 placeholderOut = 0;
-                            }
+                                System.out.println("Invalid!");
+                            }*/
 
                         } else {
-                            if ((gameBoardArray[finalI][finalJ] == 0 && gameBoardArray[finalI][finalJ+1] == 1) || //to right
-                                    (gameBoardArray[finalI][finalJ] == 0 && gameBoardArray[finalI+1][finalJ] == 1) || // to below
-                                    (gameBoardArray[finalI][finalJ] == 0 && gameBoardArray[finalI][finalJ-1] == 1) || // to left
-                                    (gameBoardArray[finalI][finalJ] == 0 && gameBoardArray[finalI-1][finalJ] == 1) || // to above
-                                    (gameBoardArray[finalI][finalJ] == 0 && gameBoardArray[finalI+1][finalJ+1] == 1) || // diagonally right below
-                                    (gameBoardArray[finalI][finalJ] == 0 && gameBoardArray[finalI-1][finalJ-1] == 1) || //diagonally left above
-                                    (gameBoardArray[finalI][finalJ] == 0 && gameBoardArray[finalI+1][finalJ-1] == 1) || // diagonally left below
-                                    (gameBoardArray[finalI][finalJ] == 0 && gameBoardArray[finalI-1][finalJ+1] == 1)) { // diagonally right above
                                 slot[finalI][finalJ].setIcon(lightPeg);
                                 player1Turn = true;
                                 gameBoardArray[finalI][finalJ] = 2;
@@ -321,12 +352,15 @@ public class GameProperPage {
                                         + " " + placeholder[4] + " " + placeholder[5] + " " + placeholder[6] + " " + placeholder[7]);*/
                                 isOppositeColor[1] = true;
 
-                                while (isOppositeColor[1]) {
+                            while (isOppositeColor[1]) {
 
-                                    if (finalJ-placeholder[0] != 1) {
-                                        // scan from right to left (if placed right)
+                                // scan if peg is from right
+                                try {
+                                    if (finalJ - placeholder[0] != -1 || finalJ + placeholder[0] != 8) {
+
                                         if (gameBoardArray[finalI][finalJ] == 2 && gameBoardArray[finalI][finalJ - placeholder[0]] == 1) {
                                             placeholder[0]++;
+                                            System.out.println(placeholder[0]);
 
                                             if (gameBoardArray[finalI][finalJ] == 2 && gameBoardArray[finalI][finalJ - placeholder[0]] == 2) {
                                                 placeholder[0] -= 1;
@@ -342,30 +376,36 @@ public class GameProperPage {
                                     } else {
                                         placeholder[0] = 0;
                                     }
+                                } catch (Exception a) {
+                                    System.out.println("Out of bounds");
+                                }
 
-                                    if (finalJ+placeholder[1] != -1) {
-                                        // scan if peg is from left
+                                try {
+                                    // scan if peg is from left
+                                    if (finalJ + placeholder[1] != 8) {
                                         if (gameBoardArray[finalI][finalJ] == 2 && gameBoardArray[finalI][finalJ + placeholder[1]] == 1) {
                                             placeholder[1]++;
 
                                             if (gameBoardArray[finalI][finalJ] == 2 && gameBoardArray[finalI][finalJ + placeholder[1]] == 2) {
                                                 placeholder[1] -= 1;
                                                 System.out.println("FLIPPING RIGHT! " + placeholder[1]);
-                                                for (int i = placeholder[1]; i > 0; i--) {
+                                                for (int i = placeholder[1]; i >= 0; i--) {
                                                     slot[finalI][finalJ + i].setIcon(lightPeg);
                                                     gameBoardArray[finalI][finalJ + i] = 2;
                                                 }
                                                 isScanned[1] = true;
 
                                             }
-
                                         }
                                     } else {
                                         placeholder[1] = 0;
                                     }
+                                } catch (Exception a) {
+                                    System.out.println("Out of bounds");
+                                }
 
-                                    if (finalI+placeholder[2] != -1) {
-
+                                try {
+                                    if (finalI + placeholder[2] != -1) {
                                         // scan if peg is placed above
                                         if (gameBoardArray[finalI][finalJ] == 2 && gameBoardArray[finalI + placeholder[2]][finalJ] == 1) {
                                             placeholder[2]++;
@@ -384,15 +424,19 @@ public class GameProperPage {
                                     } else {
                                         placeholder[2] = 0;
                                     }
+                                } catch (Exception a) {
+                                    System.out.println("Out of bounds");
+                                }
 
-                                    if (finalI-placeholder[3] != -1) {
+                                try {
+                                    if (finalI - placeholder[3] != -1) {
                                         // scan if peg is placed below
                                         if (gameBoardArray[finalI][finalJ] == 2 && gameBoardArray[finalI - placeholder[3]][finalJ] == 1) {
                                             placeholder[3]++;
 
                                             if (gameBoardArray[finalI][finalJ] == 2 && gameBoardArray[finalI - placeholder[3]][finalJ] == 2) {
                                                 placeholder[3] -= 1;
-                                                System.out.println("FLIPPING RIGHT! " + placeholder[3]);
+                                                System.out.println("FLIPPING TO TOP " + placeholder[3]);
                                                 for (int i = placeholder[3]; i > 0; i--) {
                                                     slot[finalI - i][finalJ].setIcon(lightPeg);
                                                     gameBoardArray[finalI - i][finalJ] = 2;
@@ -404,24 +448,38 @@ public class GameProperPage {
                                     } else {
                                         placeholder[3] = 0;
                                     }
+                                } catch (Exception a) {
+                                    System.out.println("Out of bounds");
+                                }
 
-                                    // scan if peg is placed diagonally from left to right pababa
-                                    if (gameBoardArray[finalI][finalJ] == 2 && gameBoardArray[finalI + placeholder[4]][finalJ + placeholder[4]] == 1) {
-                                        placeholder[4]++;
 
-                                        if (gameBoardArray[finalI][finalJ] == 2 && gameBoardArray[finalI + placeholder[4]][finalJ + placeholder[4]] == 2) {
-                                            placeholder[4] -= 1;
-                                            System.out.println("FLIPPING DIAG TO RIGHT! " + placeholder[4]);
-                                            for (int i = placeholder[4]; i > 0; i--) {
-                                                slot[finalI + i][finalJ + i].setIcon(lightPeg);
-                                                gameBoardArray[finalI + i][finalJ + i] = 2;
+                                // scan if peg is placed diagonally from left to right pababa
+                                try {
+                                    if (finalI + placeholder[4] != 8 || finalJ + placeholder[4] != 8) {
+                                        if (gameBoardArray[finalI][finalJ] == 2 && gameBoardArray[finalI + placeholder[4]][finalJ + placeholder[4]] == 1) {
+                                            placeholder[4]++;
+
+                                            if (gameBoardArray[finalI][finalJ] == 2 && gameBoardArray[finalI + placeholder[4]][finalJ + placeholder[4]] == 2) {
+                                                placeholder[4] -= 1;
+                                                System.out.println("FLIPPING DIAG TO RIGHT! " + placeholder[4]);
+                                                for (int i = placeholder[4]; i > 0; i--) {
+                                                    slot[finalI + i][finalJ + i].setIcon(lightPeg);
+                                                    gameBoardArray[finalI + i][finalJ + i] = 2;
+                                                }
+                                                isScanned[4] = true;
+
                                             }
-                                            isScanned[4] = true;
 
                                         }
-
+                                    } else {
+                                        placeholder[4] = 0;
                                     }
+                                } catch (Exception a) {
+                                    System.out.println("out of bounds");
 
+                                }
+
+                                try {
                                     // scan if peg is placed diagonally from left to right pataas
                                     if (gameBoardArray[finalI][finalJ] == 2 && gameBoardArray[finalI - placeholder[5]][finalJ + placeholder[5]] == 1) {
                                         placeholder[5]++;
@@ -438,56 +496,70 @@ public class GameProperPage {
                                         }
 
                                     }
-
-
-                                    // scan if peg is placed diagonally from right to left pababa
-                                    if (gameBoardArray[finalI][finalJ] == 2 && gameBoardArray[finalI - placeholder[6]][finalJ - placeholder[6]] == 1) {
-                                        placeholder[6]++;
-
-                                        if (gameBoardArray[finalI][finalJ] == 2 && gameBoardArray[finalI - placeholder[6]][finalJ - placeholder[6]] == 2) {
-                                            placeholder[6] -= 1;
-                                            System.out.println("FLIPPING DIAG TO leFt! " + placeholder[6]);
-                                            for (int i = placeholder[6]; i > 0; i--) {
-                                                slot[finalI - i][finalJ - i].setIcon(lightPeg);
-                                                gameBoardArray[finalI - i][finalJ - i] = 2;
-                                            }
-                                            isScanned[6] = true;
-
-                                        }
-                                    }
-
-                                    // scan if peg is placed diagonally from right to left pataas
-                                    if (gameBoardArray[finalI][finalJ] == 2 && gameBoardArray[finalI + placeholder[7]][finalJ - placeholder[7]] == 1) {
-                                        placeholder[7]++;
-
-                                        if (gameBoardArray[finalI][finalJ] == 2 && gameBoardArray[finalI + placeholder[7]][finalJ - placeholder[7]] == 2) {
-                                            placeholder[7] -= 1;
-                                            System.out.println("FLIPPING DIAG TO leFt! " + placeholder[7]);
-                                            for (int i = placeholder[7]; i > 0; i--) {
-                                                slot[finalI + i][finalJ - i].setIcon(lightPeg);
-                                                gameBoardArray[finalI + i][finalJ - i] = 2;
-                                            }
-                                            isScanned[7] = true;
-
-                                        }
-                                    }
-
-                                    if (isScanned[0] || isScanned[1] || isScanned[2] || isScanned[3] || isScanned[4] || isScanned[5] || isScanned[6] ||
-                                            isScanned[7]) {
-                                        System.out.println(isScanned[0] + "" + isScanned[1] + isScanned[3] + isScanned[4] + isScanned[5] + isScanned[6] +
-                                                isScanned[7]);
-                                        isOppositeColor[1] = false;
-                                    }
-
-                                    printGameBoardToConsole();
-                                    //isOppositeColor[1] = false;
+                                } catch (Exception a) {
+                                    System.out.println("Out of bounds");
                                 }
-                            } else {
-                                System.out.println("\ninvalid slot choice");
+
+                                try {
+                                    if (finalI - placeholder[6] != -1 && finalJ - placeholder[6] != -1) {
+                                        // scan if peg is placed diagonally from right to left pababa
+                                        if (gameBoardArray[finalI][finalJ] == 2 && gameBoardArray[finalI - placeholder[6]][finalJ - placeholder[6]] == 1) {
+                                            placeholder[6]++;
+
+                                            if (gameBoardArray[finalI][finalJ] == 2 && gameBoardArray[finalI - placeholder[6]][finalJ - placeholder[6]] == 2) {
+                                                placeholder[6] -= 1;
+                                                System.out.println("FLIPPING DIAG TO leFt! " + placeholder[6]);
+                                                for (int i = placeholder[6]; i > 0; i--) {
+                                                    slot[finalI - i][finalJ - i].setIcon(lightPeg);
+                                                    gameBoardArray[finalI - i][finalJ - i] = 2;
+                                                }
+                                                isScanned[6] = true;
+
+                                            }
+                                        }
+                                    } else {
+                                        placeholder[6] = 0;
+                                    }
+                                } catch (Exception a) {
+                                    System.out.println("Out of bounds");
+                                }
+
+                                try {
+                                    if (finalJ - placeholder[7] != -1) {
+                                        // scan if peg is placed diagonally from right to left pataas
+                                        if (gameBoardArray[finalI][finalJ] == 2 && gameBoardArray[finalI + placeholder[7]][finalJ - placeholder[7]] == 1) {
+                                            placeholder[7]++;
+
+                                            if (gameBoardArray[finalI][finalJ] == 2 && gameBoardArray[finalI + placeholder[7]][finalJ - placeholder[7]] == 2) {
+                                                placeholder[7] -= 1;
+                                                System.out.println("FLIPPING DIAG TO leFt! " + placeholder[7]);
+                                                for (int i = placeholder[7]; i > 0; i--) {
+                                                    slot[finalI + i][finalJ - i].setIcon(lightPeg);
+                                                    gameBoardArray[finalI + i][finalJ - i] = 2;
+                                                }
+                                                isScanned[7] = true;
+
+                                            }
+                                        }
+                                    } else {
+                                        placeholder[7] = 0;
+                                    }
+                                } catch (Exception a) {
+                                    System.out.println("Out of bounds");
+                                }
+
+                                if (isScanned[0] || isScanned[1] || isScanned[2] || isScanned[3] || isScanned[4] || isScanned[5] || isScanned[6] ||
+                                        isScanned[7]) {
+                                    System.out.println(isScanned[0] + "" + isScanned[1] + isScanned[3] + isScanned[4] + isScanned[5] + isScanned[6] +
+                                            isScanned[7]);
+                                    isOppositeColor[1] = false;
+                                }
+
+                                printGameBoardToConsole();
+                                //isOppositeColor[0] = false;
+
                             }
-
                         }
-
                     }
 
                     @Override
@@ -505,22 +577,15 @@ public class GameProperPage {
 
                     }
                 });
-
-
-
             }
 
             x_value = 550; //reset x value
             y_value += 114; // add y value
             System.out.println();
 
-
         }
-
-
-
         panelGameProper.add(lbGameBoard);
-
+        panelGameProper.add(lbScroll);
     }
 
     public void printGameBoardToConsole() {
@@ -535,8 +600,4 @@ public class GameProperPage {
 
         System.out.println();
     }
-
-
 }
-
-

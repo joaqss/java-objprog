@@ -20,7 +20,7 @@ public class NicknameGetPage {
         lbNicknameBg.setIcon(nicknameBg);
         lbNicknameBg.setBounds(0,0,720,640);
 
-        player1Title = new JLabel("Player 1 Nickname");
+        player1Title = new JLabel("Player 1 (Dark Peg)");
         player1Title.setFont(new Font("Dogica Pixel", Font.BOLD, 20));
         player1Title.setBounds(210,80,400,100);
 
@@ -29,7 +29,7 @@ public class NicknameGetPage {
         player1Input.setBounds(160,150,400,50);
         player1Input.setHorizontalAlignment(JTextField.CENTER);
 
-        player2Title = new JLabel("Player 2 Nickname");
+        player2Title = new JLabel("Player 2 (Light Peg)");
         player2Title.setFont(new Font("Dogica Pixel", Font.BOLD, 20));
         player2Title.setBounds(210,200,400,100);
 

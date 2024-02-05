@@ -42,9 +42,10 @@ public class Main {
                 mainFrame.setVisible(true);
                 mainNicknameGetPage.player1Nickname = mainNicknameGetPage.player1Input.getText();
                 mainNicknameGetPage.player2Nickname = mainNicknameGetPage.player2Input.getText();
+                mainPegSelectPage.player1Nickname = mainNicknameGetPage.player1Input.getText();
+                mainPegSelectPage.player2Nickname = mainNicknameGetPage.player2Input.getText();
                 mainPegSelectPage.player1Title.setText(mainNicknameGetPage.player1Nickname);
                 mainPegSelectPage.player2Title.setText(mainNicknameGetPage.player2Nickname);
-
             }
 
             @Override
@@ -53,8 +54,11 @@ public class Main {
                 mainFrame.setVisible(true);
                 mainNicknameGetPage.player1Nickname = mainNicknameGetPage.player1Input.getText();
                 mainNicknameGetPage.player2Nickname = mainNicknameGetPage.player2Input.getText();
+                mainPegSelectPage.player1Nickname = mainNicknameGetPage.player1Input.getText();
+                mainPegSelectPage.player2Nickname = mainNicknameGetPage.player2Input.getText();
                 mainPegSelectPage.player1Title.setText(mainNicknameGetPage.player1Nickname);
                 mainPegSelectPage.player2Title.setText(mainNicknameGetPage.player2Nickname);
+
             }
 
             @Override
@@ -123,13 +127,13 @@ public class Main {
             @Override
             public void mouseClicked(MouseEvent e) {
                 mainHomePage.panelLandingPage.setVisible(false);
-                mainPegSelectPage.panelChoosePick.setVisible(true);
+                mainGameProperPage.panelGameProper.setVisible(true);
             }
 
             @Override
             public void mousePressed(MouseEvent e) {
                 mainHomePage.panelLandingPage.setVisible(false);
-                mainPegSelectPage.panelChoosePick.setVisible(true);
+                mainGameProperPage.panelGameProper.setVisible(true);
             }
 
             @Override
