@@ -148,7 +148,6 @@ public class PegSelectPage {
                     panelChoosePick.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                     isPickedDark[0] = true;
 
-                    gameProperPage.blackPegPlayer.setText(player1Nickname);
                 }
             }
 
@@ -181,7 +180,6 @@ public class PegSelectPage {
                     panelChoosePick.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                     isPickedDark[0] = true;
 
-                    gameProperPage.blackPegPlayer.setText(player2Nickname);
                 }
             }
 
@@ -198,8 +196,6 @@ public class PegSelectPage {
                     lbDarkPeg2.setBounds(845,595,100,100);
                     panelChoosePick.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                     isPickedDark[0] = true;
-
-                    gameProperPage.blackPegPlayer.setText(player2Nickname);
                 }
             }
 
@@ -231,8 +227,6 @@ public class PegSelectPage {
                     lbLightPeg.setBounds(995,995,100,100);
                     panelChoosePick.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                     isPickedLight[0] = true;
-
-                    gameProperPage.lightPegPlayer.setText(player1Nickname);
                 }
             }
 
@@ -249,7 +243,6 @@ public class PegSelectPage {
                     lbLightPeg.setBounds(995,395,100,100);
                     panelChoosePick.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                     isPickedLight[0] = true;
-                    gameProperPage.lightPegPlayer.setText(player1Nickname);
                 }
             }
 
@@ -281,7 +274,6 @@ public class PegSelectPage {
                     lbLightPeg2.setBounds(995,595,100,100);
                     panelChoosePick.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                     isPickedLight[0] = true;
-                    gameProperPage.lightPegPlayer.setText(player2Nickname);
                 }
             }
 
@@ -298,7 +290,6 @@ public class PegSelectPage {
                     lbLightPeg2.setBounds(995,595,100,100);
                     panelChoosePick.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                     isPickedLight[0] = true;
-                    gameProperPage.lightPegPlayer.setText(player2Nickname);
                 }
             }
 

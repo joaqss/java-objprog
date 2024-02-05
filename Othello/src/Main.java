@@ -42,10 +42,12 @@ public class Main {
                 mainFrame.setVisible(true);
                 mainNicknameGetPage.player1Nickname = mainNicknameGetPage.player1Input.getText();
                 mainNicknameGetPage.player2Nickname = mainNicknameGetPage.player2Input.getText();
-                mainPegSelectPage.player1Nickname = mainNicknameGetPage.player1Input.getText();
+                mainGameProperPage.darkPegPlayer.setText(mainNicknameGetPage.player1Nickname);
+                mainGameProperPage.lightPegPlayer.setText(mainNicknameGetPage.player2Nickname);
+                /*mainPegSelectPage.player1Nickname = mainNicknameGetPage.player1Input.getText();
                 mainPegSelectPage.player2Nickname = mainNicknameGetPage.player2Input.getText();
                 mainPegSelectPage.player1Title.setText(mainNicknameGetPage.player1Nickname);
-                mainPegSelectPage.player2Title.setText(mainNicknameGetPage.player2Nickname);
+                mainPegSelectPage.player2Title.setText(mainNicknameGetPage.player2Nickname);*/
             }
 
             @Override
@@ -54,10 +56,15 @@ public class Main {
                 mainFrame.setVisible(true);
                 mainNicknameGetPage.player1Nickname = mainNicknameGetPage.player1Input.getText();
                 mainNicknameGetPage.player2Nickname = mainNicknameGetPage.player2Input.getText();
+                mainGameProperPage.darkPegPlayer.setText(mainNicknameGetPage.player1Nickname + "'s Turn!");
+                mainGameProperPage.lightPegPlayer.setText(mainNicknameGetPage.player2Nickname + "'s Turn!");
+               /*mainNicknameGetPage.player1Nickname = mainNicknameGetPage.player1Input.getText();
+                mainNicknameGetPage.player2Nickname = mainNicknameGetPage.player2Input.getText();
                 mainPegSelectPage.player1Nickname = mainNicknameGetPage.player1Input.getText();
                 mainPegSelectPage.player2Nickname = mainNicknameGetPage.player2Input.getText();
                 mainPegSelectPage.player1Title.setText(mainNicknameGetPage.player1Nickname);
-                mainPegSelectPage.player2Title.setText(mainNicknameGetPage.player2Nickname);
+                mainPegSelectPage.player2Title.setText(mainNicknameGetPage.player2Nickname);*/ ;
+
 
             }
 

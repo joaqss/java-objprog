@@ -6,7 +6,7 @@ import java.awt.event.MouseListener;
 public class GameProperPage {
     JPanel panelGameProper = new JPanel();
     ImageIcon gameBoard, darkPeg, lightPeg, scrollImage;
-    JLabel lbGameBoard, lbDarkPeg, lbLightPeg, lbScroll, blackPegPlayer, lightPegPlayer;
+    JLabel lbGameBoard, lbDarkPeg, lbLightPeg, lbScroll, lbScroll2, darkPegPlayer, lightPegPlayer;
     JButton[][] slot = new JButton[8][8];
     boolean player1Turn = true;
     boolean[] isOppositeColor = {true, true};
@@ -24,7 +24,7 @@ public class GameProperPage {
 
     public GameProperPage() {
 
-        System.out.println(blackPegPlayer);
+        System.out.println(darkPegPlayer);
         System.out.println(lightPegPlayer);
 
         panelGameProper.setLayout(null);
@@ -60,6 +60,25 @@ public class GameProperPage {
         lbScroll.setIcon(scrollImage);
         lbScroll.setBounds(20,360,400,300);
 
+        lbScroll2 = new JLabel();
+        lbScroll2.setIcon(scrollImage);
+        lbScroll2.setBounds(1500,360,400,300);
+        lbScroll2.setVisible(false);
+
+        darkPegPlayer = new JLabel();
+        darkPegPlayer.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        darkPegPlayer.setFont(new Font("Dogica Pixel", Font.BOLD, 24));
+        darkPegPlayer.setForeground(Color.BLACK);
+        darkPegPlayer.setHorizontalAlignment(JLabel.CENTER);
+        darkPegPlayer.setBounds(30,450,390,70);
+
+        lightPegPlayer = new JLabel();
+        lightPegPlayer.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        lightPegPlayer.setFont(new Font("Dogica Pixel", Font.BOLD, 24));
+        lightPegPlayer.setForeground(Color.BLACK);
+        lightPegPlayer.setHorizontalAlignment(JLabel.CENTER);
+        lightPegPlayer.setBounds(1520,450,380,70);
+        lightPegPlayer.setVisible(false);
 
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -178,7 +197,7 @@ public class GameProperPage {
                                         }
 
                                         try {
-                                            if (finalI + placeholder[2] != -1) {
+                                            if (finalI + placeholder[2] != 8) {
                                                 // scan if peg is placed above
                                                 if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI + placeholder[2]][finalJ] == 2) {
                                                     placeholder[2]++;
@@ -254,25 +273,30 @@ public class GameProperPage {
                                         }
 
                                         try {
-                                            // scan if peg is placed diagonally from left to right pataas
-                                            if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI - placeholder[5]][finalJ + placeholder[5]] == 2) {
-                                                placeholder[5]++;
+                                            if (finalI-placeholder[5] != -1 || finalJ+placeholder[5] != 8) {
+                                                // scan if peg is placed diagonally from left to right pataas
+                                                if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI - placeholder[5]][finalJ + placeholder[5]] == 2) {
+                                                    placeholder[5]++;
 
-                                                if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI - placeholder[5]][finalJ + placeholder[5]] == 1) {
-                                                    placeholder[5] -= 1;
-                                                    System.out.println("FLIPPING DIAG TO RIGHT! " + placeholder[5]);
-                                                    for (int i = placeholder[5]; i > 0; i--) {
-                                                        slot[finalI - i][finalJ + i].setIcon(darkPeg);
-                                                        gameBoardArray[finalI - i][finalJ + i] = 1;
+                                                    if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI - placeholder[5]][finalJ + placeholder[5]] == 1) {
+                                                        placeholder[5] -= 1;
+                                                        System.out.println("FLIPPING DIAG TO RIGHT! " + placeholder[5]);
+                                                        for (int i = placeholder[5]; i > 0; i--) {
+                                                            slot[finalI - i][finalJ + i].setIcon(darkPeg);
+                                                            gameBoardArray[finalI - i][finalJ + i] = 1;
+                                                        }
+                                                        isScanned[5] = true;
+
                                                     }
-                                                    isScanned[5] = true;
 
                                                 }
-
+                                            } else {
+                                                placeholder[5] = 0;
                                             }
                                         } catch (Exception a) {
                                             System.out.println("Out of bounds");
                                         }
+
 
                                         try {
                                             if (finalI - placeholder[6] != -1 && finalJ - placeholder[6] != -1) {
@@ -299,7 +323,7 @@ public class GameProperPage {
                                         }
 
                                         try {
-                                            if (finalJ - placeholder[7] != -1) {
+                                            if (finalJ - placeholder[7] != -1 || finalI+placeholder[7] != 8) {
                                                 // scan if peg is placed diagonally from right to left pataas
                                                 if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI + placeholder[7]][finalJ - placeholder[7]] == 2) {
                                                     placeholder[7]++;
@@ -330,6 +354,10 @@ public class GameProperPage {
                                         }
 
                                         printGameBoardToConsole();
+                                        lbScroll.setVisible(false);
+                                        darkPegPlayer.setVisible(false);
+                                        lbScroll2.setVisible(true);
+                                        lightPegPlayer.setVisible(true);
                                         //isOppositeColor[0] = false;
 
                                     }
@@ -340,6 +368,7 @@ public class GameProperPage {
                             }*/
 
                         } else {
+
                                 slot[finalI][finalJ].setIcon(lightPeg);
                                 player1Turn = true;
                                 gameBoardArray[finalI][finalJ] = 2;
@@ -353,10 +382,9 @@ public class GameProperPage {
                                 isOppositeColor[1] = true;
 
                             while (isOppositeColor[1]) {
-
                                 // scan if peg is from right
                                 try {
-                                    if (finalJ - placeholder[0] != -1 || finalJ + placeholder[0] != 8) {
+                                    if (finalJ - placeholder[0] != -1) {
 
                                         if (gameBoardArray[finalI][finalJ] == 2 && gameBoardArray[finalI][finalJ - placeholder[0]] == 1) {
                                             placeholder[0]++;
@@ -405,7 +433,7 @@ public class GameProperPage {
                                 }
 
                                 try {
-                                    if (finalI + placeholder[2] != -1) {
+                                    if (finalI + placeholder[2] != 8) {
                                         // scan if peg is placed above
                                         if (gameBoardArray[finalI][finalJ] == 2 && gameBoardArray[finalI + placeholder[2]][finalJ] == 1) {
                                             placeholder[2]++;
@@ -481,20 +509,24 @@ public class GameProperPage {
 
                                 try {
                                     // scan if peg is placed diagonally from left to right pataas
-                                    if (gameBoardArray[finalI][finalJ] == 2 && gameBoardArray[finalI - placeholder[5]][finalJ + placeholder[5]] == 1) {
-                                        placeholder[5]++;
+                                    if (finalI-placeholder[5] != -1 || finalJ+placeholder[5] != 8) {
+                                        if (gameBoardArray[finalI][finalJ] == 2 && gameBoardArray[finalI - placeholder[5]][finalJ + placeholder[5]] == 1) {
+                                            placeholder[5]++;
 
-                                        if (gameBoardArray[finalI][finalJ] == 2 && gameBoardArray[finalI - placeholder[5]][finalJ + placeholder[5]] == 2) {
-                                            placeholder[5] -= 1;
-                                            System.out.println("FLIPPING DIAG TO RIGHT! " + placeholder[5]);
-                                            for (int i = placeholder[5]; i > 0; i--) {
-                                                slot[finalI - i][finalJ + i].setIcon(lightPeg);
-                                                gameBoardArray[finalI - i][finalJ + i] = 2;
+                                            if (gameBoardArray[finalI][finalJ] == 2 && gameBoardArray[finalI - placeholder[5]][finalJ + placeholder[5]] == 2) {
+                                                placeholder[5] -= 1;
+                                                System.out.println("FLIPPING DIAG TO RIGHT! " + placeholder[5]);
+                                                for (int i = placeholder[5]; i > 0; i--) {
+                                                    slot[finalI - i][finalJ + i].setIcon(lightPeg);
+                                                    gameBoardArray[finalI - i][finalJ + i] = 2;
+                                                }
+                                                isScanned[5] = true;
+
                                             }
-                                            isScanned[5] = true;
 
                                         }
-
+                                    } else {
+                                        placeholder[5] = 0;
                                     }
                                 } catch (Exception a) {
                                     System.out.println("Out of bounds");
@@ -525,7 +557,7 @@ public class GameProperPage {
                                 }
 
                                 try {
-                                    if (finalJ - placeholder[7] != -1) {
+                                    if (finalJ - placeholder[7] != -1 || finalI+placeholder[7] == 8) {
                                         // scan if peg is placed diagonally from right to left pataas
                                         if (gameBoardArray[finalI][finalJ] == 2 && gameBoardArray[finalI + placeholder[7]][finalJ - placeholder[7]] == 1) {
                                             placeholder[7]++;
@@ -557,6 +589,10 @@ public class GameProperPage {
 
                                 printGameBoardToConsole();
                                 //isOppositeColor[0] = false;
+                                lbScroll.setVisible(true);
+                                darkPegPlayer.setVisible(true);
+                                lbScroll2.setVisible(false);
+                                lightPegPlayer.setVisible(false);
 
                             }
                         }
@@ -585,7 +621,10 @@ public class GameProperPage {
 
         }
         panelGameProper.add(lbGameBoard);
+        panelGameProper.add(darkPegPlayer);
+        panelGameProper.add(lightPegPlayer);
         panelGameProper.add(lbScroll);
+        panelGameProper.add(lbScroll2);
     }
 
     public void printGameBoardToConsole() {
