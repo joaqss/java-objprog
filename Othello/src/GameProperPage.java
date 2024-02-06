@@ -5,19 +5,19 @@ import java.awt.event.MouseListener;
 
 public class GameProperPage {
     JPanel panelGameProper = new JPanel();
-    ImageIcon gameBoard, darkPeg, lightPeg, scrollImage;
-    JLabel lbGameBoard, lbDarkPeg, lbLightPeg, lbScroll, lbScroll2, darkPegPlayer, lightPegPlayer;
+    ImageIcon gameBoard, darkPeg, pegBleach, lightPeg, scrollImage;
+    JLabel lbGameBoard, lbDarkPeg, lbPegBleach, lbLightPeg, lbScroll, lbScroll2, darkPegPlayer, lightPegPlayer;
     JButton[][] slot = new JButton[8][8];
     boolean player1Turn = true;
     boolean[] isOppositeColor = {true, true};
     Integer[][] gameBoardArray = {
-            {0, 0, 0, 0, 1, 0, 0, 0},
-            {0, 0, 0, 0, 2, 0, 0, 2},
-            {0, 0, 0, 0, 2, 0, 0, 2},
-            {0, 1, 1, 2, 0, 2, 1, 1},
-            {0, 0, 0, 0, 2, 0, 0, 0},
-            {0, 0, 0, 0, 2, 0, 0, 0},
-            {0, 0, 0, 0, 1, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 2, 1, 0, 0, 0},
+            {0, 0, 0, 1, 2, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0}};
     Integer x_value = 550;
     Integer y_value = 40;
@@ -52,6 +52,13 @@ public class GameProperPage {
         lightPeg = new ImageIcon(modifiedLightPeg);
         lbLightPeg.setIcon(lightPeg);
 
+        lbPegBleach = new JLabel();
+        pegBleach = new ImageIcon("Othello/Images/GameProperPage/Pegs/peg-Bleach.png");
+        Image dabPegBleach = pegBleach.getImage();
+        Image modifiedPegBleach = dabPegBleach.getScaledInstance(90, 90, Image.SCALE_REPLICATE);
+        pegBleach = new ImageIcon(modifiedPegBleach);
+        lbPegBleach.setIcon(pegBleach);
+
         lbScroll = new JLabel();
         scrollImage = new ImageIcon("Othello/Images/GameProperPage/scrollImage.png");
         Image dabScroll = scrollImage.getImage();
@@ -82,36 +89,96 @@ public class GameProperPage {
 
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
+                slot[i][j] = new JButton();
+                slot[i][j].setBounds(x_value, y_value, 100, 100);
+                slot[i][j].setOpaque(false);
+                slot[i][j].setContentAreaFilled(false);
+                //slot[i][j].setBorderPainted(false);
 
                 if (gameBoardArray[i][j] == 1) {
-                    slot[i][j] = new JButton();
-                    slot[i][j].setBounds(x_value, y_value, 100, 100);
-                    slot[i][j].setOpaque(false);
-                    slot[i][j].setContentAreaFilled(false);
-                    //slot[i][j].setBorderPainted(false);
                     slot[i][j].setIcon(darkPeg);
-                    panelGameProper.add(slot[i][j]);
 
                 } else if (gameBoardArray[i][j] == 2) {
-                    slot[i][j] = new JButton();
-                    slot[i][j].setBounds(x_value, y_value, 100, 100);
-                    slot[i][j].setOpaque(false);
-                    slot[i][j].setContentAreaFilled(false);
                     slot[i][j].setIcon(lightPeg);
-                    panelGameProper.add(slot[i][j]);
-                    //slot[i][j].setBorderPainted(false);
-
-                } else {
-                    slot[i][j] = new JButton();
-                    slot[i][j].setBounds(x_value, y_value, 100, 100);
-                    slot[i][j].setOpaque(false);
-                    slot[i][j].setContentAreaFilled(false);
-                    panelGameProper.add(slot[i][j]);
-                    //slot[i][j].setBorderPainted(false);
-                    panelGameProper.add(slot[i][j]);
                 }
 
+                panelGameProper.add(slot[i][j]);
+
                 x_value += 109; // add x values to each button
+
+                int[] placeholderPos = {1, 1, 1, 1, 1, 1, 1, 1};
+                boolean[] isScannedPos = {false, false, false, false, false, false, false, false};
+
+                while (!isScannedPos[0]) {
+                    // is from right
+                    try {
+                        if (gameBoardArray[i][j] == 1 && gameBoardArray[i][j-placeholderPos[0]] == 2) {
+                            placeholderPos[0]++;
+                        } else if (placeholderPos[0] == 1) {
+                            break;
+
+                        } else if (gameBoardArray[i][j - placeholderPos[0]] == 0) {
+                            slot[i][j-placeholderPos[0]].setIcon(pegBleach);
+                            placeholderPos[0] = 1;
+                            isScannedPos[0] = true;
+                        }
+                        else {
+                            break;
+                        }
+
+                    } catch (Exception a) {
+                        System.out.println("Error in: is from right. Might be out of bounds.");
+                        break;
+                    }
+                }
+                while (!isScannedPos[1]) {
+                    // is from left
+                    try {
+                        if (gameBoardArray[i][j] == 1 && gameBoardArray[i][j+placeholderPos[1]] == 2) {
+                            placeholderPos[1]++;
+                            System.out.println("add " + placeholderPos[1]);
+                        } else if (placeholderPos[1] == 1) {
+                            break;
+
+                        } else if (gameBoardArray[i][j] == 1 && gameBoardArray[i][j + placeholderPos[1]] == 0) {
+                            slot[i][j+placeholderPos[1]].setIcon(pegBleach);
+                            placeholderPos[1] = 1;
+                            isScannedPos[1] = true;
+                        }
+                        else {
+                            break;
+                        }
+
+                    } catch (Exception a) {
+                        System.out.println("Error in: is from left. Might be out of bounds.");
+                        break;
+                    }
+                } // not fix
+                while (!isScannedPos[2]) {
+                    // is from down to up
+                    try {
+                        if (gameBoardArray[i][j] == 1 && gameBoardArray[i+placeholderPos[2]][j] == 2) {
+                            placeholderPos[2]++;
+                        } else if (placeholderPos[2] == 1) {
+                            break;
+
+                        } else if (gameBoardArray[i + placeholderPos[2]][j] == 0) {
+                            slot[i+placeholderPos[2]][j].setIcon(pegBleach);
+                            placeholderPos[2] = 1;
+                            isScannedPos[2] = true;
+                        }
+                        else {
+                            break;
+                        }
+
+                    } catch (Exception a) {
+                        System.out.println("Error in: is from above to down. Might be out of bounds.");
+                        break;
+                    }
+                }
+
+
+
 
                 final int finalI = i;
                 final int finalJ = j;
@@ -125,141 +192,404 @@ public class GameProperPage {
                     public void mousePressed(MouseEvent e) {
 
                         if (player1Turn) {
+                            // to check if chosen slot is valid
+                            int[] placeholderValid = {1, 1, 1, 1, 1, 1, 1, 1};
+                            boolean[] isScannedValid = {false, false, false, false, false, false, false, false};
+                            boolean isValid = false;
 
-                            slot[finalI][finalJ].setIcon(darkPeg);
-                            player1Turn = false;
-                            gameBoardArray[finalI][finalJ] = 1;
-                            slot[finalI][finalJ].removeMouseListener(this);
-                            System.out.println("PLAYER1: I clicked slot " + finalI + " and " + finalJ + "\n Player1Turn set to False");
-
-                            int[] placeholder = {1, 1, 1, 1, 1, 1, 1, 1};
-                            boolean[] isScanned = {false, false, false, false, false, false, false, false};
-                            isOppositeColor[0] = true;
-
-                                    /*System.out.println(placeholder[0] + " " + placeholder[1] + " " + placeholder[2] + " " + placeholder[3]
-                                        + " " + placeholder[4] + " " + placeholder[5] + " " + placeholder[6] + " " + placeholder[7]);*/
-
-                            while (!isScanned[0]) {
-                                // is from left
-                                try {
-                                    if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI][finalJ + placeholder[0]] == 2) {
-                                        placeholder[0]++;
-                                        System.out.println(placeholder[0]);
-                                    } else if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI][finalJ + placeholder[0]] == 1) {
-                                        placeholder[0] -= 1;
-
-                                        for (int a = placeholder[0]; a > 0; a--) {
-                                            gameBoardArray[finalI][finalJ + a] = 1;
-                                            slot[finalI][finalJ + a].setIcon(darkPeg);
-                                        }
-                                        isScanned[0] = true;
-                                    }
-                                    else {
-                                        isScanned[0] = true;
-                                    }
-
-                                } catch (Exception a) {
-                                    System.out.println("Out of bounds when placed right");
-                                }
-
-                            }
-
-                            while (!isScanned[1]) {
+                            while (!isScannedValid[0]) {
                                 // is from right
                                 try {
-                                    if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI][finalJ - placeholder[1]] == 2) {
-                                        placeholder[1]++;
-                                        System.out.println(placeholder[1]);
-                                    } else if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI][finalJ - placeholder[1]] == 1) {
-                                        placeholder[1] -= 1;
+                                    if (gameBoardArray[finalI][finalJ-placeholderValid[0]] == 2) {
+                                        placeholderValid[0]++;
 
-                                        for (int a = placeholder[1]; a > 0; a--) {
-                                            gameBoardArray[finalI][finalJ - a] = 1;
-                                            slot[finalI][finalJ - a].setIcon(darkPeg);
+                                        if (finalJ-placeholderValid[0] == -1) {
+                                            isScannedValid[0] = true;
                                         }
-                                        isScanned[1] = true;
+
+                                    } else if (placeholderValid[0] == 1) {
+                                        break;
+                                    } else if (gameBoardArray[finalI][finalJ - placeholderValid[0]] == 1) {
+                                        placeholderValid[0] = 1;
+                                        isScannedValid[0] = true;
+                                        isValid = true;
+                                    } else if (gameBoardArray[finalI][finalJ - placeholderValid[0]] == 0) {
+                                        break;
                                     }
                                     else {
-                                        isScanned[1] = true;
+                                        JOptionPane.showMessageDialog(null, "NOT VALID!");
+                                        break;
                                     }
 
                                 } catch (Exception a) {
-                                    System.out.println("Out of bounds when placed right");
+                                    System.out.println("Error in: is from right. Might be out of bounds.");
+                                    break;
                                 }
                             }
-
-                            while (!isScanned[2]) {
-                                // is from below
+                            while (!isScannedValid[1]) {
+                                // is from left
                                 try {
-                                    if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI - placeholder[2]][finalJ] == 2) {
-                                        placeholder[2]++;
-                                        System.out.println(placeholder[2]);
-                                    } else if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI- placeholder[2]][finalJ] == 1) {
-                                        placeholder[2] -= 1;
-
-                                        for (int a = placeholder[2]; a > 0; a--) {
-                                            gameBoardArray[finalI - a][finalJ] = 1;
-                                            slot[finalI- a][finalJ].setIcon(darkPeg);
-                                        }
-                                        isScanned[2] = true;
+                                    if (gameBoardArray[finalI][finalJ+placeholderValid[1]] == 2) {
+                                        placeholderValid[1]++;
+                                    } else if (placeholderValid[1] == 1) {
+                                        break;
+                                    } else if (gameBoardArray[finalI][finalJ + placeholderValid[1]] == 1) {
+                                        placeholderValid[1] = 1;
+                                        isScannedValid[1] = true;
+                                        isValid = true;
+                                    } else if (gameBoardArray[finalI][finalJ + placeholderValid[1]] == 0) {
+                                        break;
                                     }
                                     else {
-                                        isScanned[2] = true;
+                                        JOptionPane.showMessageDialog(null, "NOT VALID!");
+                                        break;
                                     }
 
                                 } catch (Exception a) {
-                                    System.out.println("Out of bounds when placed right");
+                                    System.out.println("Error in: is from left. Might be out of bounds.");
+                                    break;
                                 }
                             }
-
-                            while (!isScanned[3]) {
-                                // is from below
+                            while (!isScannedValid[2]) {
+                                // is from above
                                 try {
-                                    if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI + placeholder[3]][finalJ] == 2) {
-                                        placeholder[3]++;
-                                        System.out.println(placeholder[3]);
-                                    } else if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI+ placeholder[3]][finalJ] == 1) {
-                                        placeholder[3] -= 1;
-
-                                        for (int a = placeholder[3]; a > 0; a--) {
-                                            gameBoardArray[finalI + a][finalJ] = 1;
-                                            slot[finalI+ a][finalJ].setIcon(darkPeg);
-                                        }
-                                        isScanned[3] = true;
+                                    if (gameBoardArray[finalI + placeholderValid[2]][finalJ] == 2) {
+                                        placeholderValid[2]++;
+                                    } else if (placeholderValid[2] == 1) {
+                                        break;
+                                    } else if (gameBoardArray[finalI + placeholderValid[2]][finalJ] == 1) {
+                                        placeholderValid[2] = 1;
+                                        isScannedValid[2] = true;
+                                        isValid = true;
+                                    } else if (gameBoardArray[finalI + placeholderValid[2]][finalJ] == 0) {
+                                        break;
                                     }
                                     else {
-                                        isScanned[3] = true;
+                                        JOptionPane.showMessageDialog(null, "NOT VALID!");
+                                        break;
                                     }
 
                                 } catch (Exception a) {
-                                    System.out.println("Out of bounds when placed right");
+                                    System.out.println("Error in: is from above. Might be out of bounds.");
+                                    break;
                                 }
-                            }
 
-                            while (!isScanned[4]) {
-                                // is from above to bottom right
+                            }
+                            while (!isScannedValid[3]) {
+                                // is from above
                                 try {
-                                    if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI + placeholder[4]][finalJ + placeholder[4]] == 2) {
-                                        placeholder[4]++;
-                                        System.out.println(placeholder[4]);
-                                    } else if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI + placeholder[4]][finalJ + placeholder[4]] == 1) {
-                                        placeholder[4] -= 1;
-
-                                        for (int a = placeholder[4]; a > 0; a--) {
-                                            gameBoardArray[finalI + a][finalJ + a] = 1;
-                                            slot[finalI+ a][finalJ + a].setIcon(darkPeg);
-                                        }
-                                        isScanned[4] = true;
+                                    if (gameBoardArray[finalI - placeholderValid[3]][finalJ] == 2) {
+                                        placeholderValid[3]++;
+                                    } else if (placeholderValid[3] == 1) {
+                                        break;
+                                    } else if (gameBoardArray[finalI - placeholderValid[3]][finalJ] == 1) {
+                                        placeholderValid[3] = 1;
+                                        isScannedValid[3] = true;
+                                        isValid = true;
+                                    } else if (gameBoardArray[finalI - placeholderValid[3]][finalJ] == 0) {
+                                        break;
                                     }
                                     else {
-                                        isScanned[4] = true;
+                                        JOptionPane.showMessageDialog(null, "NOT VALID!");
+                                        break;
                                     }
 
                                 } catch (Exception a) {
-                                    System.out.println("Out of bounds when placed right");
+                                    System.out.println("Error in: is from above. Might be out of bounds.");
+                                    break;
                                 }
+
+                            }
+                            while (!isScannedValid[4]) {
+                                // if point going right down
+                                try {
+                                    if (gameBoardArray[finalI + placeholderValid[4]][finalJ + placeholderValid[4]] == 2) {
+                                        placeholderValid[4]++;
+                                    } else if (placeholderValid[4] == 1) {
+                                        break;
+                                    } else if (gameBoardArray[finalI + placeholderValid[4]][finalJ + placeholderValid[4]] == 1) {
+                                        placeholderValid[4] = 1;
+                                        isScannedValid[4] = true;
+                                        isValid = true;
+                                    } else if (gameBoardArray[finalI + placeholderValid[4]][finalJ + placeholderValid[4]] == 0) {
+                                        break;
+                                    }
+                                    else {
+                                        JOptionPane.showMessageDialog(null, "NOT VALID!");
+                                        break;
+                                    }
+
+                                } catch (Exception a) {
+                                    System.out.println("Error in: if point going right down. Might be out of bounds.");
+                                    break;
+                                }
+
+                            }
+                            while (!isScannedValid[5]) {
+                                // point going left up
+                                try {
+                                    if (gameBoardArray[finalI - placeholderValid[5]][finalJ - placeholderValid[5]] == 2) {
+                                        placeholderValid[5]++;
+                                    } else if (placeholderValid[5] == 1) {
+                                        break;
+                                    } else if (gameBoardArray[finalI - placeholderValid[5]][finalJ - placeholderValid[5]] == 1) {
+                                        placeholderValid[5] = 1;
+                                        isScannedValid[5] = true;
+                                        isValid = true;
+                                    } else if (gameBoardArray[finalI - placeholderValid[5]][finalJ - placeholderValid[5]] == 0) {
+                                        break;
+                                    }
+                                    else {
+                                        JOptionPane.showMessageDialog(null, "NOT VALID!");
+                                        break;
+                                    }
+
+                                } catch (Exception a) {
+                                    System.out.println("Error in: point going left up. Might be out of bounds.");
+                                    break;
+                                }
+
+                            }
+                            while (!isScannedValid[6]) {
+                                // if point going left down
+                                try {
+                                    if (gameBoardArray[finalI + placeholderValid[6]][finalJ - placeholderValid[6]] == 2) {
+                                        placeholderValid[6]++;
+                                    } else if (placeholderValid[6] == 1) {
+                                        break;
+                                    } else if (gameBoardArray[finalI + placeholderValid[6]][finalJ - placeholderValid[6]] == 1) {
+                                        placeholderValid[6] = 1;
+                                        isScannedValid[6] = true;
+                                        isValid = true;
+                                    } else if (gameBoardArray[finalI + placeholderValid[6]][finalJ - placeholderValid[6]] == 0) {
+                                        break;
+                                    }
+                                    else {
+                                        JOptionPane.showMessageDialog(null, "NOT VALID!");
+                                        break;
+                                    }
+
+                                } catch (Exception a) {
+                                    System.out.println("Error in: if point is going left down. Might be out of bounds.");
+                                    break;
+                                }
+
+                            }
+                            while (!isScannedValid[7]) {
+                                // point going right up
+                                try {
+                                    if (gameBoardArray[finalI - placeholderValid[7]][finalJ + placeholderValid[7]] == 2) {
+                                        placeholderValid[7]++;
+                                    } else if (placeholderValid[7] == 1) {
+                                        break;
+                                    } else if (gameBoardArray[finalI - placeholderValid[7]][finalJ + placeholderValid[7]] == 1) {
+                                        placeholderValid[7] = 1;
+                                        isScannedValid[7] = true;
+                                        isValid = true;
+                                    } else if (gameBoardArray[finalI - placeholderValid[7]][finalJ + placeholderValid[7]] == 0) {
+                                        break;
+                                    }
+                                    else {
+                                        JOptionPane.showMessageDialog(null, "NOT VALID!");
+                                        break;
+                                    }
+
+                                } catch (Exception a) {
+                                    System.out.println("Error in: point going right up. Might be out of bounds.");
+                                    break;
+                                }
+
                             }
 
+                            if (isValid) {
+                                slot[finalI][finalJ].setIcon(darkPeg);
+                                //player1Turn = false;
+                                gameBoardArray[finalI][finalJ] = 1;
+                                slot[finalI][finalJ].removeMouseListener(this);
+                                System.out.println("\nPLAYER1: I clicked slot " + finalI + " and " + finalJ + "\n");
+
+                                int[] placeholder = {1, 1, 1, 1, 1, 1, 1, 1};
+                                boolean[] isScanned = {false, false, false, false, false, false, false, false};
+
+                                // scan slots that can be flipped
+                                while (!isScanned[0]) {
+                                    // is from left
+                                    try {
+                                        if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI][finalJ + placeholder[0]] == 2) {
+                                            placeholder[0]++;
+                                        } else if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI][finalJ + placeholder[0]] == 1) {
+                                            placeholder[0] -= 1;
+
+                                            for (int a = placeholder[0]; a > 0; a--) {
+                                                gameBoardArray[finalI][finalJ + a] = 1;
+                                                slot[finalI][finalJ + a].setIcon(darkPeg);
+                                            }
+                                            isScanned[0] = true;
+                                        } else {
+                                            isScanned[0] = true;
+                                        }
+
+                                    } catch (Exception a) {
+                                        System.out.println("Scan is out of bounds when placed left going to right. Override.");
+                                        break;
+                                    }
+
+                                }
+                                while (!isScanned[1]) {
+                                    // is from right
+                                    try {
+                                        if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI][finalJ - placeholder[1]] == 2) {
+                                            placeholder[1]++;
+                                        } else if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI][finalJ - placeholder[1]] == 1) {
+                                            placeholder[1] -= 1;
+
+                                            for (int a = placeholder[1]; a > 0; a--) {
+                                                gameBoardArray[finalI][finalJ - a] = 1;
+                                                slot[finalI][finalJ - a].setIcon(darkPeg);
+                                            }
+                                            isScanned[1] = true;
+                                        } else {
+                                            isScanned[1] = true;
+                                        }
+
+                                    } catch (Exception a) {
+                                        System.out.println("Scan is out of bounds when placed right to left. Override.");
+                                        break;
+                                    }
+                                }
+                                while (!isScanned[2]) {
+                                    // is from above
+                                    try {
+                                        if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI - placeholder[2]][finalJ] == 2) {
+                                            placeholder[2]++;
+                                        } else if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI - placeholder[2]][finalJ] == 1) {
+                                            placeholder[2] -= 1;
+
+                                            for (int a = placeholder[2]; a > 0; a--) {
+                                                gameBoardArray[finalI - a][finalJ] = 1;
+                                                slot[finalI - a][finalJ].setIcon(darkPeg);
+                                            }
+                                            isScanned[2] = true;
+                                        } else {
+                                            isScanned[2] = true;
+                                        }
+
+                                    } catch (Exception a) {
+                                        System.out.println("Scan is out bounds when placed above going down. Override.");
+                                        break;
+                                    }
+                                }
+                                while (!isScanned[3]) {
+                                    // is from below
+                                    try {
+                                        if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI + placeholder[3]][finalJ] == 2) {
+                                            placeholder[3]++;
+                                        } else if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI + placeholder[3]][finalJ] == 1) {
+                                            placeholder[3] -= 1;
+
+                                            for (int a = placeholder[3]; a > 0; a--) {
+                                                gameBoardArray[finalI + a][finalJ] = 1;
+                                                slot[finalI + a][finalJ].setIcon(darkPeg);
+                                            }
+                                            isScanned[3] = true;
+                                        } else {
+                                            isScanned[3] = true;
+                                        }
+
+                                    } catch (Exception a) {
+                                        System.out.println("Scan is out of bounds when placed below going up. Override.");
+                                        break;
+                                    }
+                                }
+                                while (!isScanned[4]) {
+                                    // is from point to bottom right
+                                    try {
+                                        if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI + placeholder[4]][finalJ + placeholder[4]] == 2) {
+                                            placeholder[4]++;
+                                        } else if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI + placeholder[4]][finalJ + placeholder[4]] == 1) {
+                                            placeholder[4] -= 1;
+
+                                            for (int a = placeholder[4]; a > 0; a--) {
+                                                gameBoardArray[finalI + a][finalJ + a] = 1;
+                                                slot[finalI + a][finalJ + a].setIcon(darkPeg);
+                                            }
+                                            isScanned[4] = true;
+                                        } else {
+                                            isScanned[4] = true;
+                                        }
+
+                                    } catch (Exception a) {
+                                        System.out.println("Scan is out of bounds when placed point to bottom right. Override.");
+                                        break;
+                                    }
+                                }
+                                while (!isScanned[5]) {
+                                    // is from point to right above
+                                    try {
+                                        if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI - placeholder[5]][finalJ + placeholder[5]] == 2) {
+                                            placeholder[5]++;
+                                        } else if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI - placeholder[5]][finalJ + placeholder[5]] == 1) {
+                                            placeholder[5] -= 1;
+
+                                            for (int a = placeholder[5]; a > 0; a--) {
+                                                gameBoardArray[finalI - a][finalJ + a] = 1;
+                                                slot[finalI - a][finalJ + a].setIcon(darkPeg);
+                                            }
+                                            isScanned[5] = true;
+                                        } else {
+                                            isScanned[5] = true;
+                                        }
+
+                                    } catch (Exception a) {
+                                        System.out.println("Scan is out of bounds when placed point to right above. Override.");
+                                        break;
+                                    }
+                                }
+                                while (!isScanned[6]) {
+                                    // is from point to left below
+                                    try {
+                                        if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI + placeholder[6]][finalJ - placeholder[6]] == 2) {
+                                            placeholder[6]++;
+                                        } else if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI + placeholder[6]][finalJ - placeholder[6]] == 1) {
+                                            placeholder[6] -= 1;
+
+                                            for (int a = placeholder[6]; a > 0; a--) {
+                                                gameBoardArray[finalI + a][finalJ - a] = 1;
+                                                slot[finalI + a][finalJ - a].setIcon(darkPeg);
+                                            }
+                                            isScanned[6] = true;
+                                        } else {
+                                            isScanned[6] = true;
+                                        }
+
+                                    } catch (Exception a) {
+                                        System.out.println("Scan is out of bounds when placed point to left below. Override.");
+                                        break;
+                                    }
+                                }
+                                while (!isScanned[7]) {
+                                    // is from point to left above
+                                    try {
+                                        if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI - placeholder[7]][finalJ - placeholder[7]] == 2) {
+                                            placeholder[7]++;
+                                        } else if (gameBoardArray[finalI][finalJ] == 1 && gameBoardArray[finalI - placeholder[7]][finalJ - placeholder[7]] == 1) {
+                                            placeholder[7] -= 1;
+
+                                            for (int a = placeholder[7]; a > 0; a--) {
+                                                gameBoardArray[finalI - a][finalJ - a] = 1;
+                                                slot[finalI - a][finalJ - a].setIcon(darkPeg);
+                                            }
+                                            isScanned[7] = true;
+                                        } else {
+                                            isScanned[7] = true;
+                                        }
+
+                                    } catch (Exception a) {
+                                        System.out.println("Scan is out of bounds when placed point to left above. Override.");
+                                        break;
+                                    }
+                                }
+                            }
 
                         } else {
 
