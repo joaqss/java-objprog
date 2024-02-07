@@ -4,6 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class PegSelectPage {
+
     JPanel panelChoosePick = new JPanel();
     ImageIcon playerPickColor, darkPeg, lightPeg, darkPeg2, lightPeg2, goButton, resetButton, backButton;
     JLabel lbPlayerPickColor, lbDarkPeg, lbLightPeg, lbDarkPeg2, lbLightPeg2,

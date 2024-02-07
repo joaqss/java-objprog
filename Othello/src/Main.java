@@ -8,6 +8,7 @@ public class Main {
 
     JFrame mainFrame = new JFrame("Othello");
     JFrame nicknameFrame = new JFrame("Othello: Set Nickname");
+    JFrame winnerFrame = new JFrame("Winner!");
     ImageIcon gameLogo, mainBg, nicknameBg;
     JLabel lbMainBg;
     NicknameGetPage mainNicknameGetPage;
@@ -15,6 +16,7 @@ public class Main {
     HTPPage mainHTPPage;
     PegSelectPage mainPegSelectPage;
     GameProperPage mainGameProperPage;
+    private WinnerPage winnerPage;
 
     public Main() {
 
@@ -253,11 +255,13 @@ public class Main {
                 mainHomePage.panelLandingPage.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             }
         });
+
+        winnerPage = new WinnerPage(mainGameProperPage);
     }
 
 
     public static void main(String[] args) {
-        Main runGame = new Main();
+        new Main();
     }
 
 
