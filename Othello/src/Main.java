@@ -45,10 +45,6 @@ public class Main {
                 mainNicknameGetPage.player2Nickname = mainNicknameGetPage.player2Input.getText();
                 mainGameProperPage.darkPegPlayer.setText(mainNicknameGetPage.player1Nickname);
                 mainGameProperPage.lightPegPlayer.setText(mainNicknameGetPage.player2Nickname);
-                /*mainPegSelectPage.player1Nickname = mainNicknameGetPage.player1Input.getText();
-                mainPegSelectPage.player2Nickname = mainNicknameGetPage.player2Input.getText();
-                mainPegSelectPage.player1Title.setText(mainNicknameGetPage.player1Nickname);
-                mainPegSelectPage.player2Title.setText(mainNicknameGetPage.player2Nickname);*/
             }
 
             @Override
@@ -57,16 +53,8 @@ public class Main {
                 mainFrame.setVisible(true);
                 mainNicknameGetPage.player1Nickname = mainNicknameGetPage.player1Input.getText();
                 mainNicknameGetPage.player2Nickname = mainNicknameGetPage.player2Input.getText();
-                mainGameProperPage.darkPegPlayer.setText(mainNicknameGetPage.player1Nickname + "'s Turn!");
-                mainGameProperPage.lightPegPlayer.setText(mainNicknameGetPage.player2Nickname + "'s Turn!");
-               /*mainNicknameGetPage.player1Nickname = mainNicknameGetPage.player1Input.getText();
-                mainNicknameGetPage.player2Nickname = mainNicknameGetPage.player2Input.getText();
-                mainPegSelectPage.player1Nickname = mainNicknameGetPage.player1Input.getText();
-                mainPegSelectPage.player2Nickname = mainNicknameGetPage.player2Input.getText();
-                mainPegSelectPage.player1Title.setText(mainNicknameGetPage.player1Nickname);
-                mainPegSelectPage.player2Title.setText(mainNicknameGetPage.player2Nickname);*/ ;
-
-
+                mainGameProperPage.darkPegPlayer.setText(mainNicknameGetPage.player1Nickname);
+                mainGameProperPage.lightPegPlayer.setText(mainNicknameGetPage.player2Nickname);
             }
 
             @Override
@@ -116,9 +104,13 @@ public class Main {
         mainHTPPage.panelHTPPage.setVisible(false);
 
         mainGameProperPage = new GameProperPage();
+        mainFrame.add(mainGameProperPage.panelWinner);
         mainFrame.add(mainGameProperPage.panelGameProper);
         mainGameProperPage.panelGameProper.setBounds(0,0,1920,1080);
         mainGameProperPage.panelGameProper.setVisible(false);
+        mainGameProperPage.panelWinner.setBounds(430,180,1100,600);
+        mainGameProperPage.panelWinner.setVisible(false);
+        mainGameProperPage.panelWinner.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         mainPegSelectPage = new PegSelectPage(mainHomePage, mainGameProperPage);
         mainFrame.add(mainPegSelectPage.panelChoosePick);

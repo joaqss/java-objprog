@@ -20,7 +20,7 @@ public class PegSelectPage {
         panelChoosePick.setOpaque(false);
 
         lbPlayerPickColor = new JLabel();
-        playerPickColor = new ImageIcon("Othello/Images/PegSelectPage/playerPickColor.png");
+        playerPickColor = new ImageIcon("Othello/Images/PegSelectPage/bigSign.png");
         Image dabPlayerPickColor = playerPickColor.getImage();
         Image modifiedPlayerPickColor = dabPlayerPickColor.getScaledInstance(1300, 700, Image.SCALE_REPLICATE);
         playerPickColor = new ImageIcon(modifiedPlayerPickColor);
