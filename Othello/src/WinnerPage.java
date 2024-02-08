@@ -7,9 +7,8 @@ public class WinnerPage {
     ImageIcon playerPickColor, goButton, backButton, gameLogo;
     JLabel lbPlayerPickColor, playerPickTitle, player1Title, player2Title, lbGoButton, lbBackButton;
     GameProperPage subGameProperPage;
-    WinnerPage mainWinnerPage = new WinnerPage(subGameProperPage);
 
-    public WinnerPage(GameProperPage subGameProperPage) {
+    public WinnerPage() {
 
 
         // logo

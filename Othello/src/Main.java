@@ -16,7 +16,6 @@ public class Main {
     HTPPage mainHTPPage;
     PegSelectPage mainPegSelectPage;
     GameProperPage mainGameProperPage;
-    private WinnerPage winnerPage;
 
     public Main() {
 
@@ -255,8 +254,6 @@ public class Main {
                 mainHomePage.panelLandingPage.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             }
         });
-
-        winnerPage = new WinnerPage(mainGameProperPage);
     }
 
 
