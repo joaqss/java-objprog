@@ -9,6 +9,7 @@ public class SoundClass {
 
     Float volume = -10.0f;
     KeyListener volumeBindListener;
+    Clip clip;
 
     public SoundClass() {
         volumeBindListener = new KeyListener() {
@@ -19,8 +20,9 @@ public class SoundClass {
             @Override
             public void keyPressed(KeyEvent e) {
 
+
+
                 if (e.getKeyCode() == KeyEvent.VK_U) {
-                    System.out.println("Pressed U");
                     VolumeUp();
                 }
 
@@ -28,6 +30,7 @@ public class SoundClass {
                     System.out.println("Pressed Y");
                     VolumeDown();
                 }
+
 
             }
 
@@ -43,19 +46,16 @@ public class SoundClass {
             Path path = Paths.get(filepath);
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(path.toFile());
 
-            Clip clip = AudioSystem.getClip();
+            clip = AudioSystem.getClip();
             clip.open(audioInputStream);
 
             // Set volume
             FloatControl setVolume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-            setVolume.setValue(volume);
+            setVolume.setValue(-8.0f);
 
             clip.start();
 
             // Adjust the volume while the clip is playing
-            while (clip.isActive()) {
-                setVolume.setValue(volume);
-            }
 
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             System.out.println("Error in playing sound/music.");
@@ -67,7 +67,7 @@ public class SoundClass {
             Path path = Paths.get(filepath);
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(path.toFile());
 
-            Clip clip = AudioSystem.getClip();
+            clip = AudioSystem.getClip();
             clip.open(audioInputStream);
 
             // Set volume
@@ -86,13 +86,20 @@ public class SoundClass {
         }
     }
 
-
+    // update float control
+    private void adjustVolume() {
+        if (clip != null) {
+            FloatControl setVolume = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            setVolume.setValue(volume);
+        }
+    }
     public void VolumeUp() {
         if (volume == 10.0f) {
             volume = 10.0f;
             System.out.println("no added vol");
         } else if (volume <= 10.0f) {
             volume += 4.0f;
+            adjustVolume();
             System.out.println("add volume");
         }
     }
@@ -101,6 +108,7 @@ public class SoundClass {
 
         if (volume >= -20.0f) {
             volume -= 4.0f;
+            adjustVolume();
             System.out.println("minus volume");
         } else {
             volume = -20.0f;

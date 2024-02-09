@@ -15,11 +15,14 @@ public class HTPPage {
             description4, lbScroll, lbNextButton, lbBackButton, lbHomeButton;
     ImageIcon scrollImage, nextButton, backButton, homeButton;
     JPanel panelHTPPage = new JPanel();
+    SoundClass soundClass;
 
     private HomePage homePage; // create private class to call HomePage panel
 
     public HTPPage(HomePage homePage) {
+        soundClass = new SoundClass();
         this.homePage = homePage;
+
         panelHTPPage.setLayout(null);
         panelHTPPage.setOpaque(false);
         panelHTPPage.setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -146,7 +149,7 @@ public class HTPPage {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                sound("Othello/Music/next_backButton.wav");
+                soundClass.sound("Othello/Music/next_backButton.wav");
                 if (htpTitle.isVisible() && description1.isVisible()) {
                     htpTitle.setVisible(false);
                     description1.setVisible(false);
@@ -205,7 +208,7 @@ public class HTPPage {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                sound("Othello/Music/next_backButton.wav");
+                soundClass.sound("Othello/Music/next_backButton.wav");
                 if (rulesTitle.isVisible() && description2.isVisible()) {
                     rulesTitle.setVisible(false);
                     description2.setVisible(false);
@@ -264,7 +267,7 @@ public class HTPPage {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                sound("Othello/Music/buttonPressed-Reversed.wav");
+                soundClass.sound("Othello/Music/buttonPressed-Reversed.wav");
                 delayClick();
                 panelHTPPage.setVisible(false);
                 homePage.panelLandingPage.setVisible(true);
@@ -306,18 +309,5 @@ public class HTPPage {
             throw new RuntimeException(ex);
         }
     }
-    public static void sound(String filepath) {
-        InputStream music;
 
-        try {
-            music = Files.newInputStream(Paths.get(filepath));
-            AudioStream audio = new AudioStream(music);
-            AudioPlayer.player.start(audio);
-
-
-        } catch (Exception a) {
-            System.out.println("Error in playing sound/music.");
-        }
-
-    }
 }

@@ -15,6 +15,7 @@ import java.nio.file.Paths;
 public class GameProperPage {
 
     private HomePage homePage;
+    SoundClass soundClass;
     JPanel panelGameProper = new JPanel();
     JLayeredPane panelWinner = new JLayeredPane();
     ImageIcon gameBoard, darkPeg, pegBleach, lightPeg, scrollImage, bigSignImage, homeButton, resetButton;
@@ -42,6 +43,7 @@ public class GameProperPage {
     public GameProperPage(HomePage homePage) {
 
         this.homePage = homePage;
+        soundClass = new SoundClass();
 
         panelGameProper.setLayout(null);
         panelGameProper.setOpaque(false);
@@ -369,6 +371,7 @@ public class GameProperPage {
                             }
 
                             if (isValid) {
+                                soundClass.sound("Othello/Music/placePeg.wav");
                                 isValidToRemove[0] = true; //for removing available slots
                                 slot[finalI][finalJ].setIcon(darkPeg);
                                 gameBoardArray[finalI][finalJ] = 1;
@@ -811,6 +814,7 @@ public class GameProperPage {
                             }
 
                             if (isValid) {
+                                soundClass.sound("Othello/Music/placePeg.wav");
                                 isValidToRemove[1] = true; //for removing available slots
                                 slot[finalI][finalJ].setIcon(lightPeg);
                                 gameBoardArray[finalI][finalJ] = 2;
@@ -1833,7 +1837,7 @@ public class GameProperPage {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                sound("Othello/Music/buttonPressed.wav");
+                soundClass.sound("Othello/Music/buttonPressed.wav");
                 delayClick();
                 resetGameBoard();
                 panelGameProper.setVisible(false);
@@ -1878,7 +1882,7 @@ public class GameProperPage {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                sound("Othello/Music/buttonPressed-Reversed.wav");
+                soundClass.sound("Othello/Music/buttonPressed-Reversed.wav");
                 delayClick();
                 panelWinner.setVisible(false);
                 resetGameBoard();
@@ -1970,19 +1974,6 @@ public class GameProperPage {
             throw new RuntimeException(ex);
         }
     }
-    public static void sound(String filepath) {
-        InputStream music;
 
-        try {
-            music = Files.newInputStream(Paths.get(filepath));
-            AudioStream audio = new AudioStream(music);
-            AudioPlayer.player.start(audio);
-
-
-        } catch (Exception a) {
-            System.out.println("Error in playing sound/music.");
-        }
-
-    }
 
 }
