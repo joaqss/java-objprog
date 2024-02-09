@@ -256,6 +256,7 @@ public class HTPPage {
 
             @Override
             public void mousePressed(MouseEvent e) {
+                delayClick();
                 panelHTPPage.setVisible(false);
                 homePage.panelLandingPage.setVisible(true);
 
@@ -287,5 +288,13 @@ public class HTPPage {
 
             }
         });
+    }
+
+    public void delayClick() {
+        try {
+            Thread.sleep(300);
+        } catch (InterruptedException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 }

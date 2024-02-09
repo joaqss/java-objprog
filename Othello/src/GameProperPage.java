@@ -1,17 +1,21 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class GameProperPage {
 
+    private HomePage homePage;
     JPanel panelGameProper = new JPanel();
-    JPanel panelWinner = new JPanel();
-    ImageIcon gameBoard, darkPeg, pegBleach, lightPeg, scrollImage, bigSignImage;
-    JLabel lbGameBoard, lbDarkPeg, lbPegBleach, lbLightPeg, lbScroll, lbScroll2, darkPegPlayer, lightPegPlayer, lbBigSignImage, winnerPlayer;
+    JLayeredPane panelWinner = new JLayeredPane();
+    ImageIcon gameBoard, darkPeg, pegBleach, lightPeg, scrollImage, bigSignImage, homeButton, resetButton;
+    JLabel lbGameBoard, lbDarkPeg, lbPegBleach, lbLightPeg, lbScroll, lbScroll2,
+            darkPegPlayer, lightPegPlayer, lbBigSignImage, winnerPlayer,
+            darkPegScore, lightPegScore, note;
     JButton[][] slot = new JButton[8][8];
+    MouseListener[][] mainML = new MouseListener[8][8];
     boolean player1Turn = true;
-    boolean[] isClicked = {false, false};
     boolean[] isValidToRemove = {false, false};
     Integer[][] gameBoardArray = {
             {0, 0, 0, 0, 0, 0, 0, 0},
@@ -27,7 +31,10 @@ public class GameProperPage {
     Integer y_value = 40;
     Integer moves = 0;
 
-    public GameProperPage() {
+    public GameProperPage(HomePage homePage) {
+
+        this.homePage = homePage;
+
         panelGameProper.setLayout(null);
         panelGameProper.setOpaque(false);
 
@@ -89,13 +96,25 @@ public class GameProperPage {
         lightPegPlayer.setBounds(1520, 420, 380, 60);
         lightPegPlayer.setVisible(false);
 
+        gameProper();
+
+        panelGameProper.add(lbDarkPeg);
+        panelGameProper.add(lbLightPeg);
+        panelGameProper.add(darkPegPlayer);
+        panelGameProper.add(lightPegPlayer);
+        panelGameProper.add(lbScroll);
+        panelGameProper.add(lbScroll2);
+        panelGameProper.add(lbGameBoard);
+
+    }
+    public void gameProper() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 slot[i][j] = new JButton();
                 slot[i][j].setBounds(x_value, y_value, 100, 100);
                 slot[i][j].setOpaque(false);
                 slot[i][j].setContentAreaFilled(false);
-                //slot[i][j].setBorderPainted(false);
+                slot[i][j].setBorderPainted(false);
 
                 if (gameBoardArray[i][j] == 1) {
                     slot[i][j].setIcon(darkPeg);
@@ -113,9 +132,15 @@ public class GameProperPage {
 
                 addAvailableSlots();
 
-                slot[i][j].addMouseListener(new MouseListener() {
+                mainML[i][j] = new MouseAdapter() {
                     @Override
-                    public void mouseClicked(MouseEvent e) {
+                    public void mouseEntered(MouseEvent e) {
+                        panelGameProper.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                    }
+
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                        panelGameProper.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
                     }
 
                     @Override
@@ -337,12 +362,10 @@ public class GameProperPage {
 
                             if (isValid) {
                                 isValidToRemove[0] = true; //for removing available slots
-                                isClicked[0] = true;
-                                System.out.println(isClicked[0]);
                                 slot[finalI][finalJ].setIcon(darkPeg);
                                 gameBoardArray[finalI][finalJ] = 1;
-                                slot[finalI][finalJ].removeMouseListener(this);
                                 System.out.println("\nPLAYER1: I clicked slot " + finalI + " and " + finalJ + "\n");
+                                slot[finalI][finalJ].removeMouseListener(this);
                                 removeAvailableSlots();
 
                                 int[] placeholder = {1, 1, 1, 1, 1, 1, 1, 1};
@@ -561,13 +584,6 @@ public class GameProperPage {
                                     }
                                 }
 
-                                // delay 500 milli
-                                try {
-                                    Thread.sleep(500);
-                                } catch (InterruptedException ex) {
-                                    throw new RuntimeException(ex);
-                                }
-
                                 printGameBoardToConsole();
                                 moves++;
                                 player1Turn = false;
@@ -578,9 +594,10 @@ public class GameProperPage {
                                 lightPegPlayer.setVisible(true);
                                 lbLightPeg.setVisible(true);
                                 addAvailableSlots();
-                            }
-                            else { // if not valid
-                                System.out.println("NO VALID MOVES");
+
+                                delayClick();
+
+
                             }
 
                         } else {
@@ -975,13 +992,6 @@ public class GameProperPage {
                                     }
                                 }
 
-                                // delay 500 milli
-                                try {
-                                    Thread.sleep(500);
-                                } catch (InterruptedException ex) {
-                                    throw new RuntimeException(ex);
-                                }
-
                                 printGameBoardToConsole();
                                 moves++;
                                 player1Turn = true;
@@ -992,33 +1002,16 @@ public class GameProperPage {
                                 lightPegPlayer.setVisible(false);
                                 lbLightPeg.setVisible(false);
                                 addAvailableSlots();
-                            } else { // if no valid
-                                System.out.println("NO VALID MOVES");
+                                delayClick();
 
                             }
                         }
-
                         checkWinner();
                         System.out.println("MOVES:" + moves);
-
                     }
+                };
 
-                    @Override
-                    public void mouseReleased(MouseEvent e) {
-
-                    }
-
-                    @Override
-                    public void mouseEntered(MouseEvent e) {
-
-                    }
-
-                    @Override
-                    public void mouseExited(MouseEvent e) {
-
-                    }
-                });
-
+                slot[i][j].addMouseListener(mainML[i][j]);
 
             }
 
@@ -1026,39 +1019,6 @@ public class GameProperPage {
             y_value += 114; // add y value
 
         }
-
-        panelGameProper.add(lbDarkPeg);
-        panelGameProper.add(lbLightPeg);
-        panelGameProper.add(lbGameBoard);
-        panelGameProper.add(darkPegPlayer);
-        panelGameProper.add(lightPegPlayer);
-        panelGameProper.add(lbScroll);
-        panelGameProper.add(lbScroll2);
-
-    }
-    public void panelWinner(String strWinnerPlayer) {
-
-        lbBigSignImage = new JLabel();
-        bigSignImage = new ImageIcon("Othello/Images/GameProperPage/bigSign.png");
-        Image dabBigSignImage = bigSignImage.getImage();
-        Image modifiedBigSignImage = dabBigSignImage.getScaledInstance(1100, 600, Image.SCALE_REPLICATE);
-        bigSignImage = new ImageIcon(modifiedBigSignImage);
-        lbBigSignImage.setIcon(bigSignImage);
-        lbBigSignImage.setBounds(0,0,1100,600);
-
-        winnerPlayer = new JLabel(strWinnerPlayer + " Wins!");
-        winnerPlayer.setFont(new Font("Dogica Pixel", Font.BOLD, 30));
-        winnerPlayer.setForeground(Color.BLACK);
-        winnerPlayer.setHorizontalAlignment(JLabel.CENTER);
-        winnerPlayer.setBounds(0, 70, 1100, 150);
-
-        panelWinner.add(winnerPlayer);
-        panelWinner.add(lbBigSignImage);
-
-        panelWinner.setOpaque(false);
-        panelWinner.setLayout(null);
-        panelWinner.setVisible(true);
-
     }
     public void printGameBoardToConsole() {
         System.out.println("Current Game Board:");
@@ -1082,7 +1042,9 @@ public class GameProperPage {
                     while (!isScannedPos[0]) {
                         // is from right
                         try {
-                            if (gameBoardArray[i][j] == 1 && gameBoardArray[i][j - placeholderPos[0]] == 2) {
+                            if (j-placeholderPos[0] == -1) {
+                                break;
+                            } else if (gameBoardArray[i][j] == 1 && gameBoardArray[i][j - placeholderPos[0]] == 2) {
                                 placeholderPos[0]++;
                             } else if (placeholderPos[0] == 1) {
                                 break;
@@ -1095,7 +1057,7 @@ public class GameProperPage {
                             }
 
                         } catch (Exception a) {
-                            System.out.println("Error in: is from right. Might be out of bounds.");
+                            System.out.println("Error in: is from right. Might be out of bounds. (IsScannedPos)");
                             break;
                         }
                     }
@@ -1104,19 +1066,16 @@ public class GameProperPage {
                         try {
                             if (gameBoardArray[i][j] == 1 && gameBoardArray[i][j + placeholderPos[1]] == 2) {
                                 placeholderPos[1]++;
-                                System.out.println("add " + placeholderPos[1]);
                             } else if (placeholderPos[1] == 1) {
                                 break;
-                            }
-
-                            if (gameBoardArray[i][j] == 1 && gameBoardArray[i][j + placeholderPos[1]] == 0) {
+                            }else if (gameBoardArray[i][j] == 1 && gameBoardArray[i][j + placeholderPos[1]] == 0) {
                                 slot[i][j + placeholderPos[1]].setIcon(pegBleach);
                                 isScannedPos[1] = true;
                             } else {
                                 break;
                             }
                         } catch (Exception a) {
-                            System.out.println("Error in: is from left. Might be out of bounds.");
+                            System.out.println("Error in: is from left. Might be out of bounds. (IsScannedPos)");
                             break;
                         }
 
@@ -1138,7 +1097,7 @@ public class GameProperPage {
                             }
 
                         } catch (Exception a) {
-                            System.out.println("Error in: is from above going down. Might be out of bounds.");
+                            System.out.println("Error in: is from above going down. Might be out of bounds. (IsScannedPos)");
                             break;
                         }
                     }
@@ -1157,7 +1116,7 @@ public class GameProperPage {
                             }
 
                         } catch (Exception a) {
-                            System.out.println("Error in: is from above going down. Might be out of bounds.");
+                            System.out.println("Error in: is from below going up. Might be out of bounds. (IsScannedPos)");
                             break;
                         }
                     }
@@ -1177,7 +1136,7 @@ public class GameProperPage {
                             }
 
                         } catch (Exception a) {
-                            System.out.println("Error in: is from point going down. Might be out of bounds.");
+                            System.out.println("Error in: is from point going down. Might be out of bounds. (IsScannedPos)");
                             break;
                         }
                     }
@@ -1196,7 +1155,7 @@ public class GameProperPage {
                             }
 
                         } catch (Exception a) {
-                            System.out.println("Error in: is from point left up Might be out of bounds.");
+                            System.out.println("Error in: is from point left up. Might be out of bounds. (IsScannedPos)");
                             break;
                         }
                     }
@@ -1216,7 +1175,7 @@ public class GameProperPage {
                             }
 
                         } catch (Exception a) {
-                            System.out.println("Error in: is from point going down. Might be out of bounds.");
+                            System.out.println("Error in: is from point going left down. Might be out of bounds. (IsScannedPos)");
                             break;
                         }
                     }
@@ -1235,7 +1194,7 @@ public class GameProperPage {
                             }
 
                         } catch (Exception a) {
-                            System.out.println("Error in: is from going right up. Might be out of bounds.");
+                            System.out.println("Error in: is from going right up. Might be out of bounds. (IsScannedPos)");
                             break;
                         }
                     }
@@ -1264,7 +1223,7 @@ public class GameProperPage {
                             }
 
                         } catch (Exception a) {
-                            System.out.println("Error in: is from right. Might be out of bounds.");
+                            System.out.println("Error in: is from right. Might be out of bounds. (IsScannedPos)");
                             break;
                         }
                     }
@@ -1273,19 +1232,16 @@ public class GameProperPage {
                         try {
                             if (gameBoardArray[i][j] == 2 && gameBoardArray[i][j + placeholderPos[1]] == 1) {
                                 placeholderPos[1]++;
-                                System.out.println("add " + placeholderPos[1]);
                             } else if (placeholderPos[1] == 1) {
                                 break;
-                            }
-
-                            if (gameBoardArray[i][j] == 2 && gameBoardArray[i][j + placeholderPos[1]] == 0) {
+                            } else if (gameBoardArray[i][j] == 2 && gameBoardArray[i][j + placeholderPos[1]] == 0) {
                                 slot[i][j + placeholderPos[1]].setIcon(pegBleach);
                                 isScannedPos[1] = true;
                             } else {
                                 break;
                             }
                         } catch (Exception a) {
-                            System.out.println("Error in: is from left. Might be out of bounds.");
+                            System.out.println("Error in: is from left. Might be out of bounds. (IsScannedPos)");
                             break;
                         }
 
@@ -1307,7 +1263,7 @@ public class GameProperPage {
                             }
 
                         } catch (Exception a) {
-                            System.out.println("Error in: is from above going down. Might be out of bounds.");
+                            System.out.println("Error in: is from above going down. Might be out of bounds. (IsScannedPos)");
                             break;
                         }
                     }
@@ -1326,7 +1282,7 @@ public class GameProperPage {
                             }
 
                         } catch (Exception a) {
-                            System.out.println("Error in: is from above going down. Might be out of bounds.");
+                            System.out.println("Error in: is from above going down. Might be out of bounds. (IsScannedPos)");
                             break;
                         }
                     }
@@ -1346,7 +1302,7 @@ public class GameProperPage {
                             }
 
                         } catch (Exception a) {
-                            System.out.println("Error in: is from point going down. Might be out of bounds.");
+                            System.out.println("Error in: is from point going down. Might be out of bounds. (IsScannedPos)");
                             break;
                         }
                     }
@@ -1365,7 +1321,7 @@ public class GameProperPage {
                             }
 
                         } catch (Exception a) {
-                            System.out.println("Error in: is from point left up Might be out of bounds.");
+                            System.out.println("Error in: is from point left up Might be out of bounds. (IsScannedPos)");
                             break;
                         }
                     }
@@ -1378,14 +1334,13 @@ public class GameProperPage {
                                 break;
                             } else if (gameBoardArray[i + placeholderPos[6]][j - placeholderPos[6]] == 0) {
                                 slot[i + placeholderPos[6]][j - placeholderPos[6]].setIcon(pegBleach);
-
                                 isScannedPos[6] = true;
                             } else {
                                 break;
                             }
 
                         } catch (Exception a) {
-                            System.out.println("Error in: is from point going down. Might be out of bounds.");
+                            System.out.println("Error in: is from point going down. Might be out of bounds. (IsScannedPos)");
                             break;
                         }
                     }
@@ -1404,7 +1359,7 @@ public class GameProperPage {
                             }
 
                         } catch (Exception a) {
-                            System.out.println("Error in: is from going right up. Might be out of bounds.");
+                            System.out.println("Error in: is from going right up. Might be out of bounds. (IsScannedPos)");
                             break;
                         }
                     }
@@ -1448,7 +1403,6 @@ public class GameProperPage {
                         try {
                             if (gameBoardArray[i][j] == 1 && gameBoardArray[i][j + placeholderPos[1]] == 2) {
                                 placeholderPos[1]++;
-                                System.out.println("add " + placeholderPos[1]);
                             } else if (placeholderPos[1] == 1) {
                                 break;
                             }
@@ -1618,7 +1572,6 @@ public class GameProperPage {
                         try {
                             if (gameBoardArray[i][j] == 2 && gameBoardArray[i][j + placeholderPos[1]] == 1) {
                                 placeholderPos[1]++;
-                                System.out.println("add " + placeholderPos[1]);
                             } else if (placeholderPos[1] == 1) {
                                 break;
                             }
@@ -1760,7 +1713,8 @@ public class GameProperPage {
         }
     }
     public void checkWinner() {
-        if (moves == 3 ) { // not including the first 4
+        delayClick();
+        if (moves == 10) { // not including the first 4
             lbScroll.setVisible(false);
             lbScroll2.setVisible(false);
             darkPegPlayer.setVisible(false);
@@ -1775,19 +1729,236 @@ public class GameProperPage {
                     } else if (integer == 2) {
                         countGBArray[1]++;
                     }
+
                 }
             }
+
             if (countGBArray[0] > countGBArray[1]) {
-                panelWinner(String.valueOf(darkPegPlayer.getText()));
-                JOptionPane.showMessageDialog(null, "PLAYER 1 Wins!");
+                panelWinner(darkPegPlayer.getText() + " Wins!", darkPegPlayer.getText() + ": " + countGBArray[0],
+                        lightPegPlayer.getText() + ": " + countGBArray[1]);
             } else if (countGBArray[0] < countGBArray[1]) {
-                panelWinner(String.valueOf(lightPegPlayer.getText()));
-                JOptionPane.showMessageDialog(null, "PLAYER 2 Wins!");
+                panelWinner(lightPegPlayer.getText() + " Wins!", darkPegPlayer.getText() + ": " + countGBArray[0],
+                        lightPegPlayer.getText() + ": " + countGBArray[1]);
             } else {
-                panelWinner("It's a tie!");
-                JOptionPane.showMessageDialog(null, "Tie!");
+                panelWinner("It's a tie!", darkPegPlayer.getText() + ": " + countGBArray[0],
+                        lightPegPlayer.getText() + ": " + countGBArray[1]);
             }
 
+        }
+    }
+    public void panelWinner(String strWinnerPlayer, String strDarkPegScore, String strLightPegScore) {
+        JLabel lbHomeButton, lbResetButton;
+
+        lbBigSignImage = new JLabel();
+        bigSignImage = new ImageIcon("Othello/Images/GameProperPage/bigSign.png");
+        Image dabBigSignImage = bigSignImage.getImage();
+        Image modifiedBigSignImage = dabBigSignImage.getScaledInstance(1100, 600, Image.SCALE_REPLICATE);
+        bigSignImage = new ImageIcon(modifiedBigSignImage);
+        lbBigSignImage.setIcon(bigSignImage);
+        lbBigSignImage.setBounds(0,180,1100,600);
+
+        lbHomeButton = new JLabel();
+        homeButton = new ImageIcon("Othello/Images/GameProperPage/homeButton.png");
+        Image dabHomeButton = homeButton.getImage();
+        Image modifiedHomeButton = dabHomeButton.getScaledInstance(220, 80, Image.SCALE_REPLICATE);
+        homeButton = new ImageIcon(modifiedHomeButton);
+        lbHomeButton.setIcon(homeButton);
+        lbHomeButton.setBounds(330,610,220,90);
+
+        lbResetButton = new JLabel();
+        resetButton = new ImageIcon("Othello/Images/GameProperPage/resetButton.png");
+        Image dabResetButton = resetButton.getImage();
+        Image modifiedResetButton = dabResetButton.getScaledInstance(220, 80, Image.SCALE_REPLICATE);
+        resetButton = new ImageIcon(modifiedResetButton);
+        lbResetButton.setIcon(resetButton);
+        lbResetButton.setBounds(580,610,220,90);
+
+        winnerPlayer = new JLabel(strWinnerPlayer);
+        winnerPlayer.setFont(new Font("Dogica Pixel", Font.BOLD, 40));
+        winnerPlayer.setForeground(Color.BLACK);
+        winnerPlayer.setHorizontalAlignment(JLabel.CENTER);
+        winnerPlayer.setBounds(0, 250, 1100, 150);
+
+        darkPegScore = new JLabel(strDarkPegScore);
+        darkPegScore.setFont(new Font("Dogica Pixel", Font.BOLD, 30));
+        darkPegScore.setForeground(Color.BLACK);
+        darkPegScore.setHorizontalAlignment(JLabel.CENTER);
+        darkPegScore.setBounds(0, 330, 1100, 150);
+
+        lightPegScore = new JLabel(strLightPegScore);
+        lightPegScore.setFont(new Font("Dogica Pixel", Font.BOLD, 30));
+        lightPegScore.setForeground(Color.BLACK);
+        lightPegScore.setHorizontalAlignment(JLabel.CENTER);
+        lightPegScore.setBounds(0, 400, 1100, 150);
+
+        note = new JLabel("<html> <center> <b> Note: </b> Hitting \"home\" will redirect you to the home <br> <br> page. " +
+                "Hitting \"reset\" will reset the board and score. </center> </html");
+        note.setFont(new Font("Dogica Pixel", Font.PLAIN, 18));
+        note.setForeground(Color.BLACK);
+        note.setHorizontalAlignment(JLabel.CENTER);
+        note.setBounds(100, 500, 900, 100);
+
+        panelWinner.add(winnerPlayer);
+        panelWinner.add(lbHomeButton);
+        panelWinner.add(lbResetButton);
+        panelWinner.add(darkPegScore);
+        panelWinner.add(lightPegScore);
+        panelWinner.add(note);
+        panelWinner.add(lbBigSignImage);
+
+        panelWinner.addMouseListener(new MouseAdapter() { // to make sure gameProperPanel's components aren't accessible
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+            }
+        });
+
+        panelWinner.setOpaque(false);
+        panelWinner.setLayout(null);
+        panelWinner.setVisible(true);
+
+        lbHomeButton.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+                delayClick();
+                resetGameBoard();
+                panelGameProper.setVisible(false);
+                panelWinner.setVisible(false);
+                homePage.panelLandingPage.setVisible(true);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                homeButton = new ImageIcon("Othello/Images/GameProperPage/homeButton-Selected.png");
+                Image dabHomeButton = homeButton.getImage();
+                Image modifiedHomeButton = dabHomeButton.getScaledInstance(230, 90, Image.SCALE_REPLICATE);
+                homeButton = new ImageIcon(modifiedHomeButton);
+                lbHomeButton.setIcon(homeButton);
+                lbHomeButton.setBounds(325,610,230,90);
+                panelWinner.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+                System.out.println("entered");
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                homeButton = new ImageIcon("Othello/Images/GameProperPage/homeButton.png");
+                Image dabHomeButton = homeButton.getImage();
+                Image modifiedHomeButton = dabHomeButton.getScaledInstance(220, 80, Image.SCALE_REPLICATE);
+                homeButton = new ImageIcon(modifiedHomeButton);
+                lbHomeButton.setIcon(homeButton);
+                lbHomeButton.setBounds(330,610,220,90);
+                panelWinner.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+                System.out.println("exited");
+            }
+        });
+        lbResetButton.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                delayClick();
+                panelWinner.setVisible(false);
+                resetGameBoard();
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                resetButton = new ImageIcon("Othello/Images/GameProperPage/resetButton-Selected.png");
+                Image dabResetButton = resetButton.getImage();
+                Image modifiedResetButton = dabResetButton.getScaledInstance(230, 90, Image.SCALE_REPLICATE);
+                resetButton = new ImageIcon(modifiedResetButton);
+                lbResetButton.setIcon(resetButton);
+                lbResetButton.setBounds(575,610,230,90);
+                panelWinner.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                resetButton = new ImageIcon("Othello/Images/GameProperPage/resetButton.png");
+                Image dabResetButton = resetButton.getImage();
+                Image modifiedResetButton = dabResetButton.getScaledInstance(220, 80, Image.SCALE_REPLICATE);
+                resetButton = new ImageIcon(modifiedResetButton);
+                lbResetButton.setIcon(resetButton);
+                lbResetButton.setBounds(580,610,220,90);
+                panelWinner.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+
+            }
+        });
+
+    }
+    public void resetGameBoard() {
+
+        player1Turn = true;
+        isValidToRemove = new boolean[]{false, false};
+        gameBoardArray = new Integer[][]{
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 2, 1, 0, 0, 0},
+                {0, 0, 0, 1, 2, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0, 0, 0, 0}};
+        countGBArray = new Integer[]{0, 0}; // 1 and 2
+        moves = 0;
+        lbScroll.setVisible(true);
+        darkPegPlayer.setVisible(true);
+        lbDarkPeg.setVisible(true);
+        lbScroll2.setVisible(false);
+        lightPegPlayer.setVisible(false);
+        lbLightPeg.setVisible(false);
+
+        System.out.println("GameBoard Reset!");
+        printGameBoardToConsole();
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+
+                // remove previous mouse listeners, to be replaced
+                for (MouseListener listener : slot[i][j].getMouseListeners()) {
+                    slot[i][j].removeMouseListener(listener);
+                }
+
+                // replace with new mouse listeners
+                slot[i][j].addMouseListener(mainML[i][j]);
+                slot[i][j].setIcon(null);
+
+                if (gameBoardArray[i][j] == 1) {
+                    slot[i][j].setIcon(darkPeg);
+                } else if (gameBoardArray[i][j] == 2) {
+                    slot[i][j].setIcon(lightPeg);
+                }
+            }
+
+        }
+
+        panelGameProper.repaint();
+        addAvailableSlots();
+    }
+    public void delayClick() {
+        try {
+            Thread.sleep(300);
+        } catch (InterruptedException ex) {
+            throw new RuntimeException(ex);
         }
     }
 

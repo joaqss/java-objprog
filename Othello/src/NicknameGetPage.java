@@ -24,7 +24,7 @@ public class NicknameGetPage {
         player1Title.setFont(new Font("Dogica Pixel", Font.BOLD, 20));
         player1Title.setBounds(210,80,400,100);
 
-        player1Input = new JTextField();
+        player1Input = new JTextField("Player1");
         player1Input.setFont(new Font("Dogica Pixel", Font.PLAIN, 20));
         player1Input.setBounds(160,150,400,50);
         player1Input.setHorizontalAlignment(JTextField.CENTER);
@@ -33,7 +33,7 @@ public class NicknameGetPage {
         player2Title.setFont(new Font("Dogica Pixel", Font.BOLD, 20));
         player2Title.setBounds(210,200,400,100);
 
-        player2Input = new JTextField();
+        player2Input = new JTextField("Player2");
         player2Input.setFont(new Font("Dogica Pixel", Font.PLAIN, 20));
         player2Input.setBounds(160,270,400,50);
         player2Input.setHorizontalAlignment(JTextField.CENTER);

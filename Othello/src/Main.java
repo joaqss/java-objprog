@@ -1,11 +1,13 @@
 
+import com.sun.org.apache.bcel.internal.generic.IADD;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Objects;
 
 public class Main {
-
     JFrame mainFrame = new JFrame("Othello");
     JFrame nicknameFrame = new JFrame("Othello: Set Nickname");
     JFrame winnerFrame = new JFrame("Winner!");
@@ -14,7 +16,7 @@ public class Main {
     NicknameGetPage mainNicknameGetPage;
     HomePage mainHomePage;
     HTPPage mainHTPPage;
-    PegSelectPage mainPegSelectPage;
+    //PegSelectPage mainPegSelectPage;
     GameProperPage mainGameProperPage;
 
     public Main() {
@@ -39,22 +41,24 @@ public class Main {
         mainNicknameGetPage.lbGoButton.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                nicknameFrame.dispose();
-                mainFrame.setVisible(true);
-                mainNicknameGetPage.player1Nickname = mainNicknameGetPage.player1Input.getText();
-                mainNicknameGetPage.player2Nickname = mainNicknameGetPage.player2Input.getText();
-                mainGameProperPage.darkPegPlayer.setText(mainNicknameGetPage.player1Nickname);
-                mainGameProperPage.lightPegPlayer.setText(mainNicknameGetPage.player2Nickname);
             }
 
             @Override
             public void mousePressed(MouseEvent e) {
-                nicknameFrame.dispose();
-                mainFrame.setVisible(true);
                 mainNicknameGetPage.player1Nickname = mainNicknameGetPage.player1Input.getText();
                 mainNicknameGetPage.player2Nickname = mainNicknameGetPage.player2Input.getText();
                 mainGameProperPage.darkPegPlayer.setText(mainNicknameGetPage.player1Nickname);
                 mainGameProperPage.lightPegPlayer.setText(mainNicknameGetPage.player2Nickname);
+
+                if (!Objects.equals(mainNicknameGetPage.player1Nickname, "")
+                        && !Objects.equals(mainNicknameGetPage.player2Nickname, "")) {
+                    nicknameFrame.dispose();
+                    mainFrame.setVisible(true);
+                } else {
+                    ImageIcon optionPaneIcon = new ImageIcon("Othello/Images/NicknameGetPage/optionPaneIcon.png");
+                    JOptionPane.showMessageDialog(null, "Please fill out all text fields",
+                            "Missing Input", JOptionPane.ERROR_MESSAGE, optionPaneIcon);
+                }
             }
 
             @Override
@@ -103,19 +107,19 @@ public class Main {
         mainHTPPage.panelHTPPage.setBounds(200,0,1600,1080);
         mainHTPPage.panelHTPPage.setVisible(false);
 
-        mainGameProperPage = new GameProperPage();
+        mainGameProperPage = new GameProperPage(mainHomePage);
         mainFrame.add(mainGameProperPage.panelWinner);
         mainFrame.add(mainGameProperPage.panelGameProper);
         mainGameProperPage.panelGameProper.setBounds(0,0,1920,1080);
         mainGameProperPage.panelGameProper.setVisible(false);
-        mainGameProperPage.panelWinner.setBounds(430,180,1100,600);
+        mainGameProperPage.panelWinner.setBounds(430,0,1100,1080);
         mainGameProperPage.panelWinner.setVisible(false);
         mainGameProperPage.panelWinner.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-        mainPegSelectPage = new PegSelectPage(mainHomePage, mainGameProperPage);
+        /*mainPegSelectPage = new PegSelectPage(mainHomePage, mainGameProperPage);
         mainFrame.add(mainPegSelectPage.panelChoosePick);
         mainPegSelectPage.panelChoosePick.setBounds(0,0,1920,1080);
-        mainPegSelectPage.panelChoosePick.setVisible(false);
+        mainPegSelectPage.panelChoosePick.setVisible(false);*/
 
 
         mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -126,12 +130,14 @@ public class Main {
         mainHomePage.lbStartButton.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                delayClick();
                 mainHomePage.panelLandingPage.setVisible(false);
                 mainGameProperPage.panelGameProper.setVisible(true);
             }
 
             @Override
             public void mousePressed(MouseEvent e) {
+                delayClick();
                 mainHomePage.panelLandingPage.setVisible(false);
                 mainGameProperPage.panelGameProper.setVisible(true);
             }
@@ -205,18 +211,14 @@ public class Main {
         mainHomePage.lbExitButton.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?",
-                        "Exit Game?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-
-                if (option == JOptionPane.YES_OPTION) {
-                    System.exit(0);
-                }
             }
 
             @Override
             public void mousePressed(MouseEvent e) {
+                ImageIcon optionPaneIcon = new ImageIcon("Othello/Images/optionPaneIcon.png");
                 int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?",
-                        "Exit Game?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        "Exit Game?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, optionPaneIcon);
+
                 if (option == JOptionPane.YES_OPTION) {
                     System.exit(0);
                 }
@@ -248,6 +250,14 @@ public class Main {
         });
     }
 
+
+    public void delayClick() {
+        try {
+            Thread.sleep(300);
+        } catch (InterruptedException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
 
     public static void main(String[] args) {
         new Main();
