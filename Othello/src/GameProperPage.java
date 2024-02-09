@@ -1,8 +1,16 @@
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class GameProperPage {
 
@@ -1714,7 +1722,7 @@ public class GameProperPage {
     }
     public void checkWinner() {
         delayClick();
-        if (moves == 10) { // not including the first 4
+        if (moves == 2) { // not including the first 4
             lbScroll.setVisible(false);
             lbScroll2.setVisible(false);
             darkPegPlayer.setVisible(false);
@@ -1825,7 +1833,7 @@ public class GameProperPage {
 
             @Override
             public void mousePressed(MouseEvent e) {
-
+                sound("Othello/Music/buttonPressed.wav");
                 delayClick();
                 resetGameBoard();
                 panelGameProper.setVisible(false);
@@ -1870,6 +1878,7 @@ public class GameProperPage {
 
             @Override
             public void mousePressed(MouseEvent e) {
+                sound("Othello/Music/buttonPressed-Reversed.wav");
                 delayClick();
                 panelWinner.setVisible(false);
                 resetGameBoard();
@@ -1956,10 +1965,24 @@ public class GameProperPage {
     }
     public void delayClick() {
         try {
-            Thread.sleep(300);
+            Thread.sleep(200);
         } catch (InterruptedException ex) {
             throw new RuntimeException(ex);
         }
+    }
+    public static void sound(String filepath) {
+        InputStream music;
+
+        try {
+            music = Files.newInputStream(Paths.get(filepath));
+            AudioStream audio = new AudioStream(music);
+            AudioPlayer.player.start(audio);
+
+
+        } catch (Exception a) {
+            System.out.println("Error in playing sound/music.");
+        }
+
     }
 
 }

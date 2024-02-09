@@ -1,7 +1,13 @@
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class HTPPage {
 
@@ -140,6 +146,7 @@ public class HTPPage {
 
             @Override
             public void mousePressed(MouseEvent e) {
+                sound("Othello/Music/next_backButton.wav");
                 if (htpTitle.isVisible() && description1.isVisible()) {
                     htpTitle.setVisible(false);
                     description1.setVisible(false);
@@ -198,6 +205,7 @@ public class HTPPage {
 
             @Override
             public void mousePressed(MouseEvent e) {
+                sound("Othello/Music/next_backButton.wav");
                 if (rulesTitle.isVisible() && description2.isVisible()) {
                     rulesTitle.setVisible(false);
                     description2.setVisible(false);
@@ -256,6 +264,7 @@ public class HTPPage {
 
             @Override
             public void mousePressed(MouseEvent e) {
+                sound("Othello/Music/buttonPressed-Reversed.wav");
                 delayClick();
                 panelHTPPage.setVisible(false);
                 homePage.panelLandingPage.setVisible(true);
@@ -292,9 +301,23 @@ public class HTPPage {
 
     public void delayClick() {
         try {
-            Thread.sleep(300);
+            Thread.sleep(200);
         } catch (InterruptedException ex) {
             throw new RuntimeException(ex);
         }
+    }
+    public static void sound(String filepath) {
+        InputStream music;
+
+        try {
+            music = Files.newInputStream(Paths.get(filepath));
+            AudioStream audio = new AudioStream(music);
+            AudioPlayer.player.start(audio);
+
+
+        } catch (Exception a) {
+            System.out.println("Error in playing sound/music.");
+        }
+
     }
 }

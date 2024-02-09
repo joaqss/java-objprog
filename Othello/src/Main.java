@@ -1,10 +1,17 @@
 
-import com.sun.org.apache.bcel.internal.generic.IADD;
+import sun.audio.*;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Objects;
 
 public class Main {
@@ -18,8 +25,12 @@ public class Main {
     HTPPage mainHTPPage;
     //PegSelectPage mainPegSelectPage;
     GameProperPage mainGameProperPage;
+    SoundClass mainSoundClass;
 
     public Main() {
+
+        mainSoundClass = new SoundClass();
+        mainFrame.addKeyListener(mainSoundClass.volumeBindListener);
 
         // logo
         gameLogo = new ImageIcon("Othello/Images/mainlogo.png");
@@ -45,6 +56,8 @@ public class Main {
 
             @Override
             public void mousePressed(MouseEvent e) {
+
+                mainSoundClass.sound("Othello/Music/buttonPressed.wav");
                 mainNicknameGetPage.player1Nickname = mainNicknameGetPage.player1Input.getText();
                 mainNicknameGetPage.player2Nickname = mainNicknameGetPage.player2Input.getText();
                 mainGameProperPage.darkPegPlayer.setText(mainNicknameGetPage.player1Nickname);
@@ -54,6 +67,7 @@ public class Main {
                         && !Objects.equals(mainNicknameGetPage.player2Nickname, "")) {
                     nicknameFrame.dispose();
                     mainFrame.setVisible(true);
+                    mainSoundClass.bgMusic("Othello/Music/bgMusic/bgMusic-1.wav");
                 } else {
                     ImageIcon optionPaneIcon = new ImageIcon("Othello/Images/NicknameGetPage/optionPaneIcon.png");
                     JOptionPane.showMessageDialog(null, "Please fill out all text fields",
@@ -130,13 +144,11 @@ public class Main {
         mainHomePage.lbStartButton.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                delayClick();
-                mainHomePage.panelLandingPage.setVisible(false);
-                mainGameProperPage.panelGameProper.setVisible(true);
             }
 
             @Override
             public void mousePressed(MouseEvent e) {
+                mainSoundClass.sound("Othello/Music/buttonPressed.wav");
                 delayClick();
                 mainHomePage.panelLandingPage.setVisible(false);
                 mainGameProperPage.panelGameProper.setVisible(true);
@@ -171,12 +183,12 @@ public class Main {
         mainHomePage.lbHTPButton.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                mainHomePage.panelLandingPage.setVisible(false);
-                mainHTPPage.panelHTPPage.setVisible(true);
+
             }
 
             @Override
             public void mousePressed(MouseEvent e) {
+                mainSoundClass.sound("Othello/Music/buttonPressed.wav");
                 mainHomePage.panelLandingPage.setVisible(false);
                 mainHTPPage.panelHTPPage.setVisible(true);
             }
@@ -215,6 +227,7 @@ public class Main {
 
             @Override
             public void mousePressed(MouseEvent e) {
+                mainSoundClass.sound("Othello/Music/buttonPressed.wav");
                 ImageIcon optionPaneIcon = new ImageIcon("Othello/Images/optionPaneIcon.png");
                 int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?",
                         "Exit Game?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, optionPaneIcon);
