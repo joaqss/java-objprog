@@ -1,29 +1,18 @@
 
-import sun.audio.*;
-
-import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Objects;
 
 public class Main {
     JFrame mainFrame = new JFrame("Othello");
     JFrame nicknameFrame = new JFrame("Othello: Set Nickname");
-    JFrame winnerFrame = new JFrame("Winner!");
-    ImageIcon gameLogo, mainBg, nicknameBg;
+    ImageIcon gameLogo, mainBg;
     JLabel lbMainBg;
     NicknameGetPage mainNicknameGetPage;
     HomePage mainHomePage;
     HTPPage mainHTPPage;
-    //PegSelectPage mainPegSelectPage;
     GameProperPage mainGameProperPage;
     SoundClass mainSoundClass;
 
@@ -67,7 +56,6 @@ public class Main {
                         && !Objects.equals(mainNicknameGetPage.player2Nickname, "")) {
                     nicknameFrame.dispose();
                     mainFrame.setVisible(true);
-                    mainSoundClass.bgMusic("Othello/Music/bgMusic/bgMusic-1.wav");
                 } else {
                     ImageIcon optionPaneIcon = new ImageIcon("Othello/Images/NicknameGetPage/optionPaneIcon.png");
                     JOptionPane.showMessageDialog(null, "Please fill out all text fields",
@@ -130,12 +118,6 @@ public class Main {
         mainGameProperPage.panelWinner.setVisible(false);
         mainGameProperPage.panelWinner.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-        /*mainPegSelectPage = new PegSelectPage(mainHomePage, mainGameProperPage);
-        mainFrame.add(mainPegSelectPage.panelChoosePick);
-        mainPegSelectPage.panelChoosePick.setBounds(0,0,1920,1080);
-        mainPegSelectPage.panelChoosePick.setVisible(false);*/
-
-
         mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         mainFrame.setLocationRelativeTo(null); // center the window
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -144,14 +126,21 @@ public class Main {
         mainHomePage.lbStartButton.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
+
+
+
             }
 
             @Override
             public void mousePressed(MouseEvent e) {
+                JOptionPane.showMessageDialog(null,"When encountering no valid slots, \n" +
+                        "click any slot and hit 'P' to pass your draw", "Tip", JOptionPane.INFORMATION_MESSAGE);
                 mainSoundClass.sound("Othello/Music/buttonPressed.wav");
                 delayClick();
                 mainHomePage.panelLandingPage.setVisible(false);
                 mainGameProperPage.panelGameProper.setVisible(true);
+                mainGameProperPage.panelGameProper.setFocusable(true); // remove keylisteners outside of this panel
+                mainGameProperPage.panelGameProper.requestFocusInWindow();
             }
 
             @Override
@@ -261,6 +250,8 @@ public class Main {
                 mainHomePage.panelLandingPage.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
             }
         });
+
+
     }
 
 

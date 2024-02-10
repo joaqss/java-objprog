@@ -40,7 +40,6 @@ public class HomePage {
         lbExitButton = new JLabel(exitButton);
         lbExitButton.setBounds(400, 760, 250, 80);
 
-        panelLandingPage.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         panelLandingPage.setOpaque(false);
         panelLandingPage.add(lbMainTitle);
         panelLandingPage.add(lbStartButton);

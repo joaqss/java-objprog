@@ -1,16 +1,7 @@
-import sun.audio.AudioPlayer;
-import sun.audio.AudioStream;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.awt.event.*;
 
 public class GameProperPage {
 
@@ -44,6 +35,14 @@ public class GameProperPage {
 
         this.homePage = homePage;
         soundClass = new SoundClass();
+
+        homePage.lbStartButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                int newGameBoardMusic = soundClass.randomMusicGen() + 1;
+                soundClass.bgMusic("Othello/Music/bgMusic/bgMusic-Puzzle-" + newGameBoardMusic + ".wav");
+            }
+        });
 
         panelGameProper.setLayout(null);
         panelGameProper.setOpaque(false);
@@ -107,6 +106,7 @@ public class GameProperPage {
         lightPegPlayer.setVisible(false);
 
         gameProper();
+        keyListenerP();
 
         panelGameProper.add(lbDarkPeg);
         panelGameProper.add(lbLightPeg);
@@ -118,6 +118,7 @@ public class GameProperPage {
 
     }
     public void gameProper() {
+
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 slot[i][j] = new JButton();
@@ -142,6 +143,14 @@ public class GameProperPage {
 
                 addAvailableSlots();
 
+                slot[i][j].addFocusListener(new FocusAdapter() {
+                    @Override
+                    public void focusLost(FocusEvent e) {
+                        panelGameProper.requestFocus();
+
+                    }
+                });
+
                 mainML[i][j] = new MouseAdapter() {
                     @Override
                     public void mouseEntered(MouseEvent e) {
@@ -155,6 +164,7 @@ public class GameProperPage {
 
                     @Override
                     public void mousePressed(MouseEvent e) {
+
 
                         if (player1Turn) {
                             // to check if chosen slot is valid
@@ -609,6 +619,8 @@ public class GameProperPage {
                                 delayClick();
 
 
+                            } else {
+
                             }
 
                         } else {
@@ -1016,6 +1028,7 @@ public class GameProperPage {
                                 addAvailableSlots();
                                 delayClick();
 
+
                             }
                         }
                         checkWinner();
@@ -1031,6 +1044,45 @@ public class GameProperPage {
             y_value += 114; // add y value
 
         }
+    }
+    public void keyListenerP() {
+        panelGameProper.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_P) {
+                    System.out.println("Pressed P");
+
+                    if (player1Turn) {
+                        removeAvailableSlots();
+                        printGameBoardToConsole();
+                        player1Turn = false;
+                        lbScroll.setVisible(false);
+                        darkPegPlayer.setVisible(false);
+                        lbDarkPeg.setVisible(false);
+                        lbScroll2.setVisible(true);
+                        lightPegPlayer.setVisible(true);
+                        lbLightPeg.setVisible(true);
+                        addAvailableSlots();
+
+                        delayClick();
+                    } else {
+                        removeAvailableSlots();
+                        printGameBoardToConsole();
+                        player1Turn = true;
+                        lbScroll.setVisible(true);
+                        darkPegPlayer.setVisible(true);
+                        lbDarkPeg.setVisible(true);
+                        lbScroll2.setVisible(false);
+                        lightPegPlayer.setVisible(false);
+                        lbLightPeg.setVisible(false);
+                        addAvailableSlots();
+
+                        delayClick();
+                    }
+                }
+            }
+
+        });
     }
     public void printGameBoardToConsole() {
         System.out.println("Current Game Board:");
@@ -1050,6 +1102,7 @@ public class GameProperPage {
 
                     int[] placeholderPos = {1, 1, 1, 1, 1, 1, 1, 1};
                     boolean[] isScannedPos = {false, false, false, false, false, false, false, false};
+                    boolean isValid = false;
 
                     while (!isScannedPos[0]) {
                         // is from right
@@ -1063,7 +1116,9 @@ public class GameProperPage {
 
                             } else if (gameBoardArray[i][j] == 1 && gameBoardArray[i][j - placeholderPos[0]] == 0) {
                                 slot[i][j - placeholderPos[0]].setIcon(pegBleach);
+                                isValid = true;
                                 isScannedPos[0] = true;
+                                System.out.println(isValid + " -- Inside the scanned");
                             } else {
                                 break;
                             }
@@ -1082,6 +1137,7 @@ public class GameProperPage {
                                 break;
                             }else if (gameBoardArray[i][j] == 1 && gameBoardArray[i][j + placeholderPos[1]] == 0) {
                                 slot[i][j + placeholderPos[1]].setIcon(pegBleach);
+                                isValid = true;
                                 isScannedPos[1] = true;
                             } else {
                                 break;
@@ -1103,6 +1159,7 @@ public class GameProperPage {
 
                             } else if (gameBoardArray[i + placeholderPos[2]][j] == 0) {
                                 slot[i + placeholderPos[2]][j].setIcon(pegBleach);
+                                isValid = true;
                                 isScannedPos[2] = true;
                             } else {
                                 break;
@@ -1122,6 +1179,7 @@ public class GameProperPage {
                                 break;
                             } else if (gameBoardArray[i - placeholderPos[3]][j] == 0) {
                                 slot[i - placeholderPos[3]][j].setIcon(pegBleach);
+                                isValid = true;
                                 isScannedPos[3] = true;
                             } else {
                                 break;
@@ -1141,7 +1199,7 @@ public class GameProperPage {
                                 break;
                             } else if (gameBoardArray[i + placeholderPos[4]][j + placeholderPos[4]] == 0) {
                                 slot[i + placeholderPos[4]][j + placeholderPos[4]].setIcon(pegBleach);
-
+                                isValid = true;
                                 isScannedPos[4] = true;
                             } else {
                                 break;
@@ -1161,6 +1219,7 @@ public class GameProperPage {
                                 break;
                             } else if (gameBoardArray[i - placeholderPos[5]][j - placeholderPos[5]] == 0) {
                                 slot[i - placeholderPos[5]][j - placeholderPos[5]].setIcon(pegBleach);
+                                isValid = true;
                                 isScannedPos[5] = true;
                             } else {
                                 break;
@@ -1180,7 +1239,7 @@ public class GameProperPage {
                                 break;
                             } else if (gameBoardArray[i + placeholderPos[6]][j - placeholderPos[6]] == 0) {
                                 slot[i + placeholderPos[6]][j - placeholderPos[6]].setIcon(pegBleach);
-
+                                isValid = true;
                                 isScannedPos[6] = true;
                             } else {
                                 break;
@@ -1200,6 +1259,7 @@ public class GameProperPage {
                                 break;
                             } else if (gameBoardArray[i - placeholderPos[7]][j + placeholderPos[7]] == 0) {
                                 slot[i - placeholderPos[7]][j + placeholderPos[7]].setIcon(pegBleach);
+                                isValid = true;
                                 isScannedPos[7] = true;
                             } else {
                                 break;
@@ -1210,6 +1270,8 @@ public class GameProperPage {
                             break;
                         }
                     }
+
+
                 }
             }
         } else {
@@ -1218,6 +1280,7 @@ public class GameProperPage {
 
                     int[] placeholderPos = {1, 1, 1, 1, 1, 1, 1, 1};
                     boolean[] isScannedPos = {false, false, false, false, false, false, false, false};
+                    boolean isValid = false;
 
                     while (!isScannedPos[0]) {
                         // is from right
@@ -1230,6 +1293,7 @@ public class GameProperPage {
                             } else if (gameBoardArray[i][j] == 2 && gameBoardArray[i][j - placeholderPos[0]] == 0) {
                                 slot[i][j - placeholderPos[0]].setIcon(pegBleach);
                                 isScannedPos[0] = true;
+                                isValid = true;
                             } else {
                                 break;
                             }
@@ -1249,6 +1313,7 @@ public class GameProperPage {
                             } else if (gameBoardArray[i][j] == 2 && gameBoardArray[i][j + placeholderPos[1]] == 0) {
                                 slot[i][j + placeholderPos[1]].setIcon(pegBleach);
                                 isScannedPos[1] = true;
+                                isValid = true;
                             } else {
                                 break;
                             }
@@ -1270,6 +1335,7 @@ public class GameProperPage {
                             } else if (gameBoardArray[i + placeholderPos[2]][j] == 0) {
                                 slot[i + placeholderPos[2]][j].setIcon(pegBleach);
                                 isScannedPos[2] = true;
+                                isValid = true;
                             } else {
                                 break;
                             }
@@ -1289,6 +1355,7 @@ public class GameProperPage {
                             } else if (gameBoardArray[i - placeholderPos[3]][j] == 0) {
                                 slot[i - placeholderPos[3]][j].setIcon(pegBleach);
                                 isScannedPos[3] = true;
+                                isValid = true;
                             } else {
                                 break;
                             }
@@ -1307,8 +1374,8 @@ public class GameProperPage {
                                 break;
                             } else if (gameBoardArray[i + placeholderPos[4]][j + placeholderPos[4]] == 0) {
                                 slot[i + placeholderPos[4]][j + placeholderPos[4]].setIcon(pegBleach);
-
                                 isScannedPos[4] = true;
+                                isValid = true;
                             } else {
                                 break;
                             }
@@ -1328,6 +1395,7 @@ public class GameProperPage {
                             } else if (gameBoardArray[i - placeholderPos[5]][j - placeholderPos[5]] == 0) {
                                 slot[i - placeholderPos[5]][j - placeholderPos[5]].setIcon(pegBleach);
                                 isScannedPos[5] = true;
+                                isValid = true;
                             } else {
                                 break;
                             }
@@ -1347,6 +1415,7 @@ public class GameProperPage {
                             } else if (gameBoardArray[i + placeholderPos[6]][j - placeholderPos[6]] == 0) {
                                 slot[i + placeholderPos[6]][j - placeholderPos[6]].setIcon(pegBleach);
                                 isScannedPos[6] = true;
+                                isValid = true;
                             } else {
                                 break;
                             }
@@ -1366,6 +1435,7 @@ public class GameProperPage {
                             } else if (gameBoardArray[i - placeholderPos[7]][j + placeholderPos[7]] == 0) {
                                 slot[i - placeholderPos[7]][j + placeholderPos[7]].setIcon(pegBleach);
                                 isScannedPos[7] = true;
+                                isValid = true;
                             } else {
                                 break;
                             }
@@ -1375,6 +1445,7 @@ public class GameProperPage {
                             break;
                         }
                     }
+
 
                 }
             }
@@ -1726,7 +1797,7 @@ public class GameProperPage {
     }
     public void checkWinner() {
         delayClick();
-        if (moves == 2) { // not including the first 4
+        if (moves == 60) { // not including the first 4
             lbScroll.setVisible(false);
             lbScroll2.setVisible(false);
             darkPegPlayer.setVisible(false);
@@ -1843,6 +1914,7 @@ public class GameProperPage {
                 panelGameProper.setVisible(false);
                 panelWinner.setVisible(false);
                 homePage.panelLandingPage.setVisible(true);
+                soundClass.stopMusic();
             }
 
             @Override
