@@ -12,7 +12,7 @@ public class NicknameGetPage {
     public NicknameGetPage() {
         panelNicknameGet.setLayout(null);
 
-        nicknameBg = new ImageIcon("Othello/Images/nicknameGetBackground.png");
+        nicknameBg = new ImageIcon("./Images/nicknameGetBackground.png");
         lbNicknameBg = new JLabel();
         Image dabNicknameBg = nicknameBg.getImage();
         Image modifiedNicknameBg = dabNicknameBg.getScaledInstance(720, 640, Image.SCALE_REPLICATE);
@@ -39,7 +39,7 @@ public class NicknameGetPage {
         player2Input.setHorizontalAlignment(JTextField.CENTER);
 
         lbGoButton = new JLabel();
-        goButton = new ImageIcon("Othello/Images/NicknameGetPage/goButton.png");
+        goButton = new ImageIcon("./Images/NicknameGetPage/goButton.png");
         Image dabGoButton = goButton.getImage();
         Image modifiedGoButton = dabGoButton.getScaledInstance(220, 80, Image.SCALE_REPLICATE);
         goButton = new ImageIcon(modifiedGoButton);

@@ -22,10 +22,10 @@ public class Main {
         mainFrame.addKeyListener(mainSoundClass.volumeBindListener);
 
         // logo
-        gameLogo = new ImageIcon("Othello/Images/mainlogo.png");
+        gameLogo = new ImageIcon("./Images/mainlogo.png");
 
         //bg
-        mainBg = new ImageIcon("Othello/Images/mainBg.png");
+        mainBg = new ImageIcon("./Images/mainBg.png");
         lbMainBg = new JLabel(mainBg);
 
         nicknameFrame.setSize(720, 640);
@@ -46,7 +46,7 @@ public class Main {
             @Override
             public void mousePressed(MouseEvent e) {
 
-                mainSoundClass.sound("Othello/Music/buttonPressed.wav");
+                mainSoundClass.sound("./Music/buttonPressed.wav");
                 mainNicknameGetPage.player1Nickname = mainNicknameGetPage.player1Input.getText();
                 mainNicknameGetPage.player2Nickname = mainNicknameGetPage.player2Input.getText();
                 mainGameProperPage.darkPegPlayer.setText(mainNicknameGetPage.player1Nickname);
@@ -57,7 +57,7 @@ public class Main {
                     nicknameFrame.dispose();
                     mainFrame.setVisible(true);
                 } else {
-                    ImageIcon optionPaneIcon = new ImageIcon("Othello/Images/NicknameGetPage/optionPaneIcon.png");
+                    ImageIcon optionPaneIcon = new ImageIcon("./Images/NicknameGetPage/optionPaneIcon.png");
                     JOptionPane.showMessageDialog(null, "Please fill out all text fields",
                             "Missing Input", JOptionPane.ERROR_MESSAGE, optionPaneIcon);
                 }
@@ -70,7 +70,7 @@ public class Main {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                mainNicknameGetPage.goButton = new ImageIcon("Othello/Images/NicknameGetPage/goButton-Selected.png");
+                mainNicknameGetPage.goButton = new ImageIcon("./Images/NicknameGetPage/goButton-Selected.png");
                 Image dabGoButton = mainNicknameGetPage.goButton.getImage();
                 Image modifiedGoButton = dabGoButton.getScaledInstance(230, 90, Image.SCALE_REPLICATE);
                 mainNicknameGetPage.goButton = new ImageIcon(modifiedGoButton);
@@ -81,7 +81,7 @@ public class Main {
 
             @Override
             public void mouseExited(MouseEvent e) {
-                mainNicknameGetPage.goButton = new ImageIcon("Othello/Images/NicknameGetPage/goButton.png");
+                mainNicknameGetPage.goButton = new ImageIcon("./Images/NicknameGetPage/goButton.png");
                 Image dabGoButton = mainNicknameGetPage.goButton.getImage();
                 Image modifiedGoButton = dabGoButton.getScaledInstance(220, 80, Image.SCALE_REPLICATE);
                 mainNicknameGetPage.goButton = new ImageIcon(modifiedGoButton);
@@ -135,7 +135,7 @@ public class Main {
             public void mousePressed(MouseEvent e) {
                 JOptionPane.showMessageDialog(null,"When encountering no valid slots, \n" +
                         "click any slot and hit 'P' to pass your draw", "Tip", JOptionPane.INFORMATION_MESSAGE);
-                mainSoundClass.sound("Othello/Music/buttonPressed.wav");
+                mainSoundClass.sound("./Music/buttonPressed.wav");
                 delayClick();
                 mainHomePage.panelLandingPage.setVisible(false);
                 mainGameProperPage.panelGameProper.setVisible(true);
@@ -148,7 +148,7 @@ public class Main {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                mainHomePage.startButton = new ImageIcon("Othello/Images/HomePage/startButton-Selected.png");
+                mainHomePage.startButton = new ImageIcon("./Images/HomePage/startButton-Selected.png");
                 Image dabStartButton = mainHomePage.startButton.getImage();
                 Image modifiedStartButton = dabStartButton.getScaledInstance(310, 110, Image.SCALE_REPLICATE);
                 mainHomePage.startButton = new ImageIcon(modifiedStartButton);
@@ -159,7 +159,7 @@ public class Main {
 
             @Override
             public void mouseExited(MouseEvent e) {
-                mainHomePage.startButton = new ImageIcon("Othello/Images/HomePage/startButton.png");
+                mainHomePage.startButton = new ImageIcon("./Images/HomePage/startButton.png");
                 Image dabStartButton = mainHomePage.startButton.getImage();
                 Image modifiedStartButton = dabStartButton.getScaledInstance(300, 100, Image.SCALE_REPLICATE);
                 mainHomePage.startButton = new ImageIcon(modifiedStartButton);
@@ -177,7 +177,7 @@ public class Main {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                mainSoundClass.sound("Othello/Music/buttonPressed.wav");
+                mainSoundClass.sound("./Music/buttonPressed.wav");
                 mainHomePage.panelLandingPage.setVisible(false);
                 mainHTPPage.panelHTPPage.setVisible(true);
             }
@@ -187,7 +187,7 @@ public class Main {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                mainHomePage.htpButton = new ImageIcon("Othello/Images/HomePage/htpButton-Selected.png");
+                mainHomePage.htpButton = new ImageIcon("./Images/HomePage/htpButton-Selected.png");
                 Image dabHTPButton = mainHomePage.htpButton.getImage();
                 Image modifiedHTPButton = dabHTPButton.getScaledInstance(310, 90, Image.SCALE_REPLICATE);
                 mainHomePage.htpButton = new ImageIcon(modifiedHTPButton);
@@ -198,7 +198,7 @@ public class Main {
 
             @Override
             public void mouseExited(MouseEvent e) {
-                mainHomePage.htpButton = new ImageIcon("Othello/Images/HomePage/htpButton.png");
+                mainHomePage.htpButton = new ImageIcon("./Images/HomePage/htpButton.png");
                 Image dabHTPButton = mainHomePage.htpButton.getImage();
                 Image modifiedHTPButton = dabHTPButton.getScaledInstance(300, 80, Image.SCALE_REPLICATE);
                 mainHomePage.htpButton = new ImageIcon(modifiedHTPButton);
@@ -216,8 +216,8 @@ public class Main {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                mainSoundClass.sound("Othello/Music/buttonPressed.wav");
-                ImageIcon optionPaneIcon = new ImageIcon("Othello/Images/optionPaneIcon.png");
+                mainSoundClass.sound("./Music/buttonPressed.wav");
+                ImageIcon optionPaneIcon = new ImageIcon("./Images/optionPaneIcon.png");
                 int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?",
                         "Exit Game?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, optionPaneIcon);
 
@@ -230,7 +230,7 @@ public class Main {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                mainHomePage.exitButton = new ImageIcon("Othello/Images/HomePage/exitButton-Selected.png");
+                mainHomePage.exitButton = new ImageIcon("./Images/HomePage/exitButton-Selected.png");
                 Image dabExitButton = mainHomePage.exitButton.getImage();
                 Image modifiedExitButton = dabExitButton.getScaledInstance(260, 90, Image.SCALE_REPLICATE);
                 mainHomePage.exitButton = new ImageIcon(modifiedExitButton);
@@ -241,7 +241,7 @@ public class Main {
 
             @Override
             public void mouseExited(MouseEvent e) {
-                mainHomePage.exitButton = new ImageIcon("Othello/Images/HomePage/exitButton.png");
+                mainHomePage.exitButton = new ImageIcon("./Images/HomePage/exitButton.png");
                 Image dabExitButton = mainHomePage.exitButton.getImage();
                 Image modifiedExitButton = dabExitButton.getScaledInstance(250, 80, Image.SCALE_REPLICATE);
                 mainHomePage.exitButton = new ImageIcon(modifiedExitButton);

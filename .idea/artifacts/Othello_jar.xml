@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Othello:jar">
+    <output-path>$USER_HOME$/OneDrive/Desktop/Othello</output-path>
+    <root id="archive" name="Othello.jar">
+      <element id="module-output" name="Othello" />
+    </root>
+  </artifact>
+</component>

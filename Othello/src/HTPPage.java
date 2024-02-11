@@ -28,7 +28,7 @@ public class HTPPage {
         panelHTPPage.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         lbScroll = new JLabel();
-        scrollImage = new ImageIcon("Othello/Images/HTPPage/scrollImage.png");
+        scrollImage = new ImageIcon("./Images/HTPPage/scrollImage.png");
         Image dabScroll = scrollImage.getImage();
         Image modifiedScroll = dabScroll.getScaledInstance(1500, 1000, Image.SCALE_REPLICATE);
         scrollImage = new ImageIcon(modifiedScroll);
@@ -62,7 +62,7 @@ public class HTPPage {
         description1.setBounds(200,230,1200,500);
 
         lbNextButton = new JLabel();
-        nextButton = new ImageIcon("Othello/Images/HTPPage/nextButton.png");
+        nextButton = new ImageIcon("./Images/HTPPage/nextButton.png");
         Image dabNextButton = nextButton.getImage();
         Image modifiedNextButton = dabNextButton.getScaledInstance(80, 80, Image.SCALE_REPLICATE);
         nextButton = new ImageIcon(modifiedNextButton);
@@ -70,7 +70,7 @@ public class HTPPage {
         lbNextButton.setBounds(1250,800,100,90);
 
         lbBackButton = new JLabel();
-        backButton = new ImageIcon("Othello/Images/HTPPage/backButton.png");
+        backButton = new ImageIcon("./Images/HTPPage/backButton.png");
         Image dabBackButton = backButton.getImage();
         Image modifiedBackButton = dabBackButton.getScaledInstance(80, 80, Image.SCALE_REPLICATE);
         backButton = new ImageIcon(modifiedBackButton);
@@ -79,7 +79,7 @@ public class HTPPage {
         lbBackButton.setVisible(false);
 
         lbHomeButton = new JLabel();
-        homeButton = new ImageIcon("Othello/Images/HTPPage/homeButton.png");
+        homeButton = new ImageIcon("./Images/HTPPage/homeButton.png");
         Image dabHomeButton = homeButton.getImage();
         Image modifiedHomeButton = dabHomeButton.getScaledInstance(220, 80, Image.SCALE_REPLICATE);
         homeButton = new ImageIcon(modifiedHomeButton);
@@ -124,7 +124,7 @@ public class HTPPage {
                 " to move, the game is over. Discs are counted and<br><br>" +
                 " the player with the majority of their colour<br><br> showing is the winner." +
                 "<br><br> <br>" +
-                "Source: <br><br> https://www.worldothello.org/about/about-othello/<br><br>" +
+                "Source: <br><br> https://www.worldothello.org/about/about-./<br><br>" +
                 "othello-rules/official-rules/english</html>");
 
         description4.setBounds(200,230,1200,520);
@@ -149,7 +149,7 @@ public class HTPPage {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                soundClass.sound("Othello/Music/next_backButton.wav");
+                soundClass.sound("./Music/next_backButton.wav");
                 if (htpTitle.isVisible() && description1.isVisible()) {
                     htpTitle.setVisible(false);
                     description1.setVisible(false);
@@ -176,7 +176,7 @@ public class HTPPage {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                nextButton = new ImageIcon("Othello/Images/HTPPage/nextButton-Selected.png");
+                nextButton = new ImageIcon("./Images/HTPPage/nextButton-Selected.png");
                 Image dabNextButton = nextButton.getImage();
                 Image modifiedNextButton = dabNextButton.getScaledInstance(90, 90, Image.SCALE_REPLICATE);
                 nextButton = new ImageIcon(modifiedNextButton);
@@ -188,7 +188,7 @@ public class HTPPage {
 
             @Override
             public void mouseExited(MouseEvent e) {
-                nextButton = new ImageIcon("Othello/Images/HTPPage/nextButton.png");
+                nextButton = new ImageIcon("./Images/HTPPage/nextButton.png");
                 Image dabNextButton = nextButton.getImage();
                 Image modifiedNextButton = dabNextButton.getScaledInstance(80, 80, Image.SCALE_REPLICATE);
                 nextButton = new ImageIcon(modifiedNextButton);
@@ -208,7 +208,7 @@ public class HTPPage {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                soundClass.sound("Othello/Music/next_backButton.wav");
+                soundClass.sound("./Music/next_backButton.wav");
                 if (rulesTitle.isVisible() && description2.isVisible()) {
                     rulesTitle.setVisible(false);
                     description2.setVisible(false);
@@ -237,7 +237,7 @@ public class HTPPage {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                backButton = new ImageIcon("Othello/Images/HTPPage/backButton-Selected.png");
+                backButton = new ImageIcon("./Images/HTPPage/backButton-Selected.png");
                 Image dabBackButton = backButton.getImage();
                 Image modifiedBackButton = dabBackButton.getScaledInstance(90, 90, Image.SCALE_REPLICATE);
                 backButton = new ImageIcon(modifiedBackButton);
@@ -248,7 +248,7 @@ public class HTPPage {
 
             @Override
             public void mouseExited(MouseEvent e) {
-                backButton = new ImageIcon("Othello/Images/HTPPage/backButton.png");
+                backButton = new ImageIcon("./Images/HTPPage/backButton.png");
                 Image dabBackButton = backButton.getImage();
                 Image modifiedBackButton = dabBackButton.getScaledInstance(80, 80, Image.SCALE_REPLICATE);
                 backButton = new ImageIcon(modifiedBackButton);
@@ -267,7 +267,7 @@ public class HTPPage {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                soundClass.sound("Othello/Music/buttonPressed-Reversed.wav");
+                soundClass.sound("./Music/buttonPressed-Reversed.wav");
                 delayClick();
                 panelHTPPage.setVisible(false);
                 homePage.panelLandingPage.setVisible(true);
@@ -279,7 +279,7 @@ public class HTPPage {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                homeButton = new ImageIcon("Othello/Images/HTPPage/homeButton-Selected.png");
+                homeButton = new ImageIcon("./Images/HTPPage/homeButton-Selected.png");
                 Image dabHomeButton = homeButton.getImage();
                 Image modifiedHomeButton = dabHomeButton.getScaledInstance(240, 90, Image.SCALE_REPLICATE);
                 homeButton = new ImageIcon(modifiedHomeButton);
@@ -290,7 +290,7 @@ public class HTPPage {
 
             @Override
             public void mouseExited(MouseEvent e) {
-                homeButton = new ImageIcon("Othello/Images/HTPPage/homeButton.png");
+                homeButton = new ImageIcon("./Images/HTPPage/homeButton.png");
                 Image dabHomeButton = homeButton.getImage();
                 Image modifiedHomeButton = dabHomeButton.getScaledInstance(220, 80, Image.SCALE_REPLICATE);
                 homeButton = new ImageIcon(modifiedHomeButton);

@@ -40,14 +40,14 @@ public class GameProperPage {
             @Override
             public void mousePressed(MouseEvent e) {
                 int newGameBoardMusic = soundClass.randomMusicGen() + 1;
-                soundClass.bgMusic("Othello/Music/bgMusic/bgMusic-Puzzle-" + newGameBoardMusic + ".wav");
+                soundClass.bgMusic("./Music/bgMusic/bgMusic-Puzzle-" + newGameBoardMusic + ".wav");
             }
         });
 
         panelGameProper.setLayout(null);
         panelGameProper.setOpaque(false);
 
-        gameBoard = new ImageIcon("Othello/Images/GameProperPage/gameBoard.png");
+        gameBoard = new ImageIcon("./Images/GameProperPage/gameBoard.png");
         lbGameBoard = new JLabel();
         Image dabGameBoard = gameBoard.getImage();
         Image modifiedGameBoard = dabGameBoard.getScaledInstance(950, 950, Image.SCALE_REPLICATE);
@@ -56,7 +56,7 @@ public class GameProperPage {
         lbGameBoard.setBounds(500, 20, 950, 950);
 
         lbDarkPeg = new JLabel();
-        darkPeg = new ImageIcon("Othello/Images/GameProperPage/Pegs/darkPeg.png");
+        darkPeg = new ImageIcon("./Images/GameProperPage/Pegs/darkPeg.png");
         Image dabDarkPeg = darkPeg.getImage();
         Image modifiedDarkPeg = dabDarkPeg.getScaledInstance(90, 90, Image.SCALE_REPLICATE);
         darkPeg = new ImageIcon(modifiedDarkPeg);
@@ -64,7 +64,7 @@ public class GameProperPage {
         lbDarkPeg.setBounds(170,485,100,100);
 
         lbLightPeg = new JLabel();
-        lightPeg = new ImageIcon("Othello/Images/GameProperPage/Pegs/lightPeg.png");
+        lightPeg = new ImageIcon("./Images/GameProperPage/Pegs/lightPeg.png");
         Image dabLightPeg = lightPeg.getImage();
         Image modifiedLightPeg = dabLightPeg.getScaledInstance(90, 90, Image.SCALE_REPLICATE);
         lightPeg = new ImageIcon(modifiedLightPeg);
@@ -73,14 +73,14 @@ public class GameProperPage {
         lbLightPeg.setVisible(false);
 
         lbPegBleach = new JLabel();
-        pegBleach = new ImageIcon("Othello/Images/GameProperPage/Pegs/peg-Bleach.png");
+        pegBleach = new ImageIcon("./Images/GameProperPage/Pegs/peg-Bleach.png");
         Image dabPegBleach = pegBleach.getImage();
         Image modifiedPegBleach = dabPegBleach.getScaledInstance(90, 90, Image.SCALE_REPLICATE);
         pegBleach = new ImageIcon(modifiedPegBleach);
         lbPegBleach.setIcon(pegBleach);
 
         lbScroll = new JLabel();
-        scrollImage = new ImageIcon("Othello/Images/GameProperPage/scrollImage.png");
+        scrollImage = new ImageIcon("./Images/GameProperPage/scrollImage.png");
         Image dabScroll = scrollImage.getImage();
         Image modifiedScroll = dabScroll.getScaledInstance(400, 200, Image.SCALE_REPLICATE);
         scrollImage = new ImageIcon(modifiedScroll);
@@ -381,7 +381,7 @@ public class GameProperPage {
                             }
 
                             if (isValid) {
-                                soundClass.sound("Othello/Music/placePeg.wav");
+                                soundClass.sound("./Music/placePeg.wav");
                                 isValidToRemove[0] = true; //for removing available slots
                                 slot[finalI][finalJ].setIcon(darkPeg);
                                 gameBoardArray[finalI][finalJ] = 1;
@@ -826,7 +826,7 @@ public class GameProperPage {
                             }
 
                             if (isValid) {
-                                soundClass.sound("Othello/Music/placePeg.wav");
+                                soundClass.sound("./Music/placePeg.wav");
                                 isValidToRemove[1] = true; //for removing available slots
                                 slot[finalI][finalJ].setIcon(lightPeg);
                                 gameBoardArray[finalI][finalJ] = 2;
@@ -1833,7 +1833,7 @@ public class GameProperPage {
         JLabel lbHomeButton, lbResetButton;
 
         lbBigSignImage = new JLabel();
-        bigSignImage = new ImageIcon("Othello/Images/GameProperPage/bigSign.png");
+        bigSignImage = new ImageIcon("./Images/GameProperPage/bigSign.png");
         Image dabBigSignImage = bigSignImage.getImage();
         Image modifiedBigSignImage = dabBigSignImage.getScaledInstance(1100, 600, Image.SCALE_REPLICATE);
         bigSignImage = new ImageIcon(modifiedBigSignImage);
@@ -1841,7 +1841,7 @@ public class GameProperPage {
         lbBigSignImage.setBounds(0,180,1100,600);
 
         lbHomeButton = new JLabel();
-        homeButton = new ImageIcon("Othello/Images/GameProperPage/homeButton.png");
+        homeButton = new ImageIcon("./Images/GameProperPage/homeButton.png");
         Image dabHomeButton = homeButton.getImage();
         Image modifiedHomeButton = dabHomeButton.getScaledInstance(220, 80, Image.SCALE_REPLICATE);
         homeButton = new ImageIcon(modifiedHomeButton);
@@ -1849,7 +1849,7 @@ public class GameProperPage {
         lbHomeButton.setBounds(330,610,220,90);
 
         lbResetButton = new JLabel();
-        resetButton = new ImageIcon("Othello/Images/GameProperPage/resetButton.png");
+        resetButton = new ImageIcon("./Images/GameProperPage/resetButton.png");
         Image dabResetButton = resetButton.getImage();
         Image modifiedResetButton = dabResetButton.getScaledInstance(220, 80, Image.SCALE_REPLICATE);
         resetButton = new ImageIcon(modifiedResetButton);
@@ -1908,7 +1908,7 @@ public class GameProperPage {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                soundClass.sound("Othello/Music/buttonPressed.wav");
+                soundClass.sound("./Music/buttonPressed.wav");
                 delayClick();
                 resetGameBoard();
                 panelGameProper.setVisible(false);
@@ -1924,7 +1924,7 @@ public class GameProperPage {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                homeButton = new ImageIcon("Othello/Images/GameProperPage/homeButton-Selected.png");
+                homeButton = new ImageIcon("./Images/GameProperPage/homeButton-Selected.png");
                 Image dabHomeButton = homeButton.getImage();
                 Image modifiedHomeButton = dabHomeButton.getScaledInstance(230, 90, Image.SCALE_REPLICATE);
                 homeButton = new ImageIcon(modifiedHomeButton);
@@ -1936,7 +1936,7 @@ public class GameProperPage {
 
             @Override
             public void mouseExited(MouseEvent e) {
-                homeButton = new ImageIcon("Othello/Images/GameProperPage/homeButton.png");
+                homeButton = new ImageIcon("./Images/GameProperPage/homeButton.png");
                 Image dabHomeButton = homeButton.getImage();
                 Image modifiedHomeButton = dabHomeButton.getScaledInstance(220, 80, Image.SCALE_REPLICATE);
                 homeButton = new ImageIcon(modifiedHomeButton);
@@ -1954,7 +1954,7 @@ public class GameProperPage {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                soundClass.sound("Othello/Music/buttonPressed-Reversed.wav");
+                soundClass.sound("./Music/buttonPressed-Reversed.wav");
                 delayClick();
                 panelWinner.setVisible(false);
                 resetGameBoard();
@@ -1967,7 +1967,7 @@ public class GameProperPage {
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                resetButton = new ImageIcon("Othello/Images/GameProperPage/resetButton-Selected.png");
+                resetButton = new ImageIcon("./Images/GameProperPage/resetButton-Selected.png");
                 Image dabResetButton = resetButton.getImage();
                 Image modifiedResetButton = dabResetButton.getScaledInstance(230, 90, Image.SCALE_REPLICATE);
                 resetButton = new ImageIcon(modifiedResetButton);
@@ -1978,7 +1978,7 @@ public class GameProperPage {
 
             @Override
             public void mouseExited(MouseEvent e) {
-                resetButton = new ImageIcon("Othello/Images/GameProperPage/resetButton.png");
+                resetButton = new ImageIcon("./Images/GameProperPage/resetButton.png");
                 Image dabResetButton = resetButton.getImage();
                 Image modifiedResetButton = dabResetButton.getScaledInstance(220, 80, Image.SCALE_REPLICATE);
                 resetButton = new ImageIcon(modifiedResetButton);
