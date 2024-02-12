@@ -9,10 +9,10 @@ public class GameProperPage {
     SoundClass soundClass;
     JPanel panelGameProper = new JPanel();
     JLayeredPane panelWinner = new JLayeredPane();
-    ImageIcon gameBoard, darkPeg, pegBleach, lightPeg, scrollImage, bigSignImage, homeButton, resetButton;
+    ImageIcon gameBoard, darkPeg, pegBleach, lightPeg, scrollImage, bigSignImage, homeButton, resetButton, passButton;
     JLabel lbGameBoard, lbDarkPeg, lbPegBleach, lbLightPeg, lbScroll, lbScroll2,
             darkPegPlayer, lightPegPlayer, lbBigSignImage, winnerPlayer,
-            darkPegScore, lightPegScore, note;
+            darkPegScore, lightPegScore, note, lbPassButton;
     JButton[][] slot = new JButton[8][8];
     MouseListener[][] mainML = new MouseListener[8][8];
     boolean player1Turn = true;
@@ -105,8 +105,15 @@ public class GameProperPage {
         lightPegPlayer.setBounds(1520, 420, 380, 60);
         lightPegPlayer.setVisible(false);
 
+        lbPassButton = new JLabel();
+        passButton = new ImageIcon("./Images/GameProperPage/passButton.png");
+        Image dabPassButton = passButton.getImage();
+        Image modifiedPassButton = dabPassButton.getScaledInstance(220, 80, Image.SCALE_REPLICATE);
+        passButton = new ImageIcon(modifiedPassButton);
+        lbPassButton.setIcon(passButton);
+        lbPassButton.setBounds(110,300,220,90);
+
         gameProper();
-        keyListenerP();
 
         panelGameProper.add(lbDarkPeg);
         panelGameProper.add(lbLightPeg);
@@ -114,10 +121,96 @@ public class GameProperPage {
         panelGameProper.add(lightPegPlayer);
         panelGameProper.add(lbScroll);
         panelGameProper.add(lbScroll2);
+        panelGameProper.add(lbPassButton);
         panelGameProper.add(lbGameBoard);
 
     }
     public void gameProper() {
+        lbPassButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (player1Turn) {
+                    soundClass.sound("./Music/buttonPressed.wav");
+                    removeAvailableSlots();
+                    printGameBoardToConsole();
+                    player1Turn = false;
+                    lbScroll.setVisible(false);
+                    darkPegPlayer.setVisible(false);
+                    lbDarkPeg.setVisible(false);
+                    lbScroll2.setVisible(true);
+                    lightPegPlayer.setVisible(true);
+                    lbLightPeg.setVisible(true);
+                    addAvailableSlots();
+                    delayClick();
+
+                    passButton = new ImageIcon("./Images/GameProperPage/passButton.png");
+                    Image dabPassButton = passButton.getImage();
+                    Image modifiedPassButton = dabPassButton.getScaledInstance(220, 80, Image.SCALE_REPLICATE);
+                    passButton = new ImageIcon(modifiedPassButton);
+                    lbPassButton.setIcon(passButton);
+                    lbPassButton.setBounds(1600,300,220,80);
+
+                } else {
+                    soundClass.sound("./Music/buttonPressed.wav");
+                    removeAvailableSlots();
+                    printGameBoardToConsole();
+                    player1Turn = true;
+                    lbScroll.setVisible(true);
+                    darkPegPlayer.setVisible(true);
+                    lbDarkPeg.setVisible(true);
+                    lbScroll2.setVisible(false);
+                    lightPegPlayer.setVisible(false);
+                    lbLightPeg.setVisible(false);
+                    addAvailableSlots();
+                    delayClick();
+
+                    passButton = new ImageIcon("./Images/GameProperPage/passButton.png");
+                    Image dabPassButton = passButton.getImage();
+                    Image modifiedPassButton = dabPassButton.getScaledInstance(220, 80, Image.SCALE_REPLICATE);
+                    passButton = new ImageIcon(modifiedPassButton);
+                    lbPassButton.setIcon(passButton);
+                    lbPassButton.setBounds(110,300,220,80);
+                }
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                if (player1Turn) {
+                    passButton = new ImageIcon("./Images/GameProperPage/passButton-Selected.png");
+                    Image dabPassButton = passButton.getImage();
+                    Image modifiedPassButton = dabPassButton.getScaledInstance(230, 90, Image.SCALE_REPLICATE);
+                    passButton = new ImageIcon(modifiedPassButton);
+                    lbPassButton.setIcon(passButton);
+                    lbPassButton.setBounds(105,300,230,90);
+                } else {
+                    passButton = new ImageIcon("./Images/GameProperPage/passButton-Selected.png");
+                    Image dabPassButton = passButton.getImage();
+                    Image modifiedPassButton = dabPassButton.getScaledInstance(230, 90, Image.SCALE_REPLICATE);
+                    passButton = new ImageIcon(modifiedPassButton);
+                    lbPassButton.setIcon(passButton);
+                    lbPassButton.setBounds(1595,300,230,90);
+                }
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                if (player1Turn) {
+                    passButton = new ImageIcon("./Images/GameProperPage/passButton.png");
+                    Image dabPassButton = passButton.getImage();
+                    Image modifiedPassButton = dabPassButton.getScaledInstance(220, 80, Image.SCALE_REPLICATE);
+                    passButton = new ImageIcon(modifiedPassButton);
+                    lbPassButton.setIcon(passButton);
+                    lbPassButton.setBounds(110,300,220,80);
+                } else {
+                    passButton = new ImageIcon("./Images/GameProperPage/passButton.png");
+                    Image dabPassButton = passButton.getImage();
+                    Image modifiedPassButton = dabPassButton.getScaledInstance(220, 80, Image.SCALE_REPLICATE);
+                    passButton = new ImageIcon(modifiedPassButton);
+                    lbPassButton.setIcon(passButton);
+                    lbPassButton.setBounds(1600,300,220,80);
+                }
+            }
+        });
 
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -615,6 +708,7 @@ public class GameProperPage {
                                 lightPegPlayer.setVisible(true);
                                 lbLightPeg.setVisible(true);
                                 addAvailableSlots();
+                                lbPassButton.setBounds(1595,300,230,90);
 
                                 delayClick();
 
@@ -1021,6 +1115,7 @@ public class GameProperPage {
                                 lightPegPlayer.setVisible(false);
                                 lbLightPeg.setVisible(false);
                                 addAvailableSlots();
+                                lbPassButton.setBounds(110,300,220,80);
                                 delayClick();
 
 
@@ -1040,45 +1135,7 @@ public class GameProperPage {
 
         }
     }
-    public void keyListenerP() {
-        panelGameProper.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_P) {
-                    System.out.println("Pressed P");
 
-                    if (player1Turn) {
-                        removeAvailableSlots();
-                        printGameBoardToConsole();
-                        player1Turn = false;
-                        lbScroll.setVisible(false);
-                        darkPegPlayer.setVisible(false);
-                        lbDarkPeg.setVisible(false);
-                        lbScroll2.setVisible(true);
-                        lightPegPlayer.setVisible(true);
-                        lbLightPeg.setVisible(true);
-                        addAvailableSlots();
-
-                        delayClick();
-                    } else {
-                        removeAvailableSlots();
-                        printGameBoardToConsole();
-                        player1Turn = true;
-                        lbScroll.setVisible(true);
-                        darkPegPlayer.setVisible(true);
-                        lbDarkPeg.setVisible(true);
-                        lbScroll2.setVisible(false);
-                        lightPegPlayer.setVisible(false);
-                        lbLightPeg.setVisible(false);
-                        addAvailableSlots();
-
-                        delayClick();
-                    }
-                }
-            }
-
-        });
-    }
     public void printGameBoardToConsole() {
         System.out.println("Current Game Board:");
 
@@ -1763,6 +1820,7 @@ public class GameProperPage {
             lightPegPlayer.setVisible(false);
             lbDarkPeg.setVisible(false);
             lbLightPeg.setVisible(false);
+            lbPassButton.setVisible(false);
 
             for (Integer[] integers : gameBoardArray) {
                 for (Integer integer : integers) {
@@ -1778,14 +1836,16 @@ public class GameProperPage {
             if (countGBArray[0] > countGBArray[1]) {
                 panelWinner(darkPegPlayer.getText() + " Wins!", darkPegPlayer.getText() + ": " + countGBArray[0],
                         lightPegPlayer.getText() + ": " + countGBArray[1]);
+                panelWinner.setVisible(true);
             } else if (countGBArray[0] < countGBArray[1]) {
                 panelWinner(lightPegPlayer.getText() + " Wins!", darkPegPlayer.getText() + ": " + countGBArray[0],
                         lightPegPlayer.getText() + ": " + countGBArray[1]);
+                panelWinner.setVisible(true);
             } else {
                 panelWinner("It's a tie!", darkPegPlayer.getText() + ": " + countGBArray[0],
                         lightPegPlayer.getText() + ": " + countGBArray[1]);
+                panelWinner.setVisible(true);
             }
-
         }
     }
     public void panelWinner(String strWinnerPlayer, String strDarkPegScore, String strLightPegScore) {
@@ -1857,7 +1917,6 @@ public class GameProperPage {
 
         panelWinner.setOpaque(false);
         panelWinner.setLayout(null);
-        panelWinner.setVisible(true);
 
         lbHomeButton.addMouseListener(new MouseListener() {
             @Override
@@ -1871,9 +1930,11 @@ public class GameProperPage {
                 delayClick();
                 resetGameBoard();
                 panelGameProper.setVisible(false);
+                panelWinner.removeAll(); // remove existing panel, for replacement after reset
                 panelWinner.setVisible(false);
                 homePage.panelLandingPage.setVisible(true);
                 soundClass.stopMusic();
+
             }
 
             @Override
@@ -1915,8 +1976,9 @@ public class GameProperPage {
             public void mousePressed(MouseEvent e) {
                 soundClass.sound("./Music/buttonPressed-Reversed.wav");
                 delayClick();
-                panelWinner.setVisible(false);
                 resetGameBoard();
+                panelWinner.removeAll(); // remove existing panel, for replacement after reset
+                panelWinner.setVisible(false);
             }
 
             @Override
@@ -1962,7 +2024,8 @@ public class GameProperPage {
                 {0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0}};
-        countGBArray = new Integer[]{0, 0}; // 1 and 2
+        countGBArray[0] = 0;
+        countGBArray[1] = 0;
         moves = 0;
         lbScroll.setVisible(true);
         darkPegPlayer.setVisible(true);
@@ -1970,6 +2033,12 @@ public class GameProperPage {
         lbScroll2.setVisible(false);
         lightPegPlayer.setVisible(false);
         lbLightPeg.setVisible(false);
+        lbPassButton.setVisible(true);
+
+        winnerPlayer = new JLabel();
+        darkPegScore = new JLabel();
+        lightPegScore = new JLabel();
+
 
         System.out.println("GameBoard Reset!");
         printGameBoardToConsole();
