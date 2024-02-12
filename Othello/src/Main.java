@@ -116,7 +116,6 @@ public class Main {
         mainGameProperPage.panelGameProper.setVisible(false);
         mainGameProperPage.panelWinner.setBounds(430,0,1100,1080);
         mainGameProperPage.panelWinner.setVisible(false);
-        mainGameProperPage.panelWinner.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         mainFrame.setLocationRelativeTo(null); // center the window
@@ -126,9 +125,6 @@ public class Main {
         mainHomePage.lbStartButton.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
-
-
             }
 
             @Override
