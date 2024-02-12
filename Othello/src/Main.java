@@ -3,6 +3,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.Objects;
 
 public class Main {
@@ -16,7 +18,7 @@ public class Main {
     GameProperPage mainGameProperPage;
     SoundClass mainSoundClass;
 
-    public Main() {
+    public Main() throws IOException {
 
         mainSoundClass = new SoundClass();
         mainFrame.addKeyListener(mainSoundClass.volumeBindListener);
@@ -27,6 +29,16 @@ public class Main {
         //bg
         mainBg = new ImageIcon("./Images/mainBg.png");
         lbMainBg = new JLabel(mainBg);
+
+        Object[] options = {"Done", "Install"};
+        int choice = JOptionPane.showOptionDialog(null, "Make sure to install fonts located in the \"Othello\" folder \n" +
+                "(Choose 'Install for all users').\n", "Game Font Installation", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
+                null, options, options[0]);
+
+        if (choice == 1) {
+            Desktop.getDesktop().open(new File("./Fonts"));
+            System.exit(0);
+        }
 
         nicknameFrame.setSize(720, 640);
         nicknameFrame.setIconImage(gameLogo.getImage());
@@ -130,7 +142,7 @@ public class Main {
             @Override
             public void mousePressed(MouseEvent e) {
                 JOptionPane.showMessageDialog(null,"When encountering no valid slots, \n" +
-                        "click any slot and hit 'P' to pass your draw", "Tip", JOptionPane.INFORMATION_MESSAGE);
+                        "Press the Pass Button.", "Before Playing", JOptionPane.INFORMATION_MESSAGE);
                 mainSoundClass.sound("./Music/buttonPressed.wav");
                 delayClick();
                 mainHomePage.panelLandingPage.setVisible(false);
@@ -259,7 +271,7 @@ public class Main {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         new Main();
     }
 
