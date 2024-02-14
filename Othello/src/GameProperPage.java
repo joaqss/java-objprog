@@ -9,10 +9,10 @@ public class GameProperPage {
     SoundClass soundClass;
     JPanel panelGameProper = new JPanel();
     JLayeredPane panelWinner = new JLayeredPane();
-    ImageIcon gameBoard, darkPeg, pegBleach, lightPeg, scrollImage, bigSignImage, homeButton, resetButton, passButton;
+    ImageIcon gameBoard, darkPeg, pegBleach, lightPeg, scrollImage, bigSignImage, homeButton, resetButton, passButton, endButton;
     JLabel lbGameBoard, lbDarkPeg, lbPegBleach, lbLightPeg, lbScroll, lbScroll2,
             darkPegPlayer, lightPegPlayer, lbBigSignImage, winnerPlayer,
-            darkPegScore, lightPegScore, note, lbPassButton;
+            darkPegScore, lightPegScore, note, lbPassButton, lbEndButton;
     JButton[][] slot = new JButton[8][8];
     MouseListener[][] mainML = new MouseListener[8][8];
     boolean player1Turn = true;
@@ -113,6 +113,15 @@ public class GameProperPage {
         lbPassButton.setIcon(passButton);
         lbPassButton.setBounds(110,300,220,90);
 
+        lbEndButton = new JLabel();
+        endButton = new ImageIcon("./Images/GameProperPage/endButton.png");
+        Image dabEndButton = endButton.getImage();
+        Image modifiedEndButton = dabEndButton.getScaledInstance(220, 80, Image.SCALE_REPLICATE);
+        endButton = new ImageIcon(modifiedEndButton);
+        lbEndButton.setIcon(endButton);
+        lbEndButton.setBounds(110,630,220,90);
+        lbEndButton.setVisible(true);
+
         gameProper();
 
         panelGameProper.add(lbDarkPeg);
@@ -122,6 +131,7 @@ public class GameProperPage {
         panelGameProper.add(lbScroll);
         panelGameProper.add(lbScroll2);
         panelGameProper.add(lbPassButton);
+        panelGameProper.add(lbEndButton);
         panelGameProper.add(lbGameBoard);
 
     }
@@ -150,6 +160,8 @@ public class GameProperPage {
                     lbPassButton.setIcon(passButton);
                     lbPassButton.setBounds(1600,300,220,80);
 
+                    lbEndButton.setBounds(1600,630,220,90);
+
                 } else {
                     soundClass.sound("./Music/buttonPressed.wav");
                     removeAvailableSlots();
@@ -170,6 +182,8 @@ public class GameProperPage {
                     passButton = new ImageIcon(modifiedPassButton);
                     lbPassButton.setIcon(passButton);
                     lbPassButton.setBounds(110,300,220,80);
+
+                    lbEndButton.setBounds(110,630,220,90);
                 }
             }
 
@@ -208,6 +222,83 @@ public class GameProperPage {
                     passButton = new ImageIcon(modifiedPassButton);
                     lbPassButton.setIcon(passButton);
                     lbPassButton.setBounds(1600,300,220,80);
+                }
+            }
+        });
+        lbEndButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (player1Turn) {
+                    soundClass.sound("./Music/buttonPressed.wav");
+                    removeAvailableSlots();
+                    printGameBoardToConsole();
+                    player1Turn = false;
+                    lbScroll.setVisible(false);
+                    darkPegPlayer.setVisible(false);
+                    lbDarkPeg.setVisible(false);
+                    lbScroll2.setVisible(false);
+                    lightPegPlayer.setVisible(false);
+                    lbLightPeg.setVisible(false);
+                    moves = 60;
+                    lbEndButton.setVisible(false);
+                    delayClick();
+                    checkWinner();
+
+                } else {
+                    soundClass.sound("./Music/buttonPressed.wav");
+                    removeAvailableSlots();
+                    printGameBoardToConsole();
+                    player1Turn = false;
+                    lbScroll.setVisible(false);
+                    darkPegPlayer.setVisible(false);
+                    lbDarkPeg.setVisible(false);
+                    lbScroll2.setVisible(false);
+                    lightPegPlayer.setVisible(false);
+                    lbLightPeg.setVisible(false);
+                    delayClick();
+                    moves = 60;
+                    lbEndButton.setVisible(false);
+                    checkWinner();
+                }
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                if (player1Turn) {
+                    endButton = new ImageIcon("./Images/GameProperPage/endButton-Selected.png");
+                    Image dabEndButton = endButton.getImage();
+                    Image modifiedEndButton = dabEndButton.getScaledInstance(230, 90, Image.SCALE_REPLICATE);
+                    endButton = new ImageIcon(modifiedEndButton);
+                    lbEndButton.setIcon(endButton);
+                    lbEndButton.setBounds(105,630,230,90);
+                    lbEndButton.setVisible(true);
+                } else {
+                    endButton = new ImageIcon("./Images/GameProperPage/endButton-Selected.png");
+                    Image dabEndButton = endButton.getImage();
+                    Image modifiedEndButton = dabEndButton.getScaledInstance(230, 90, Image.SCALE_REPLICATE);
+                    endButton = new ImageIcon(modifiedEndButton);
+                    lbEndButton.setIcon(endButton);
+                    lbEndButton.setBounds(1595,630,230,90);
+                    lbEndButton.setVisible(true);
+                }
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                if (player1Turn) {
+                    endButton = new ImageIcon("./Images/GameProperPage/endButton.png");
+                    Image dabEndButton = endButton.getImage();
+                    Image modifiedEndButton = dabEndButton.getScaledInstance(220, 80, Image.SCALE_REPLICATE);
+                    endButton = new ImageIcon(modifiedEndButton);
+                    lbEndButton.setIcon(endButton);
+                    lbEndButton.setBounds(110,630,220,90);
+                } else {
+                    endButton = new ImageIcon("./Images/GameProperPage/endButton.png");
+                    Image dabEndButton = endButton.getImage();
+                    Image modifiedEndButton = dabEndButton.getScaledInstance(220, 80, Image.SCALE_REPLICATE);
+                    endButton = new ImageIcon(modifiedEndButton);
+                    lbEndButton.setIcon(endButton);
+                    lbEndButton.setBounds(1600,630,220,90);
                 }
             }
         });
@@ -708,13 +799,9 @@ public class GameProperPage {
                                 lightPegPlayer.setVisible(true);
                                 lbLightPeg.setVisible(true);
                                 addAvailableSlots();
-                                lbPassButton.setBounds(1595,300,230,90);
-
+                                lbPassButton.setBounds(1600,300,230,90);
+                                lbEndButton.setBounds(1600,630,220,90);
                                 delayClick();
-
-
-                            } else {
-
                             }
 
                         } else {
@@ -1116,9 +1203,8 @@ public class GameProperPage {
                                 lbLightPeg.setVisible(false);
                                 addAvailableSlots();
                                 lbPassButton.setBounds(110,300,220,80);
+                                lbEndButton.setBounds(110,630,220,90);
                                 delayClick();
-
-
                             }
                         }
                         checkWinner();
@@ -1821,6 +1907,7 @@ public class GameProperPage {
             lbDarkPeg.setVisible(false);
             lbLightPeg.setVisible(false);
             lbPassButton.setVisible(false);
+            lbEndButton.setVisible(false);
 
             for (Integer[] integers : gameBoardArray) {
                 for (Integer integer : integers) {
@@ -2033,7 +2120,11 @@ public class GameProperPage {
         lbScroll2.setVisible(false);
         lightPegPlayer.setVisible(false);
         lbLightPeg.setVisible(false);
+
         lbPassButton.setVisible(true);
+        lbEndButton.setVisible(true);
+        lbPassButton.setBounds(110,300,220,90);
+        lbEndButton.setBounds(110,630,220,90);
 
         winnerPlayer = new JLabel();
         darkPegScore = new JLabel();
