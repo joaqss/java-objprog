@@ -196,6 +196,7 @@ public class GameProperPage {
                     passButton = new ImageIcon(modifiedPassButton);
                     lbPassButton.setIcon(passButton);
                     lbPassButton.setBounds(105,300,230,90);
+                    panelWinner.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                 } else {
                     passButton = new ImageIcon("./Images/GameProperPage/passButton-Selected.png");
                     Image dabPassButton = passButton.getImage();
@@ -203,6 +204,7 @@ public class GameProperPage {
                     passButton = new ImageIcon(modifiedPassButton);
                     lbPassButton.setIcon(passButton);
                     lbPassButton.setBounds(1595,300,230,90);
+                    panelWinner.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
                 }
             }
 
@@ -272,6 +274,7 @@ public class GameProperPage {
                     lbEndButton.setIcon(endButton);
                     lbEndButton.setBounds(105,630,230,90);
                     lbEndButton.setVisible(true);
+                    panelWinner.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
                 } else {
                     endButton = new ImageIcon("./Images/GameProperPage/endButton-Selected.png");
                     Image dabEndButton = endButton.getImage();
@@ -280,6 +283,7 @@ public class GameProperPage {
                     lbEndButton.setIcon(endButton);
                     lbEndButton.setBounds(1595,630,230,90);
                     lbEndButton.setVisible(true);
+                    panelWinner.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
                 }
             }
 
@@ -1221,7 +1225,6 @@ public class GameProperPage {
 
         }
     }
-
     public void printGameBoardToConsole() {
         System.out.println("Current Game Board:");
 

@@ -46,9 +46,6 @@ public class HomePage {
         panelLandingPage.add(lbHTPButton);
         panelLandingPage.add(lbExitButton);
 
-        ///////////////////////////////////////////////////////////
-
-
     }
 
 }
