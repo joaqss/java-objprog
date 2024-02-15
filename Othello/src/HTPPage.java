@@ -25,7 +25,6 @@ public class HTPPage {
 
         panelHTPPage.setLayout(null);
         panelHTPPage.setOpaque(false);
-        panelHTPPage.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         lbScroll = new JLabel();
         scrollImage = new ImageIcon("./Images/HTPPage/scrollImage.png");
